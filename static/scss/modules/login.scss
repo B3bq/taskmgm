@@ -1,0 +1,9 @@
+@use 'variables.scss' as *;
+
+.login{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+}
