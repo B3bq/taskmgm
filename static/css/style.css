@@ -1,8 +1,72 @@
-.login {
+.userForm {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+.userForm section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #141414;
+  border-radius: 15px;
+  padding: 25px;
+}
+.userForm form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.userForm form h1 {
+  align-self: center;
+}
+.userForm button {
+  width: 193px;
+  padding: 10px;
+  border-radius: 10px;
+}
+.userForm a:before {
+  position: relative;
+  display: block;
+  content: "";
+  background-color: #f0f3f4;
+  width: 192px;
+  height: 0.15em;
+  margin: 10px 0px 10px 0px;
+}
+
+:root {
+  font-size: 87.5%;
+  font-family: Roboto, sans-serif;
+  box-sizing: border-box;
+  color: #f0f3f4;
+}
+
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0;
+  background-color: #242424;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  min-height: 100dvh;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: Roboto, sans-serif;
+}
+
+input {
+  background-color: #f0f3f4;
+  padding: 10px;
+  text-align: center;
+  margin: 10px;
+  border-radius: 10px;
 }
 
 /*# sourceMappingURL=style.css.map */

@@ -1,0 +1,30 @@
+@use 'variables' as *;
+
+:root{
+    font-size: 87.5%;
+    font-family: $mainFont;
+    box-sizing: border-box;
+    color: $fontColor;
+}
+*, *::before, *::after{
+    box-sizing: inherit;
+}
+body{
+    margin: 0;
+    background-color: $primaryColor;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    min-height: 100dvh;
+}
+h1, h2, h3, h4, h5, h6 {
+    font-family: $mainFont;
+}
+input{
+    background-color: $fontColor;
+    padding: 10px;
+    text-align: center;
+    margin: 10px;
+    border-radius: 10px;
+}

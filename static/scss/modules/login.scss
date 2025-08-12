@@ -1,9 +1,43 @@
 @use 'variables.scss' as *;
 
-.login{
+.userForm{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     
+    section{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: $secondaryColor;
+        border-radius: 15px;
+        padding: 25px;
+    }
+    
+    form{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        h1{
+            align-self: center;
+        }
+    }
+
+    button{
+        width: 193px;
+        padding: 10px;
+        border-radius: 10px;
+    }
+    a:before{
+        position: relative;
+        display: block;
+        content: '';
+        background-color: $fontColor;
+        width: 192px;
+        height: 0.15em;
+        margin: 10px 0px 10px 0px;
+    }
 }
