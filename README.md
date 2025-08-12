@@ -1,0 +1,3 @@
+# DIFFERENT TASK MANAGER
+
+It is a normal task manager in first look, but this is different. How many times you wanted to make something new in your life regularly and you pass after few days. This taks manager will help you finish your tasks every day. Why? Because you need to care not only abuot you, in this task manager you need to care about your new friend. You have to earn coins to feed your friend.
