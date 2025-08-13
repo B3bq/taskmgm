@@ -37,7 +37,11 @@ with app.app_context():
 # main page
 @app.route('/')
 def index():
-    return render_template('login.html')
+    return render_template('index.html')
+
+@app.route('/main')
+def main():
+    return render_template('main.html')
 
 @app.route('/success/<name>')
 def success(name):
@@ -56,7 +60,7 @@ def login():
             db_pass = Users.query.with_entities(Users.password).filter_by(name=user).scalar()
 
         if user == db_name and bcrypt.checkpw(password.encode('utf-8'), db_pass.encode('utf-8')):
-            return redirect(url_for('success', name=user))
+            return redirect(url_for('main'))
         else:
             return redirect(url_for('login'))
     else:
