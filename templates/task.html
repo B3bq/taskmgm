@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task mgm</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/litepicker/dist/css/litepicker.css">
+    <script src="https://cdn.jsdelivr.net/npm/litepicker/dist/litepicker.js"></script>
+</head>
+<body>
+    <header>
+        <h3>000</h3>
+        <img src="{{url_for('static', filename='img/money.png')}}" alt="money">
+        <button>
+            <img src="{{url_for('static', filename='img/account.png')}}" alt="account">
+        </button>
+        <ul>
+            <li><a href="">Account</a></li>
+            <li><a href="">Log out</a></li>
+        </ul>
+    </header>
+    <section class="userForm">
+        <section>
+            <h1>ADD NEW TASK</h1>
+            <form action="">
+                <input type="text" name="" id="">
+                <input type="text" name="" id="">
+                <select name="" id="">
+                    <option value="basic">Basic</option>
+                    <option value="important">Important</option>
+                </select>
+                <p><input type="checkbox" name="" id="" value="everyday">Everyday</p>
+                <p><input type="checkbox" name="" id="" value="once">Once a week <label>?</label></p>
+                <p><input type="checkbox" name="" id="" value="range">Range <label>?</label></p>
+                <!--Choosing date, if everyday or since date to date-->
+                <input type="date"  id="daterange">
+                <!--or in two inputs, date start and date end-->
+            </form>
+        </section>
+    </section>
+    <!--think about it-->
+    <script>
+        const picker = new Litepicker({
+          element: document.getElementById('daterange'),
+          singleMode: false, // range
+          format: 'YYYY-MM-DD'
+        });
+    </script>
+</body>
+</html>
