@@ -5,20 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Task mgm</title>
     <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+    <script src="{{url_for('static', filename='js/script.js')}}" defer></script>
 </head>
 <body>
     <header>
         <h3>000</h3>
         <img src="{{url_for('static', filename='img/money.png')}}" alt="money">
-        <button>
-            <img src="{{url_for('static', filename='img/account.png')}}" alt="account">
-        </button>
-        <ul>
-            <li><a href="">Account</a></li>
-            <li><a href="">Log out</a></li>
-        </ul>
+        <nav>    
+            <button id="js-toggle-menu">
+                <img src="{{url_for('static', filename='img/account.png')}}" alt="account">
+            </button>
+            <ul id="js-toggleable-menu">
+                <li><a href="">Account</a></li>
+                <li><a href="">Log out</a></li>
+            </ul>
+        </nav>
     </header>
-    <section class="userForm">
+    <section class="main">
         <section>
             <section class="quest">
                 <header>
@@ -31,7 +34,12 @@
                 <img src="" alt="pet">
                 <h2>Name</h2>
                 <label>Happines</label>
-                <button><img src="{{url_for('static', filename='img/cherry.png')}}" alt="cherry">Feed 20<img src="{{url_for('static', filename='img/coin.png')}}" alt="coin"></button>
+                <button><span>FEED</span><span>20</span></button>
+            </section>
+            <section>
+                <header>
+                    <h1>Choose</h1>
+                </header>
             </section>
         </section>
     </section>

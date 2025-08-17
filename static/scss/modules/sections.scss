@@ -1,0 +1,74 @@
+@use 'variables.scss' as *;
+
+.main{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+    section{
+        display: flex;
+        flex-direction: row;
+        background-color: $secondaryColor;
+        border-radius: 15px;
+        padding: 25px;
+    }
+}
+
+section>.quest, section>.pet{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0px 50px 0px 50px;
+}
+
+.pet{
+    position: relative;
+
+    h2{
+        margin: 0;
+    }
+
+    label{
+        margin: 10px 0px 10px 0px;
+    }
+
+    button{
+        display: inline-flex;
+        align-items: center;
+        padding: 10px;
+        border-radius: 15px;
+
+        span:nth-child(2){
+            margin: 0px 0px 0px 20px;
+        }
+
+        &::before{
+            display: inline-block;
+            vertical-align: middle;
+            content: url('../img/cherry.png') / "Download";
+        }
+        &::after{
+            display: inline-block;
+            vertical-align: middle;
+            content: url('../img/coin.png') / "Download";
+        }
+    }
+
+    &::before, &::after{
+        display: block;
+        content: '';
+        position: absolute;
+        height: 100%;
+        width: 2px;
+        background: $fontColor;
+        top: 0;
+    }
+}
+.pet::before{
+    left: -10px;
+}
+.pet::after{
+    right: -10px;
+}

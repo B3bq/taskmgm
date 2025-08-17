@@ -57,6 +57,61 @@ body {
   min-height: 100dvh;
 }
 
+body > header {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  flex-wrap: wrap;
+}
+body > header button {
+  background: none;
+  border: none;
+  width: 64px;
+  height: 64px;
+  margin: 0px 150px 0px 5px;
+}
+body > header button img {
+  scale: 2;
+}
+body > header img {
+  height: 32px;
+  margin: 0px 10px 0px 5px;
+}
+body > header ul {
+  display: none;
+  padding: 0;
+  margin: 10px 0px 0px 0px;
+  background-color: #141414;
+  list-style: none;
+  border-radius: 15px;
+}
+body > header ul::before {
+  content: "";
+}
+body > header ul li {
+  margin: 5px 0px 5px 0px;
+}
+body > header ul.active {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  padding: 10px;
+}
+body > header ul.active a {
+  color: #f0f3f4;
+}
+body > header ul::before {
+  content: "";
+  position: absolute;
+  top: -35px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 20px;
+  border-style: solid;
+  border-color: transparent transparent #141414 transparent;
+}
+
 h1, h2, h3, h4, h5, h6 {
   font-family: Roboto, sans-serif;
 }
@@ -67,6 +122,74 @@ input {
   text-align: center;
   margin: 10px;
   border-radius: 10px;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.main section {
+  display: flex;
+  flex-direction: row;
+  background-color: #141414;
+  border-radius: 15px;
+  padding: 25px;
+}
+
+section > .quest, section > .pet {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0px 50px 0px 50px;
+}
+
+.pet {
+  position: relative;
+}
+.pet h2 {
+  margin: 0;
+}
+.pet label {
+  margin: 10px 0px 10px 0px;
+}
+.pet button {
+  display: inline-flex;
+  align-items: center;
+  padding: 10px;
+  border-radius: 15px;
+}
+.pet button span:nth-child(2) {
+  margin: 0px 0px 0px 20px;
+}
+.pet button::before {
+  display: inline-block;
+  vertical-align: middle;
+  content: url("../img/cherry.png")/"Download";
+}
+.pet button::after {
+  display: inline-block;
+  vertical-align: middle;
+  content: url("../img/coin.png")/"Download";
+}
+.pet::before, .pet::after {
+  display: block;
+  content: "";
+  position: absolute;
+  height: 100%;
+  width: 2px;
+  background: #f0f3f4;
+  top: 0;
+}
+
+.pet::before {
+  left: -10px;
+}
+
+.pet::after {
+  right: -10px;
 }
 
 /*# sourceMappingURL=style.css.map */
