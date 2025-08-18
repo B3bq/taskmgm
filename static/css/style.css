@@ -244,4 +244,56 @@ section > .quest, section > .pet, section > .new, section > .ongoing, section > 
   right: -10px;
 }
 
+.addTask {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.addTask section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #141414;
+  border-radius: 15px;
+  padding: 25px;
+}
+.addTask section form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.addTask section form textarea {
+  border-radius: 5px;
+  margin: 10px 0px 10px 0px;
+}
+
+.hover-label {
+  position: relative;
+  background-color: #3b3a3a;
+  width: 20px;
+  border-radius: 15px;
+}
+
+.hover-text {
+  position: absolute;
+  top: 20;
+  left: 0;
+  background-color: #3b3a3a;
+  color: #f0f3f4;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  padding: 5px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.hover-label:hover .hover-text {
+  opacity: 1;
+}
+
 /*# sourceMappingURL=style.css.map */

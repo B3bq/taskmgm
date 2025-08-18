@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/litepicker/dist/css/litepicker.css">
     <script src="https://cdn.jsdelivr.net/npm/litepicker/dist/litepicker.js"></script>
+    <script src="{{url_for('static', filename='js/script.js')}}" defer></script>
 </head>
 <body>
     <header>
@@ -20,19 +21,20 @@
             <li><a href="">Log out</a></li>
         </ul>
     </header>
-    <section class="userForm">
+    <section class="addTask">
         <section>
             <h1>ADD NEW TASK</h1>
             <form action="" method="post">
                 <input type="text" name="" id="">
-                <input type="text" name="" id="">
+                <textarea name="" id=""></textarea>
                 <select name="" id="">
                     <option value="basic">Basic</option>
                     <option value="important">Important</option>
                 </select>
-                <p><input type="checkbox" name="" id="" value="everyday">Everyday</p>
-                <p><input type="checkbox" name="" id="" value="once">Once a week <label>?</label></p>
-                <p><input type="checkbox" name="" id="" value="range">Range <label>?</label></p>
+                <p><input type="checkbox" name="option" value="everyday">Everyday</p>
+                <p><input type="checkbox" name="option" value="once">Once a week <label class="hover-label">?<span class="hover-text">It will reapet on each selected day</span></label></p>
+                <input type="date" name="" id="">
+                <p><input type="checkbox" name="option" value="range">Range <label class="hover-label">?<span class="hover-text">Task will reapet on selected range</span></label></p>
                 <!--Choosing date, if everyday or since date to date-->
                 <input type="date"  id="daterange">
                 <!--or in two inputs, date start and date end-->
