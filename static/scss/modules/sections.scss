@@ -15,12 +15,39 @@
     }
 }
 
-section>.quest, section>.pet{
+section>.quest, section>.pet, section>.new, section>.ongoing, section>.complete{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
     margin: 0px 50px 0px 50px;
+}
+
+.quest, .new, .ongoing, .complete{
+    section{
+        flex-direction: column;
+        width: 100%;
+        background-color: $thirdColor;
+    }
+}
+
+.quest{
+    button{
+        display: inline-flex;
+        align-items: center;
+        border-radius: 15px;
+        padding: 5px;
+        margin: 10px 0px 0px 0px;
+        background-color: $fontColor;
+
+        &::before{
+            display: inline-block;
+            vertical-align: middle;
+            content: url('../img/planning.png') / "Manage";
+            margin: 0px 2px 0px 0px;
+            scale: 0.7;
+        }
+    }
 }
 
 .pet{
@@ -47,12 +74,12 @@ section>.quest, section>.pet{
         &::before{
             display: inline-block;
             vertical-align: middle;
-            content: url('../img/cherry.png') / "Download";
+            content: url('../img/cherry.png') / "Cherry";
         }
         &::after{
             display: inline-block;
             vertical-align: middle;
-            content: url('../img/coin.png') / "Download";
+            content: url('../img/coin.png') / "Coin";
         }
     }
 
@@ -71,4 +98,37 @@ section>.quest, section>.pet{
 }
 .pet::after{
     right: -10px;
+}
+
+.new>header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    
+    
+    button{
+        background: transparent;
+        border: none;
+        scale: 0.7;
+    }
+}
+
+.ongoing{
+    position: relative;
+
+    &::before, &::after{
+        display: block;
+        content: '';
+        position: absolute;
+        height: 100%;
+        width: 2px;
+        background: $fontColor;
+        top: 0;
+    }
+    &::before{
+        left: -10px;
+    }
+    &::after{
+        right: -10px;
+    }
 }

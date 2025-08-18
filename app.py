@@ -46,6 +46,14 @@ def index():
 def main():
     return render_template('main.html')
 
+@app.route('/tasks')
+def tasks():
+    return render_template('tasks.html')
+
+@app.route('/task')
+def task():
+    return render_template('task.html')
+
 @app.route('/success/<name>')
 def success(name):
     return f'siema {name}'
