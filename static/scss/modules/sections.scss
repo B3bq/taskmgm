@@ -164,26 +164,29 @@ section>.quest, section>.pet, section>.new, section>.ongoing, section>.complete{
 }
 
 .hover-label{
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
     position: relative;
     background-color: $thirdColor;
-    width: 20px;
-    border-radius: 15px;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
 }
 .hover-text{
+    visibility: hidden;
     position: absolute;
-    top: 20;
-    left: 0;
+    inset-inline-start: 20px;
+    inset-block-start: 20px;
     background-color: $thirdColor;
     color: $fontColor;
     text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     border-radius: 5px;
     padding: 5px;
     opacity: 0;
     transition: opacity 0.3s ease;
 }
 .hover-label:hover .hover-text{
+    visibility: visible;
     opacity: 1;
 }
