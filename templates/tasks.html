@@ -5,28 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Task mgm</title>
     <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+    <script src="{{url_for('static', filename='js/script.js')}}" defer></script>
 </head>
 <body>
     <header>
         <h3>000</h3>
         <img src="{{url_for('static', filename='img/money.png')}}" alt="money">
-        <button>
-            <img src="{{url_for('static', filename='img/account.png')}}" alt="account">
-        </button>
-        <ul>
-            <li><a href="">Account</a></li>
-            <li><a href="">Log out</a></li>
-        </ul>
+        <nav>    
+            <button id="js-toggle-menu">
+                <img src="{{url_for('static', filename='img/account.png')}}" alt="account">
+            </button>
+            <ul id="js-toggleable-menu">
+                <li><a href="">Account</a></li>
+                <li><a href="/main">Main Page</a></li>
+                <li><a href="">Log out</a></li>
+            </ul>
+        </nav>
     </header>
     <section class="main">
         <section>
             <section class="new">
                 <header>
                     <h1>NEW</h1>
-                    <a href="/task"><button><img src="{{url_for('static', filename='img/plus.png')}}" alt="plus"></button></a>
+                    <a href="/task"><img src="{{url_for('static', filename='img/plus.png')}}" alt="plus"></a>
                 </header>
                 <section>
-
+                    
                 </section>
             </section>
             <section class="ongoing">

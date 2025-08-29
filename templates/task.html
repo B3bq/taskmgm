@@ -13,13 +13,16 @@
     <header>
         <h3>000</h3>
         <img src="{{url_for('static', filename='img/money.png')}}" alt="money">
-        <button>
-            <img src="{{url_for('static', filename='img/account.png')}}" alt="account">
-        </button>
-        <ul>
-            <li><a href="">Account</a></li>
-            <li><a href="">Log out</a></li>
-        </ul>
+        <nav>    
+            <button id="js-toggle-menu">
+                <img src="{{url_for('static', filename='img/account.png')}}" alt="account">
+            </button>
+            <ul id="js-toggleable-menu">
+                <li><a href="">Account</a></li>
+                <li><a href="/main">Main Page</a></li>
+                <li><a href="">Log out</a></li>
+            </ul>
+        </nav>
     </header>
     <section class="addTask">
         <section>

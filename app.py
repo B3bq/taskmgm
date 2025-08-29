@@ -1,5 +1,6 @@
 from flask import Flask, redirect, url_for, request, render_template
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import and_
 import os
 from dotenv import load_dotenv
 import bcrypt
@@ -22,6 +23,9 @@ class Users(db.Model):
     name = db.Column(db.String(50), nullable=False)
     email = db.Column(db.String(50), nullable=False)
     password = db.Column(db.String(100), nullable=False)
+    coins = db.Column(db.Integer, nullable=False, server_default="0")
+    pet = db.relationship("Pet", backref="owner")
+    tasks = db.relationship("Tasks", backref="owner")
 
 class Tasks(db.Model):
     __tablename__ = 'tasks'
@@ -33,6 +37,24 @@ class Tasks(db.Model):
     category = db.Column(db.String(50), nullable=False)
     repeatability = db.Column(db.Date, nullable=False)
 
+class Gifs(db.Model):
+    __tablename__ = 'gifs'
+    id = db.Column(db.Integer, primary_key=True)
+    min = db.Column(db.Integer, nullable=False)
+    max = db.Column(db.Integer, nullable=False)
+    gif_url = db.Column(db.String(255), nullable=False)
+    pet = db.Column(db.String(50), nullable=False)
+    pets = db.relationship("Pet", backref="gif")
+
+class Pet(db.Model):
+    __tablename__ = 'pet'
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    gif_id = db.Column(db.Integer, db.ForeignKey('gifs.id'), server_default='4')
+    pet = db.Column(db.String(50), server_default='panda')
+    name = db.Column(db.String(50), nullable=False, server_default='Ryszard')
+    feed = db.Column(db.Integer, nullable=False, server_default="100")
+
 # create table in base
 with app.app_context():
     db.create_all()
@@ -42,9 +64,53 @@ with app.app_context():
 def index():
     return render_template('index.html')
 
-@app.route('/main')
-def main():
-    return render_template('main.html')
+@app.route('/main/<user>')
+def main(user):
+    print(user)
+
+    with app.app_context():
+        #take user data
+        user_data = Users.query.filter(Users.name == user).first()
+
+        tasks = user_data.tasks
+
+        user_pet = user_data.pet[0] if user_data.pet else None
+
+        if not user_pet:
+            user_pet = Pet(user_id=user_data.id)
+            db.session.add(user_pet)
+            db.session.commit()
+
+        user_data = Users.query.filter(Users.name == user).first()
+
+        tasks = user_data.tasks
+
+        user_pet = user_data.pet[0] if user_data.pet else None
+
+        gif = Gifs.query.filter(
+            and_(
+                Gifs.min < user_pet.feed,
+                Gifs.max >= user_pet.feed,
+                Gifs.pet == user_pet.pet
+            )
+        ).first()
+
+        if user_pet.feed == 0 :
+            src = 'img/pet/basket.png'
+        elif user_pet.feed <= 20:
+            src = 'img/pet/1bamboo.png'
+        elif user_pet.feed <= 40:
+            src = 'img/pet/2bamboo.png'
+        elif user_pet.feed <= 60:
+            src = 'img/pet/3bamboo.png'
+        elif user_pet.feed <= 80:
+            src = 'img/pet/4bamboo.png'
+        else:
+            src = 'img/pet/5bamboo.png'
+
+        
+
+    return render_template('main.html', tasks=tasks, user_pet=user_pet, gif=gif, user=user_data, src=src)
 
 @app.route('/tasks')
 def tasks():
@@ -63,7 +129,6 @@ def login():
     if request.method == 'POST':
         user = request.form['nm']
         password = request.form['password']
-        print('wzial')
 
         # taking values from database
         with app.app_context():
@@ -71,13 +136,13 @@ def login():
             db_pass = Users.query.with_entities(Users.password).filter_by(name=user).scalar()
 
         if user == db_name and bcrypt.checkpw(password.encode('utf-8'), db_pass.encode('utf-8')):
-            return redirect(url_for('main'))
+            return redirect(url_for('main', user=user))
         else:
             return redirect(url_for('login'))
     else:
         print('te czesc')
         user = request.args.get('nm')
-        return "redirect(url_for('success', name=user))"
+        return redirect(url_for('success', name=user))
 
 @app.route('/form')
 def sign():
@@ -92,7 +157,6 @@ def insert():
         rpassword = request.form['re_password']
 
         if password == rpassword:
-            print('zgadza sie')
             hashed = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
             hashed_str = hashed.decode('utf-8')
             with app.app_context():

@@ -103,13 +103,16 @@ section>.quest, section>.pet, section>.new, section>.ongoing, section>.complete{
 .new>header{
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+
     
-    
-    button{
-        background: transparent;
-        border: none;
-        scale: 0.7;
+    a{
+        display: inline-flex;
+        align-items: center;
+        position: relative;
+        right: -100px;
+        img{
+            scale: 0.7;
+        }
     }
 }
 
@@ -155,10 +158,15 @@ section>.quest, section>.pet, section>.new, section>.ongoing, section>.complete{
 
             textarea{
                 border-radius: 5px;
-                margin: 10px 0px 10px 0px;
+                margin: 10px;
+                height: 50px;
+
+                resize: none;
             }
 
-            
+            select{
+                margin: 10px;
+            }            
         }
     }
 }

@@ -9,7 +9,7 @@
 </head>
 <body>
     <header>
-        <h3>000</h3>
+        <h3>{{user.coins}}</h3>
         <img src="{{url_for('static', filename='img/money.png')}}" alt="money">
         <nav>    
             <button id="js-toggle-menu">
@@ -17,7 +17,8 @@
             </button>
             <ul id="js-toggleable-menu">
                 <li><a href="">Account</a></li>
-                <li><a href="">Log out</a></li>
+                <li><a href="/main/{{user.name}}">Main Page</a></li>
+                <li><a href="/">Log out</a></li>
             </ul>
         </nav>
     </header>
@@ -27,13 +28,29 @@
                 <header>
                     <h1>Tasks</h1>
                 </header>
-                <section></section>
+                <section>
+                    <div class="task-list">
+                        {% for task in tasks %}
+                            <div class="task-card">
+                                <h3>{{task.name}}</h3>
+                                <p>{{task.description}}</p>
+                            </div>
+                        {% else %}
+                            <h2>No tasks yet</h2>
+                        {% endfor %}
+                    </div>
+                </section>
                 <a href="/tasks"><button>Manage</button></a>
             </section>
             <section class="pet">
-                <img src="" alt="pet">
-                <h2>Name</h2>
+                <img src="{{url_for('static', filename=gif.gif_url)}}" alt="pet">
+                <img src="{{url_for('static', filename=src)}}" alt="basket">
+                <h2>{{user_pet.name}}</h2>
+                <img src="{{url_for('static', filename='img/pencil.png')}}" alt="pen" onclick="">
+                <button onclick="" hidden><img src="" alt="cancel"></button>
+                <button onclick="" hidden><img src="" alt="confirm"></button>
                 <label>Happines</label>
+                <progress value="{{user_pet.feed}}" max="100"></progress>
                 <button><span>FEED</span><span>20</span></button>
             </section>
             <section>

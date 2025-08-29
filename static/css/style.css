@@ -217,11 +217,14 @@ section > .quest, section > .pet, section > .new, section > .ongoing, section > 
 .new > header {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
 }
-.new > header button {
-  background: transparent;
-  border: none;
+.new > header a {
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+  right: -100px;
+}
+.new > header a img {
   scale: 0.7;
 }
 
@@ -266,7 +269,12 @@ section > .quest, section > .pet, section > .new, section > .ongoing, section > 
 }
 .addTask section form textarea {
   border-radius: 5px;
-  margin: 10px 0px 10px 0px;
+  margin: 10px;
+  height: 50px;
+  resize: none;
+}
+.addTask section form select {
+  margin: 10px;
 }
 
 .hover-label {
