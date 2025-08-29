@@ -40,7 +40,7 @@
                         {% endfor %}
                     </div>
                 </section>
-                <a href="/tasks"><button>Manage</button></a>
+                <a href="/tasks/{{user.name}}"><button>Manage</button></a>
             </section>
             <section class="pet">
                 <img src="{{url_for('static', filename=gif.gif_url)}}" alt="pet">

@@ -112,13 +112,19 @@ def main(user):
 
     return render_template('main.html', tasks=tasks, user_pet=user_pet, gif=gif, user=user_data, src=src)
 
-@app.route('/tasks')
-def tasks():
-    return render_template('tasks.html')
+@app.route('/tasks/<user>')
+def tasks(user):
+    user_data = Users.query.filter(Users.name == user).first()
 
-@app.route('/task')
-def task():
-    return render_template('task.html')
+    tasks = user_data.tasks 
+
+    return render_template('tasks.html', user=user_data, tasks=tasks)
+
+@app.route('/task/<user>')
+def task(user):
+    user_data = Users.query.filter(Users.name == user).first()
+
+    return render_template('task.html', user=user_data)
 
 @app.route('/success/<name>')
 def success(name):
