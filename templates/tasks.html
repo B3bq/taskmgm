@@ -9,7 +9,7 @@
 </head>
 <body>
     <header>
-        <h3>000</h3>
+        <h3>{{user.coins}}</h3>
         <img src="{{url_for('static', filename='img/money.png')}}" alt="money">
         <nav>    
             <button id="js-toggle-menu">
@@ -17,8 +17,8 @@
             </button>
             <ul id="js-toggleable-menu">
                 <li><a href="">Account</a></li>
-                <li><a href="/main">Main Page</a></li>
-                <li><a href="">Log out</a></li>
+                <li><a href="/main/{{user.name}}">Main Page</a></li>
+                <li><a href="/">Log out</a></li>
             </ul>
         </nav>
     </header>
@@ -30,7 +30,19 @@
                     <a href="/task"><img src="{{url_for('static', filename='img/plus.png')}}" alt="plus"></a>
                 </header>
                 <section>
-                    
+                    <div class="task-list"><!--think about colors based on category-->
+                        {% for task in tasks %}
+                            <div class="task-card">
+                                {% if task.status == "new" %}
+                                    <h2>{{ loop.index }}</h2>
+                                    <h3>{{task.name}}</h3>
+                                    <p>{{task.description}}</p>
+                                {% endif %}
+                            </div>
+                        {% else %}
+                            <h2>No tasks yet</h2>
+                        {% endfor %}
+                    </div>
                 </section>
             </section>
             <section class="ongoing">
@@ -38,7 +50,19 @@
                     <h1>ONGOING</h1>
                 </header>
                 <section>
-
+                    <div class="task-list"><!--think about colors based on category-->
+                        {% for task in tasks %}
+                            <div class="task-card">
+                                {% if task.status == "ongoing" %}
+                                    <h2>{{ loop.index }}</h2>
+                                    <h3>{{task.name}}</h3>
+                                    <p>{{task.description}}</p>
+                                {% endif %}
+                            </div>
+                        {% else %}
+                            <h2>No tasks in progress yet</h2>
+                        {% endfor %}
+                    </div>
                 </section>
             </section>
             <section class="complete">
@@ -46,7 +70,19 @@
                     <h1>COMPLETE</h1>
                 </header>
                 <section>
-
+                    <div class="task-list"><!--think about colors based on category-->
+                        {% for task in tasks %}
+                            <div class="task-card">
+                                {% if task.status == "done" %}
+                                    <h2>{{ loop.index }}</h2>
+                                    <h3>{{task.name}}</h3>
+                                    <p>{{task.description}}</p>
+                                {% endif %}
+                            </div>
+                        {% else %}
+                            <h2>No tasks done yet</h2>
+                        {% endfor %}
+                    </div>
                 </section>
             </section>
         </section>

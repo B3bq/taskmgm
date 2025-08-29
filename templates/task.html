@@ -11,7 +11,7 @@
 </head>
 <body>
     <header>
-        <h3>000</h3>
+        <h3>{{user.coins}}</h3>
         <img src="{{url_for('static', filename='img/money.png')}}" alt="money">
         <nav>    
             <button id="js-toggle-menu">
@@ -19,8 +19,8 @@
             </button>
             <ul id="js-toggleable-menu">
                 <li><a href="">Account</a></li>
-                <li><a href="/main">Main Page</a></li>
-                <li><a href="">Log out</a></li>
+                <li><a href="/main/{{user.name}}">Main Page</a></li>
+                <li><a href="/">Log out</a></li>
             </ul>
         </nav>
     </header>
