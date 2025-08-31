@@ -6,6 +6,7 @@
     <title>Task mgm</title>
     <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
     <script src="{{url_for('static', filename='js/script.js')}}" defer></script>
+    <script src="{{url_for('static', filename='js/functions.js')}}"></script>
 </head>
 <body>
     <header>
@@ -43,13 +44,14 @@
                 <a href="/tasks/{{user.name}}"><button>Manage</button></a>
             </section>
             <section class="pet">
-                <img src="{{url_for('static', filename=gif.gif_url)}}" alt="pet">
-                <img src="{{url_for('static', filename=src)}}" alt="basket">
-                <h2>{{user_pet.name}}</h2>
-                <img src="{{url_for('static', filename='img/pencil.png')}}" alt="pen" onclick="">
-                <button onclick="" hidden><img src="" alt="cancel"></button>
-                <button onclick="" hidden><img src="" alt="confirm"></button>
-                <label>Happines</label>
+                <img src="{{url_for('static', filename=gif.gif_url)}}" alt="pet" class="pet-gif">
+                <img src="{{url_for('static', filename=src)}}" alt="basket" class="pet-basket">
+                <h2 id="userName">{{user_pet.name}}</h2>
+                <img src="{{url_for('static', filename='img/pencil.png')}}" alt="pen" id="edit" onclick="enableEditing()" class="pet-pen">
+                <div class="pet__btn" id="buttons">    
+                    <button onclick="resetValue()" class="pet__btn-btn" id="cancel" hidden><img src="{{url_for('static', filename='img/cancel.png')}}" alt="cancel"></button>
+                    <button onclick="" class="pet__btn-btn" id="confirm" hidden><img src="{{url_for('static', filename='img/check.png')}}" alt="confirm"></button>
+                </div>
                 <progress value="{{user_pet.feed}}" max="100"></progress>
                 <button><span>FEED</span><span>20</span></button>
             </section>

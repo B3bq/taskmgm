@@ -32,6 +32,10 @@ section>.quest, section>.pet, section>.new, section>.ongoing, section>.complete{
 }
 
 .quest{
+    h1{
+        font-size: 2rem;
+    }
+
     button{
         display: inline-flex;
         align-items: center;
@@ -80,6 +84,52 @@ section>.quest, section>.pet, section>.new, section>.ongoing, section>.complete{
             display: inline-block;
             vertical-align: middle;
             content: url('../img/coin.png') / "Coin";
+        }
+    }
+
+    &-gif{
+        margin: 20px;
+    }
+
+    &-basket{
+        position: absolute;
+        top: 195px;
+        left: 185px;
+    }
+
+    &-pen{
+        position: relative;
+        top: -24px;
+        left: 58px;
+    }
+
+    &__btn{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        visibility: hidden;
+
+        &-btn{
+            background-color: transparent;
+            border: none;
+
+            &::after, &::before{
+                visibility: hidden;
+            }
+        }
+    }
+
+    progress{
+        margin: 20px;
+        height: 40px;
+        width: 100%;
+
+        &::before{
+            position: absolute;
+            top: 460px;
+            left: 140px;
+            font-size: 1.25rem;
+            content: 'Hungry';
         }
     }
 
