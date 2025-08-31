@@ -122,11 +122,14 @@ def main(user):
 
     return render_template('main.html', tasks=tasks, user_pet=user_pet, gif=gif, user=user_data, src=src)
 
-@app.route('/increase/<user>/<int:pet_id>', methods=['POST'])
-def increase_feed(user, pet_id):
-    pet = Pet.query.get_or_404(pet_id)
-    pet.feed += 20
-    db.session.commit()
+@app.route('/increase/<user>/<int:user_coins>/<int:pet_id>', methods=['POST'])
+def increase_feed(user, user_coins, pet_id):
+    if user_coins > 0:    
+        pet = Pet.query.get_or_404(pet_id)
+        user_data = Users.query.filter(Users.name == user).first()
+        pet.feed += 20
+        user_data.coins -= 20
+        db.session.commit()
     return redirect(url_for("main", user=user))
 
 @app.route('/update_name/<user>/<int:pet_id>', methods=['POST'])

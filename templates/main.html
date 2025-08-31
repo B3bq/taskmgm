@@ -58,7 +58,7 @@
                     </form>
                 </div>
                 <progress value="{{user_pet.feed}}" max="100"></progress>
-                <form action="{{url_for('increase_feed', user=user.name, pet_id=user_pet.id)}}" method="post">
+                <form action="{{url_for('increase_feed', user=user.name, user_coins=user.coins, pet_id=user_pet.id)}}" method="post">
                     <button><span>FEED</span><span>20</span></button>
                 </form>
             </section>
