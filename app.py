@@ -59,6 +59,18 @@ class Pet(db.Model):
 with app.app_context():
     db.create_all()
 
+
+with app.app_context():
+    pets = Pet.query.all()
+
+    for pet in pets:
+        if pet.feed > 0:
+            pet.feed -= 20
+        else:
+            pet.feed = 0
+
+    db.session.commit()
+
 # main page
 @app.route('/')
 def index():
@@ -66,8 +78,6 @@ def index():
 
 @app.route('/main/<user>')
 def main(user):
-    print(user)
-
     with app.app_context():
         #take user data
         user_data = Users.query.filter(Users.name == user).first()
@@ -111,6 +121,13 @@ def main(user):
         
 
     return render_template('main.html', tasks=tasks, user_pet=user_pet, gif=gif, user=user_data, src=src)
+
+@app.route('/increase/<user>/<int:pet_id>', methods=['POST'])
+def increase_feed(user, pet_id):
+    pet = Pet.query.get_or_404(pet_id)
+    pet.feed += 20
+    db.session.commit()
+    return redirect(url_for("main", user=user))
 
 @app.route('/tasks/<user>')
 def tasks(user):
