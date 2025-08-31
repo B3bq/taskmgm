@@ -129,6 +129,14 @@ def increase_feed(user, pet_id):
     db.session.commit()
     return redirect(url_for("main", user=user))
 
+@app.route('/update_name/<user>/<int:pet_id>', methods=['POST'])
+def update_name(user, pet_id):
+    new_name = request.form['new_name']
+    pet = Pet.query.get_or_404(pet_id)
+    pet.name = new_name
+    db.session.commit()
+    return redirect(url_for('main', user=user))
+
 @app.route('/tasks/<user>')
 def tasks(user):
     user_data = Users.query.filter(Users.name == user).first()

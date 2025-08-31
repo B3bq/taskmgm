@@ -50,10 +50,15 @@
                 <img src="{{url_for('static', filename='img/pencil.png')}}" alt="pen" id="edit" onclick="enableEditing()" class="pet-pen">
                 <div class="pet__btn" id="buttons">    
                     <button onclick="resetValue()" class="pet__btn-btn" id="cancel" hidden><img src="{{url_for('static', filename='img/cancel.png')}}" alt="cancel"></button>
-                    <button onclick="" class="pet__btn-btn" id="confirm" hidden><img src="{{url_for('static', filename='img/check.png')}}" alt="confirm"></button>
+                    <form action="{{url_for('update_name', user=user.name, pet_id=user_pet.id)}}" method="post">
+                        <input type="hidden" name="new_name" id="hiddenName">
+                        <button class="pet__btn-btn" id="confirm" hidden>
+                            <img src="{{url_for('static', filename='img/check.png')}}" alt="confirm">
+                        </button>
+                    </form>
                 </div>
                 <progress value="{{user_pet.feed}}" max="100"></progress>
-                <form action="{{url_for('increase_feed', user=user.name,pet_id=user_pet.id)}}" method="post">
+                <form action="{{url_for('increase_feed', user=user.name, pet_id=user_pet.id)}}" method="post">
                     <button><span>FEED</span><span>20</span></button>
                 </form>
             </section>

@@ -17,3 +17,11 @@ checkBoxes.forEach(cb =>{
         }
     })
 })
+
+const userName = document.getElementById('userName');
+const hiddenInput = document.getElementById('hiddenName');
+const confirmBtn = document.getElementById('confirm');
+
+confirmBtn.addEventListener("click", ()=>{
+    hiddenInput.value = userName.innerText.trim();
+})
