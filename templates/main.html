@@ -25,16 +25,16 @@
     </header>
     <section class="main">
         <section>
-            <section class="quest">
+            <section class="task">
                 <header>
                     <h1>Tasks</h1>
                 </header>
                 <section>
-                    <div class="task-list">
+                    <div class="task__list">
                         {% for task in tasks %}
-                            <div class="task-card">
-                                <h3>{{task.name}}</h3>
-                                <p>{{task.description}}</p>
+                            <div class="task__list-card">
+                                <h3 class="hover-task">{{task.name}}</h3>
+                                <p class="hover-desc">{{task.description}}</p>
                             </div>
                         {% else %}
                             <h2>No tasks yet</h2>

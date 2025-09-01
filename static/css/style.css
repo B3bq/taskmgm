@@ -138,7 +138,7 @@ input {
   padding: 25px;
 }
 
-section > .quest, section > .pet, section > .new, section > .ongoing, section > .complete {
+section > .task, section > .pet, section > .new, section > .ongoing, section > .complete {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -146,16 +146,44 @@ section > .quest, section > .pet, section > .new, section > .ongoing, section > 
   margin: 0px 50px 0px 50px;
 }
 
-.quest section, .new section, .ongoing section, .complete section {
+.task section, .new section, .ongoing section, .complete section {
   flex-direction: column;
   width: 100%;
   background-color: #3b3a3a;
 }
 
-.quest h1 {
+.task h1 {
   font-size: 2rem;
 }
-.quest button {
+.task__list {
+  display: flex;
+  flex-direction: column;
+}
+.task__list-card {
+  display: inline-block;
+  flex-direction: row;
+  background-color: #5e5e5e;
+  padding: 5px;
+  border-radius: 15px;
+  position: relative;
+  margin: 4px 0px 4px 0px;
+}
+.task__list-card .hover-desc {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #5e5e5e;
+  color: #f0f3f4;
+  padding: 8px 12px;
+  border-radius: 8px;
+  white-space: nowrap;
+  z-index: 10;
+}
+.task__list-card .hover-task:hover + .hover-desc {
+  display: block;
+}
+.task button {
   display: inline-flex;
   align-items: center;
   border-radius: 15px;
@@ -163,7 +191,7 @@ section > .quest, section > .pet, section > .new, section > .ongoing, section > 
   margin: 10px 0px 0px 0px;
   background-color: #f0f3f4;
 }
-.quest button::before {
+.task button::before {
   display: inline-block;
   vertical-align: middle;
   content: url("../img/planning.png")/"Manage";
@@ -269,6 +297,36 @@ section > .quest, section > .pet, section > .new, section > .ongoing, section > 
   scale: 0.7;
 }
 
+.new .task__list, .ongoing .task__list, .complete .task__list {
+  display: flex;
+  flex-direction: column;
+}
+.new .task__list-card, .ongoing .task__list-card, .complete .task__list-card {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: #5e5e5e;
+  padding: 5px;
+  border-radius: 15px;
+  margin: 4px 0px 4px 0px;
+}
+.new .task__list-card h2, .ongoing .task__list-card h2, .complete .task__list-card h2 {
+  margin-right: 5px;
+}
+.new .task__list-card h2::after, .ongoing .task__list-card h2::after, .complete .task__list-card h2::after {
+  display: block;
+  content: "";
+  position: absolute;
+  height: 40%;
+  width: 2px;
+  background: #f0f3f4;
+  top: 21px;
+  left: 18px;
+}
+.new .task__list-card h3, .ongoing .task__list-card h3, .complete .task__list-card h3 {
+  margin: 0px 8px 0px 3px;
+}
+
 .ongoing {
   position: relative;
 }
@@ -308,14 +366,20 @@ section > .quest, section > .pet, section > .new, section > .ongoing, section > 
   flex-direction: column;
   justify-content: center;
 }
+.addTask section form input {
+  text-align: left;
+}
 .addTask section form textarea {
   border-radius: 5px;
   margin: 10px;
+  padding: 5px;
   height: 50px;
   resize: none;
 }
 .addTask section form select {
   margin: 10px;
+  padding: 2px;
+  text-align: center;
 }
 
 .hover-label {

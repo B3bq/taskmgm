@@ -30,9 +30,12 @@
                     <a href="/task/{{user.name}}"><img src="{{url_for('static', filename='img/plus.png')}}" alt="plus"></a>
                 </header>
                 <section>
-                    <div class="task-list"><!--think about colors based on category-->
+                    <table>
+                        <tr><th>On.</th><th>Name</th><th>Description</th></tr>
+                    </table>
+                    <div class="task__list"><!--think about colors based on category-->
                         {% for task in tasks %}
-                            <div class="task-card">
+                            <div class="task__list-card">
                                 {% if task.status == "new" %}
                                     <h2>{{ loop.index }}</h2>
                                     <h3>{{task.name}}</h3>
@@ -50,9 +53,12 @@
                     <h1>ONGOING</h1>
                 </header>
                 <section>
-                    <div class="task-list"><!--think about colors based on category-->
+                    <table>
+                        <tr><th>On.</th><th>Name</th><th>Description</th></tr>
+                    </table>
+                    <div class="task__list"><!--think about colors based on category-->
                         {% for task in tasks %}
-                            <div class="task-card">
+                            <div class="task__list-card">
                                 {% if task.status == "ongoing" %}
                                     <h2>{{ loop.index }}</h2>
                                     <h3>{{task.name}}</h3>
@@ -70,9 +76,12 @@
                     <h1>COMPLETE</h1>
                 </header>
                 <section>
-                    <div class="task-list"><!--think about colors based on category-->
+                    <table>
+                        <tr><th>On.</th><th>Name</th><th>Description</th></tr>
+                    </table>
+                    <div class="task__list-list"><!--think about colors based on category-->
                         {% for task in tasks %}
-                            <div class="task-card">
+                            <div class="task__list-card">
                                 {% if task.status == "done" %}
                                     <h2>{{ loop.index }}</h2>
                                     <h3>{{task.name}}</h3>

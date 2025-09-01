@@ -27,19 +27,23 @@
     <section class="addTask">
         <section>
             <h1>ADD NEW TASK</h1>
-            <form action="" method="post">
+            <form action="{{url_for('add_task', user_id=user.id, user=user.name)}}" method="post">
                 <input type="text" name="name" id="">
                 <textarea name="description" id=""></textarea>
-                <select name="category" id="">
-                    <option value="basic">Basic</option>
+                <select name="priority" id="priority">
+                    <option selected disabled hidden>Validity</option>
+                    <option value="critical">Critical / Urgent</option>
                     <option value="important">Important</option>
+                    <option value="medium">Medium</option>
+                    <option value="low">Low</option>
+                    <option value="optional">Optional</option>
                 </select>
-                <p><input type="checkbox" name="option" value="everyday">Everyday</p>
-                <p><input type="checkbox" name="option" value="once">Once a week <label class="hover-label">?<span class="hover-text">It will reapet on each selected day</span></label></p>
-                <input type="date" name="" id="">
-                <p><input type="checkbox" name="option" value="range">Range <label class="hover-label">?<span class="hover-text">Task will reapet on selected range</span></label></p>
+                <p><input type="checkbox" name="option" value="daily">Everyday</p>
+                <p><input type="checkbox" name="option" value="weekly" id="once">Once a week <label class="hover-label">?<span class="hover-text">It will reapet on each selected day</span></label></p>
+                <input type="date" name="weekly" id="dateonce" disabled>
+                <p><input type="checkbox" name="option" value="range" id="range">Range <label class="hover-label">?<span class="hover-text">Task will reapet on selected range</span></label></p>
                 <!--Choosing date, if everyday or since date to date-->
-                <input type="date"  id="daterange">
+                <input type="date" name="range" id="daterange" disabled>
                 <!--or in two inputs, date start and date end-->
 
                 <input type="submit" value="ADD TASK">

@@ -1,9 +1,9 @@
 from flask import Flask, redirect, url_for, request, render_template
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import and_
-import os
+import os, bcrypt, random
+from datetime import datetime, timedelta
 from dotenv import load_dotenv
-import bcrypt
 
 load_dotenv()  # ładowanie zmiennych z pliku .env
 
@@ -35,7 +35,10 @@ class Tasks(db.Model):
     description = db.Column(db.Text, nullable=False)
     status = db.Column(db.String(50), nullable=False, server_default='new')
     category = db.Column(db.String(50), nullable=False)
-    repeatability = db.Column(db.Date, nullable=False)
+    reward = db.Column(db.Integer, nullable=False)
+    repeatability = db.Column(db.String(50), nullable=False)
+    start_date = db.Column(db.Date, nullable=False)
+    end_date = db.Column(db.Date, nullable=False)
 
 class Gifs(db.Model):
     __tablename__ = 'gifs'
@@ -154,6 +157,48 @@ def task(user):
 
     return render_template('task.html', user=user_data)
 
+@app.route('/add_task/<int:user_id>/<user>', methods=['POST'])
+def add_task(user_id, user):
+    # data from html
+    name = request.form['name']
+    des = request.form['description']
+    prio = request.form['priority']
+    repeatability = request.form['option']
+    
+    match repeatability:
+        case "daily":
+            start_date = datetime.today().date()
+            end_str = "2073-04-28"
+            end_date = datetime.strptime(end_str, "%Y-%m-%d").date()
+        case "weekly":
+            start_date_str = request.form['weekly']
+            start_date = datetime.strptime(start_date_str, "%Y-%m-%d").date()
+            end_date = start_date + timedelta(days=1)
+        case _:
+            date_str = request.form['range']
+            start_str, end_str = date_str.split(' - ')
+            start_date = datetime.strptime(start_str.strip(), "%Y-%m-%d").date()
+            end_date = datetime.strptime(end_str.strip(), "%Y-%m-%d").date()
+        
+    match prio:
+        case 'critical':
+            reward = random.randint(35, 50)
+        case 'important':
+            reward = random.randint(20, 40)
+        case 'medium':
+            reward = random.randint(10, 25)
+        case 'low':
+            reward = random.randint(5, 15)
+        case _:
+            reward = random.randint(1, 10)
+
+    with app.app_context():
+        new_task = Tasks(user_id=user_id, name=name, description=des, category=prio, reward=reward, repeatability=repeatability, start_date=start_date, end_date=end_date)    
+        db.session.add(new_task)
+        db.session.commit()
+
+    return redirect(url_for('tasks', user=user))
+
 @app.route('/success/<name>')
 def success(name):
     return f'siema {name}'
@@ -197,7 +242,7 @@ def insert():
                 new_user = Users(name=user, email=mail, password=hashed_str)
                 db.session.add(new_user)
                 db.session.commit()
-                print('dodano')
+                
                 return "<p>Added user</p><a href='/'><button>Back</button></a>"
         else:
             print('nie zgadza sie')

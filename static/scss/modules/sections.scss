@@ -15,7 +15,7 @@
     }
 }
 
-section>.quest, section>.pet, section>.new, section>.ongoing, section>.complete{
+section>.task, section>.pet, section>.new, section>.ongoing, section>.complete{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -23,7 +23,7 @@ section>.quest, section>.pet, section>.new, section>.ongoing, section>.complete{
     margin: 0px 50px 0px 50px;
 }
 
-.quest, .new, .ongoing, .complete{
+.task, .new, .ongoing, .complete{
     section{
         flex-direction: column;
         width: 100%;
@@ -31,9 +31,40 @@ section>.quest, section>.pet, section>.new, section>.ongoing, section>.complete{
     }
 }
 
-.quest{
+.task{
     h1{
         font-size: 2rem;
+    }
+
+    &__list{
+        display: flex;
+        flex-direction: column;
+
+        &-card{
+            display: inline-block;
+            flex-direction: row;
+            background-color: $fourColor;
+            padding: 5px;
+            border-radius: 15px;
+            position: relative;
+            margin: 4px 0px 4px 0px;
+
+            .hover-desc{
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                background-color: $fourColor;
+                color: $fontColor;
+                padding: 8px 12px;
+                border-radius: 8px;
+                white-space: nowrap;
+                z-index: 10;
+            }
+            .hover-task:hover + .hover-desc{
+                display: block;
+            }
+        }
     }
 
     button{
@@ -165,6 +196,41 @@ section>.quest, section>.pet, section>.new, section>.ongoing, section>.complete{
         }
     }
 }
+.new, .ongoing, .complete{
+    .task{
+        &__list{
+            display: flex;
+            flex-direction: column;
+
+            &-card{
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                background-color: $fourColor;
+                padding: 5px;
+                border-radius: 15px;
+                margin: 4px 0px 4px 0px;
+
+                h2{
+                    margin-right: 5px;
+                    &::after{
+                        display: block;
+                        content: '';
+                        position: absolute;
+                        height: 40%;
+                        width: 2px;
+                        background: $fontColor;
+                        top: 21px;
+                        left: 18px;
+                    }
+                }
+                h3{
+                    margin: 0px 8px 0px 3px;
+                }
+            }
+        }
+    }
+}
 
 .ongoing{
     position: relative;
@@ -206,9 +272,14 @@ section>.quest, section>.pet, section>.new, section>.ongoing, section>.complete{
             flex-direction: column;
             justify-content: center;
 
+            input{
+                text-align: left;
+            }
+
             textarea{
                 border-radius: 5px;
                 margin: 10px;
+                padding: 5px;
                 height: 50px;
 
                 resize: none;
@@ -216,10 +287,14 @@ section>.quest, section>.pet, section>.new, section>.ongoing, section>.complete{
 
             select{
                 margin: 10px;
+                padding: 2px;
+                text-align: center;
             }            
         }
     }
 }
+
+
 
 .hover-label{
     display: inline-flex;
