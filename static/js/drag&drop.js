@@ -14,6 +14,7 @@ for(list of lists){
         });
         ongoing.addEventListener("drop", (e)=>{
             ongoing.appendChild(selected);
+            updateTaskStatus(selected, "ongoing");
             selected = null;
         });
 
@@ -22,6 +23,7 @@ for(list of lists){
         });
         new_div.addEventListener("drop", (e)=>{
             new_div.appendChild(selected);
+            updateTaskStatus(selected, "new");
             selected = null;
         });
         
@@ -30,7 +32,34 @@ for(list of lists){
         });
         complete.addEventListener("drop", (e)=>{
             complete.appendChild(selected);
+            updateTaskStatus(selected, "done");
             selected = null;
         });
+
+        function updateTaskStatus(list, forcedStatus = null) {
+            const id = list.getAttribute("data-id");
+            const userID = list.getAttribute("userID");
+            let status = forcedStatus;
+    
+            if (!status) {
+                const section = list.closest("section").classList[0];
+                if (section === "new") status = "new";
+                if (section === "ongoing") status = "ongoing";
+                if (section === "complete") status = "done";
+            }
+    
+            fetch("/update_status", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ id: id, status: status,  userID: userID }),
+            }).then(res => res.json())
+              .then(data => {
+                  if (!data.success) {
+                      console.error("Błąd przy aktualizacji", data.error);
+                  }
+              });
+        }
     })
 }

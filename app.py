@@ -1,4 +1,4 @@
-from flask import Flask, redirect, url_for, request, render_template
+from flask import Flask, redirect, url_for, request, render_template, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import and_
 import os, bcrypt, random
@@ -150,6 +150,25 @@ def tasks(user):
     tasks = user_data.tasks 
 
     return render_template('tasks.html', user=user_data, tasks=tasks)
+
+@app.route('/update_status', methods=["POST"])
+def update_status():
+    data = request.get_json()
+    task_id = data.get("id")
+    new_status = data.get("status")
+    user_id = data.get("userID")
+
+    task = Tasks.query.get(task_id)
+
+    if task:
+        old_status = task.status
+        task.status = new_status
+        if task.status == "done" and old_status != "done":
+            user = Users.query.get(user_id)
+            user.coins += task.reward
+        db.session.commit()
+        return jsonify({"success": True, "id": task.id, "status": task.status})
+    return jsonify({"success": False, "error": "Task not found"}), 404
 
 @app.route('/task/<user>')
 def task(user):
