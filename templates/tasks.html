@@ -6,6 +6,7 @@
     <title>Task mgm</title>
     <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
     <script src="{{url_for('static', filename='js/script.js')}}" defer></script>
+    <script src="{{url_for('static', filename='js/drag&drop.js')}}" defer></script>
 </head>
 <body>
     <header>
@@ -33,15 +34,15 @@
                     <table>
                         <tr><th>On.</th><th>Name</th><th>Description</th></tr>
                     </table>
-                    <div class="task__list"><!--think about colors based on category-->
+                    <div class="task__list" id="new"><!--think about colors based on category-->
                         {% for task in tasks %}
-                            <div class="task__list-card">
-                                {% if task.status == "new" %}
+                            {% if task.status == "new" %}
+                                <div class="task__list-card" draggable="true">
                                     <h2>{{ loop.index }}</h2>
                                     <h3>{{task.name}}</h3>
                                     <p>{{task.description}}</p>
-                                {% endif %}
-                            </div>
+                                </div>
+                            {% endif %}
                         {% else %}
                             <h2>No tasks yet</h2>
                         {% endfor %}
@@ -56,15 +57,15 @@
                     <table>
                         <tr><th>On.</th><th>Name</th><th>Description</th></tr>
                     </table>
-                    <div class="task__list"><!--think about colors based on category-->
+                    <div class="task__list" id="ongoing"><!--think about colors based on category-->
                         {% for task in tasks %}
-                            <div class="task__list-card">
-                                {% if task.status == "ongoing" %}
+                            {% if task.status == "ongoing" %}
+                                <div class="task__list-card" draggable="true">
                                     <h2>{{ loop.index }}</h2>
                                     <h3>{{task.name}}</h3>
                                     <p>{{task.description}}</p>
-                                {% endif %}
-                            </div>
+                                </div>
+                            {% endif %}
                         {% else %}
                             <h2>No tasks in progress yet</h2>
                         {% endfor %}
@@ -79,15 +80,15 @@
                     <table>
                         <tr><th>On.</th><th>Name</th><th>Description</th></tr>
                     </table>
-                    <div class="task__list-list"><!--think about colors based on category-->
+                    <div class="task__list" id="complete"><!--think about colors based on category-->
                         {% for task in tasks %}
-                            <div class="task__list-card">
-                                {% if task.status == "done" %}
+                            {% if task.status == "done" %}
+                                <div class="task__list-card" draggable="true">
                                     <h2>{{ loop.index }}</h2>
                                     <h3>{{task.name}}</h3>
                                     <p>{{task.description}}</p>
-                                {% endif %}
-                            </div>
+                                </div>
+                            {% endif %}
                         {% else %}
                             <h2>No tasks done yet</h2>
                         {% endfor %}

@@ -158,6 +158,7 @@ section > .task, section > .pet, section > .new, section > .ongoing, section > .
 .task__list {
   display: flex;
   flex-direction: column;
+  height: 500px;
 }
 .task__list-card {
   display: inline-block;

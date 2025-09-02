@@ -39,6 +39,7 @@ section>.task, section>.pet, section>.new, section>.ongoing, section>.complete{
     &__list{
         display: flex;
         flex-direction: column;
+        height: 500px;
 
         &-card{
             display: inline-block;
