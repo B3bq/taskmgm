@@ -170,6 +170,17 @@ def update_status():
         return jsonify({"success": True, "id": task.id, "status": task.status})
     return jsonify({"success": False, "error": "Task not found"}), 404
 
+@app.route('/delete_task', methods=["POST"])
+def delete_task():
+    data = request.get_json()
+    task_id = data.get("id")
+    user = data.get("userName")
+
+    task = Tasks.query.get_or_404(task_id)
+    db.session.delete(task)
+    db.session.commit()
+    return redirect(url_for("tasks", user=user))
+
 @app.route('/task/<user>')
 def task(user):
     user_data = Users.query.filter(Users.name == user).first()

@@ -1,9 +1,8 @@
-
-
 let lists = document.getElementsByClassName('task__list');
 let ongoing = document.getElementById('ongoing');
 let new_div = document.getElementById('new');
 let complete = document.getElementById('complete');
+let bins = document.querySelectorAll('.bins');
 
 for(list of lists){
     list.addEventListener("dragstart", (e)=>{
@@ -57,9 +56,31 @@ for(list of lists){
             }).then(res => res.json())
               .then(data => {
                   if (!data.success) {
-                      console.error("Błąd przy aktualizacji", data.error);
+                      console.error("Error with update", data.error);
                   }
               });
         }
     })
 }
+
+bins.forEach(bin =>{
+    bin.addEventListener("click", (e)=>{
+        let selected = e.target.closest(".task__list-card");
+        const id = selected.getAttribute("data-id");
+        const userName = selected.getAttribute("userName");
+
+        fetch("/delete_task", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ id: id, userName: userName }),
+        }).then(response => response.json())
+          .then(data => {
+            if(data.success){
+                selected.remove();
+            }
+            else{console.log("Can't delete", data.error);}
+          });
+    })
+});
