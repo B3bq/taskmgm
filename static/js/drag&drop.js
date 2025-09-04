@@ -79,6 +79,7 @@ bins.forEach(bin =>{
           .then(data => {
             if(data.success){
                 selected.remove();
+                window.location.href = data.redirect;
             }
             else{console.log("Can't delete", data.error);}
           });
