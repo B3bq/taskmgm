@@ -194,8 +194,14 @@ def add_task(user_id, user):
             start_date = datetime.strptime(start_date_str, "%Y-%m-%d").date()
             end_date = start_date + timedelta(days=1)
         case _:
-            date_str = request.form['range']
-            start_str, end_str = date_str.split(' - ')
+            date_str = request.form['range'].strip()
+    
+            if ' - ' in date_str:
+                start_str, end_str = date_str.split(' - ')
+            elif '-' in date_str:  # fallback na samą jedną datę
+                start_str = end_str = date_str
+            else:
+                raise ValueError(f"Unexpected date format: {date_str}")
             start_date = datetime.strptime(start_str.strip(), "%Y-%m-%d").date()
             end_date = datetime.strptime(end_str.strip(), "%Y-%m-%d").date()
         

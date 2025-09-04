@@ -41,6 +41,9 @@
                                     <h2>{{ loop.index }}</h2>
                                     <h3>{{task.name}}</h3>
                                     <p>{{task.description}}</p>
+                                    {% if task.category not in ["critical", "important"] %}
+                                        <img src="{{url_for('static', filename='img/delete.png')}}" alt="bin">
+                                    {% endif %}
                                 </div>
                             {% endif %}
                         {% else %}
