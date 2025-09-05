@@ -34,7 +34,7 @@
                     <table>
                         <tr><th>On.</th><th>Name</th><th>Description</th></tr>
                     </table>
-                    <div class="task__list" id="new"><!--think about colors based on category-->
+                    <div class="task__list height" id="new"><!--think about colors based on category-->
                         {% for task in tasks %}
                             {% if task.status == "new" %}
                                 <div class="task__list-card" draggable="true" data-id="{{task.id}}" userID="{{user.id}}" userName="{{user.name}}">
@@ -60,7 +60,7 @@
                     <table>
                         <tr><th>On.</th><th>Name</th><th>Description</th></tr>
                     </table>
-                    <div class="task__list" id="ongoing"><!--think about colors based on category-->
+                    <div class="task__list height" id="ongoing"><!--think about colors based on category-->
                         {% for task in tasks %}
                             {% if task.status == "ongoing" %}
                                 <div class="task__list-card" draggable="true" data-id="{{task.id}}" userID="{{user.id}}" userName="{{user.name}}">
@@ -83,7 +83,7 @@
                     <table>
                         <tr><th>On.</th><th>Name</th><th>Description</th></tr>
                     </table>
-                    <div class="task__list" id="complete"><!--think about colors based on category-->
+                    <div class="task__list height" id="complete"><!--think about colors based on category-->
                         {% for task in tasks %}
                             {% if task.status == "done" %}
                                 <div class="task__list-card" draggable="true" data-id="{{task.id}}" userID="{{user.id}}" userName="{{user.name}}">

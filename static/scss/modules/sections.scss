@@ -39,7 +39,6 @@ section>.task, section>.pet, section>.new, section>.ongoing, section>.complete{
     &__list{
         display: flex;
         flex-direction: column;
-        height: 500px;
 
         &-card{
             display: inline-block;
@@ -49,15 +48,17 @@ section>.task, section>.pet, section>.new, section>.ongoing, section>.complete{
             border-radius: 15px;
             position: relative;
             margin: 4px 0px 4px 0px;
+            text-align: center;
 
             .hover-desc{
                 display: none;
                 position: absolute;
                 top: 100%;
                 left: 0;
-                background-color: $fourColor;
+                background-color: $fifthColor;
                 color: $fontColor;
                 padding: 8px 12px;
+                border: 3px solid black;
                 border-radius: 8px;
                 white-space: nowrap;
                 z-index: 10;
@@ -84,6 +85,9 @@ section>.task, section>.pet, section>.new, section>.ongoing, section>.complete{
             scale: 0.7;
         }
     }
+}
+.height{
+    height: 500px;
 }
 
 .pet{

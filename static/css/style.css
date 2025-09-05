@@ -158,7 +158,6 @@ section > .task, section > .pet, section > .new, section > .ongoing, section > .
 .task__list {
   display: flex;
   flex-direction: column;
-  height: 500px;
 }
 .task__list-card {
   display: inline-block;
@@ -168,15 +167,17 @@ section > .task, section > .pet, section > .new, section > .ongoing, section > .
   border-radius: 15px;
   position: relative;
   margin: 4px 0px 4px 0px;
+  text-align: center;
 }
 .task__list-card .hover-desc {
   display: none;
   position: absolute;
   top: 100%;
   left: 0;
-  background-color: #5e5e5e;
+  background-color: #858585;
   color: #f0f3f4;
   padding: 8px 12px;
+  border: 3px solid black;
   border-radius: 8px;
   white-space: nowrap;
   z-index: 10;
@@ -198,6 +199,10 @@ section > .task, section > .pet, section > .new, section > .ongoing, section > .
   content: url("../img/planning.png")/"Manage";
   margin: 0px 2px 0px 0px;
   scale: 0.7;
+}
+
+.height {
+  height: 500px;
 }
 
 .pet {
