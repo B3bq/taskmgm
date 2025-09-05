@@ -62,10 +62,37 @@
                     <button><span>FEED</span><span>20</span></button>
                 </form>
             </section>
-            <section>
+            <section class="shop">
                 <header>
-                    <h1>Choose</h1>
+                    <h1>SHOP</h1>
                 </header>
+                <section class="shop__options">
+                    <h3>Buy new pet</h3>
+                    <section class="shop__options-pets">
+                        <figure>
+                            <img src="{{url_for('static', filename='img/pet/panda.png')}}" alt="pet1">
+                        </figure>
+                        <figure data-diag="COMING SOON">
+                            <img src="{{url_for('static', filename='img/pet/kitty.png')}}" alt="pet2">
+                        </figure>
+                        <figure data-diag="COMING SOON">
+                            <img src="{{url_for('static', filename='img/pet/animal.png')}}" alt="pet3">
+                        </figure>
+                    </section>
+                    <h3>Buy delete</h3>
+                    <p>You can delete every task you want, but you have to pay 40 coins</p>
+                    <section class="shop__options-delete">
+                        <form action="">
+                            <select name="" id="">
+                                <option selected disabled hidden>Task</option>
+                                {% for task in tasks %}
+                                    <option value="{{ task.name }}">{{ task.name }} {{ task.repeatability }}</option>
+                                {% endfor %}
+                            </select>
+                            <input type="submit" value="Delete" class="btn_delete">
+                        </form>
+                    </section>
+                </section>
             </section>
         </section>
     </section>

@@ -124,6 +124,10 @@ input {
   border-radius: 10px;
 }
 
+button, input[type=submit] {
+  cursor: pointer;
+}
+
 .main {
   display: flex;
   flex-direction: column;
@@ -146,6 +150,13 @@ section > .task, section > .pet, section > .new, section > .ongoing, section > .
   margin: 0px 50px 0px 50px;
 }
 
+section > .shop {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0px 50px 0px 50px;
+}
+
 .task section, .new section, .ongoing section, .complete section {
   flex-direction: column;
   width: 100%;
@@ -154,6 +165,8 @@ section > .task, section > .pet, section > .new, section > .ongoing, section > .
 
 .task h1 {
   font-size: 2rem;
+  width: 200px;
+  text-align: center;
 }
 .task__list {
   display: flex;
@@ -168,6 +181,7 @@ section > .task, section > .pet, section > .new, section > .ongoing, section > .
   position: relative;
   margin: 4px 0px 4px 0px;
   text-align: center;
+  cursor: grab;
 }
 .task__list-card .hover-desc {
   display: none;
@@ -219,6 +233,7 @@ section > .task, section > .pet, section > .new, section > .ongoing, section > .
   align-items: center;
   padding: 10px;
   border-radius: 15px;
+  margin-bottom: 25px;
 }
 .pet button span:nth-child(2) {
   margin: 0px 0px 0px 20px;
@@ -287,6 +302,50 @@ section > .task, section > .pet, section > .new, section > .ongoing, section > .
 
 .pet::after {
   right: -10px;
+}
+
+.shop h1 {
+  font-size: 2rem;
+}
+.shop__options {
+  display: flex;
+  flex-direction: column !important;
+}
+.shop__options-pets {
+  display: flex;
+  flex-direction: row;
+  justify-self: flex-start;
+  padding: 0 !important;
+}
+.shop__options-pets img {
+  display: block;
+  width: 64px;
+  height: auto;
+  border: 3px solid #858585;
+  border-radius: 15px;
+}
+.shop__options-pets figure {
+  margin: 5px;
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+}
+.shop__options-pets figure:first-child:hover {
+  cursor: pointer;
+}
+.shop__options-pets figure:nth-child(2), .shop__options-pets figure:nth-child(3) {
+  cursor: not-allowed;
+}
+.shop__options-pets figure:nth-child(2)::after, .shop__options-pets figure:nth-child(3)::after {
+  content: attr(data-diag);
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) rotate(-45deg);
+  transform-origin: center;
+  white-space: nowrap;
+  width: 140%;
+  text-align: center;
 }
 
 .new > header {

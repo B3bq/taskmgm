@@ -22,6 +22,12 @@ section>.task, section>.pet, section>.new, section>.ongoing, section>.complete{
     align-items: center;
     margin: 0px 50px 0px 50px;
 }
+section>.shop{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0px 50px 0px 50px;
+}
 
 .task, .new, .ongoing, .complete{
     section{
@@ -34,6 +40,8 @@ section>.task, section>.pet, section>.new, section>.ongoing, section>.complete{
 .task{
     h1{
         font-size: 2rem;
+        width: 200px;
+        text-align: center;
     }
 
     &__list{
@@ -49,6 +57,7 @@ section>.task, section>.pet, section>.new, section>.ongoing, section>.complete{
             position: relative;
             margin: 4px 0px 4px 0px;
             text-align: center;
+            cursor: grab;
 
             .hover-desc{
                 display: none;
@@ -106,6 +115,7 @@ section>.task, section>.pet, section>.new, section>.ongoing, section>.complete{
         align-items: center;
         padding: 10px;
         border-radius: 15px;
+        margin-bottom: 25px;
 
         span:nth-child(2){
             margin: 0px 0px 0px 20px;
@@ -184,6 +194,59 @@ section>.task, section>.pet, section>.new, section>.ongoing, section>.complete{
 }
 .pet::after{
     right: -10px;
+}
+
+.shop{
+    h1{
+        font-size: 2rem;
+    }
+
+   
+
+    &__options{
+        display: flex;
+        flex-direction: column !important;
+
+        &-pets{
+            display: flex;
+            flex-direction: row;
+            justify-self: flex-start;
+            padding: 0 !important;
+
+            img{
+                display: block;
+                width: 64px;
+                height: auto;
+                border: 3px solid $fifthColor;
+                border-radius: 15px;
+            }
+
+            figure{
+                margin: 5px;
+                position: relative;
+                display: inline-block;
+                overflow: hidden;
+                &:first-child:hover{
+                    cursor: pointer;
+                }
+                
+                &:nth-child(2), &:nth-child(3){
+                    cursor: not-allowed;
+                    &::after{
+                        content: attr(data-diag);
+                        position: absolute;
+                        left: 50%;
+                        top: 50%;
+                        transform: translate(-50%, -50%) rotate(-45deg);
+                        transform-origin: center;
+                        white-space: nowrap;
+                        width: 140%;
+                        text-align: center;
+                    }
+                }
+            }
+        }
+    }
 }
 
 .new>header{
