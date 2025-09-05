@@ -1,6 +1,6 @@
 from flask import Flask, redirect, url_for, request, render_template, jsonify
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import and_
+from sqlalchemy import and_, func
 import os, bcrypt, random
 from datetime import datetime, timedelta
 from dotenv import load_dotenv
@@ -57,6 +57,7 @@ class Pet(db.Model):
     pet = db.Column(db.String(50), server_default='panda')
     name = db.Column(db.String(50), nullable=False, server_default='Ryszard')
     feed = db.Column(db.Integer, nullable=False, server_default="100")
+    feed_time = db.Column(db.DateTime, nullable=False, server_default=func.now())
 
 # create table in base
 with app.app_context():
@@ -65,10 +66,26 @@ with app.app_context():
 
 with app.app_context():
     pets = Pet.query.all()
+    tasks = Tasks.query.all()
+
+    today = datetime.today().date()
+
+    for task in tasks:
+        if task.repeatability == "daily":
+            task.start_date = today
+            task.end_date = today + timedelta(days=1)
+            task.status = "new"
+        elif task.repeatability == "weekly":
+            while task.end_date < today:
+                task.start_date += timedelta(days=7)
+                task.end_date += timedelta(days=7)
+                task.status = "new"
 
     for pet in pets:
         if pet.feed > 0:
-            pet.feed -= 20
+            hours_passed = (datetime.now() - pet.feed_time).total_seconds() // 3600
+            feed_loss = int(hours_passed*5)
+            pet.feed = max(0, pet.feed - feed_loss)
         else:
             pet.feed = 0
 
@@ -127,11 +144,12 @@ def main(user):
 
 @app.route('/increase/<user>/<int:user_coins>/<int:pet_id>', methods=['POST'])
 def increase_feed(user, user_coins, pet_id):
-    if user_coins > 0:    
-        pet = Pet.query.get_or_404(pet_id)
-        user_data = Users.query.filter(Users.name == user).first()
+    pet = Pet.query.get_or_404(pet_id)
+    user_data = Users.query.filter(Users.name == user).first()
+    if user_coins > 0 and pet.feed < 100:    
         pet.feed += 20
         user_data.coins -= 20
+        pet.feed_time = datetime.now()
         db.session.commit()
     return redirect(url_for("main", user=user))
 
@@ -145,9 +163,10 @@ def update_name(user, pet_id):
 
 @app.route('/tasks/<user>')
 def tasks(user):
+    today = datetime.today().date()
     user_data = Users.query.filter(Users.name == user).first()
 
-    tasks = user_data.tasks 
+    tasks = Tasks.query.filter(Tasks.user_id == user_data.id, Tasks.start_date <= today, Tasks.end_date >= today).all()
 
     return render_template('tasks.html', user=user_data, tasks=tasks)
 

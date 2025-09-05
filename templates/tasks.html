@@ -90,6 +90,9 @@
                                     <h2>{{ loop.index }}</h2>
                                     <h3>{{task.name}}</h3>
                                     <p>{{task.description}}</p>
+                                    {% if task.status == "done" %}
+                                        <img src="{{url_for('static', filename='img/delete.png')}}" alt="bin" class="bins">
+                                    {% endif %}
                                 </div>
                             {% endif %}
                         {% else %}
