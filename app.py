@@ -201,11 +201,15 @@ def delete_task():
     data = request.get_json()
     task_id = data.get("id")
     user = data.get("userName")
+    link = data.get("from")
 
     task = Tasks.query.get_or_404(task_id)
     db.session.delete(task)
     db.session.commit()
-    return jsonify({"success": True, "redirect": url_for("tasks", user=user)})
+    if link == "tasks":
+        return jsonify({"success": True, "redirect": url_for("tasks", user=user)})
+    else:
+        return jsonify({"success": True, "redirect": url_for("all_tasks", user=user)})
 
 @app.route('/task/<user>')
 def task(user):

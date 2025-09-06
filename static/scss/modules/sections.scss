@@ -395,9 +395,16 @@ section>.shop{
 .taskTable{
     text-align: center;
 
+    tbody{
+        display: flex;
+        flex-direction: column;
+    }
+
     tr{
         height: 50px;
         margin: 5px 0px;
+        cursor: auto;
+        align-content: center;
     }
     td{
         padding: 3px;
@@ -406,4 +413,7 @@ section>.shop{
     tr > td:first-child{
         border-right: 1px solid $fontColor;
     }
+}
+.bins{
+    cursor: pointer;
 }

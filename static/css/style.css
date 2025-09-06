@@ -480,15 +480,25 @@ section > .shop {
 .taskTable {
   text-align: center;
 }
+.taskTable tbody {
+  display: flex;
+  flex-direction: column;
+}
 .taskTable tr {
   height: 50px;
   margin: 5px 0px;
+  cursor: auto;
+  align-content: center;
 }
 .taskTable td {
   padding: 3px;
 }
 .taskTable tr > td:first-child {
   border-right: 1px solid #f0f3f4;
+}
+
+.bins {
+  cursor: pointer;
 }
 
 /*# sourceMappingURL=style.css.map */

@@ -6,7 +6,7 @@
     <title>Task mgm</title>
     <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
     <script src="{{url_for('static', filename='js/script.js')}}" defer></script>
-    <script src="{{url_for('static', filename='js/functions.js')}}"></script>
+    <script src="{{url_for('static', filename='js/drag&drop.js')}}" defer></script>
 </head>
 <body>
     <header>
@@ -26,12 +26,9 @@
     <section class="main">
         <section>
            <table class="taskTable">
-                <thead>
-                    <tr><th>On.</th><th>Name</th><th>Description</th><th>Repeat</th></tr>
-                </thead>
-                <tbody>
+                <tr><th>On.</th><th>Name</th><th>Description</th><th>Repeat</th></tr>
                     {% for task in tasks %}
-                        <tr>
+                        <tr class="task__list-card" data-id="{{task.id}}" userName="{{user.name}}" from="user_tasks">
                             <td>{{ loop.index }}</td>
                             <td>{{ task.name }}</td>
                             <td>{{ task.description }}</td>
@@ -46,14 +43,13 @@
                             </td>
                             <td>
                                 {% if task.category not in ["critical", "important"] and task.repeatability not in ["daily"] %}
-                                <img src="{{url_for('static', filename='img/delete.png')}}" alt="bin" class="bins">
+                                    <img src="{{url_for('static', filename='img/delete.png')}}" alt="bin" class="bins">
                                 {% endif %}
                             </td>
                         </tr>
                     {% else %}
                         <tr><td rowspan="4">Not tasks yet</td></tr>
                     {% endfor %}
-                </tbody>
            </table>
         </section>
     </section>
