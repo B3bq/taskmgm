@@ -161,6 +161,13 @@ def update_name(user, pet_id):
     db.session.commit()
     return redirect(url_for('main', user=user))
 
+@app.route('/all_tasks/<user>')
+def all_tasks(user):
+    user_data = Users.query.filter(Users.name == user).first()
+    tasks = user_data.tasks
+
+    return render_template('user_tasks.html', tasks=tasks, user=user_data)
+
 @app.route('/tasks/<user>')
 def tasks(user):
     today = datetime.today().date()

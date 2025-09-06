@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task mgm</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+    <script src="{{url_for('static', filename='js/script.js')}}" defer></script>
+    <script src="{{url_for('static', filename='js/functions.js')}}"></script>
+</head>
+<body>
+    <header>
+        <h3>{{user.coins}}</h3>
+        <img src="{{url_for('static', filename='img/money.png')}}" alt="money">
+        <nav>    
+            <button id="js-toggle-menu">
+                <img src="{{url_for('static', filename='img/account.png')}}" alt="account">
+            </button>
+            <ul id="js-toggleable-menu">
+                <li><a href="">Account</a></li>
+                <li><a href="/main/{{user.name}}">Main Page</a></li>
+                <li><a href="/">Log out</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section class="main">
+        <section>
+           <table class="taskTable">
+                <thead>
+                    <tr><th>On.</th><th>Name</th><th>Description</th><th>Repeat</th></tr>
+                </thead>
+                <tbody>
+                    {% for task in tasks %}
+                        <tr>
+                            <td>{{ loop.index }}</td>
+                            <td>{{ task.name }}</td>
+                            <td>{{ task.description }}</td>
+                            <td>
+                                {% if task.repeatability == "range" %}
+                                    {{ task.start_date }} - {{ task.end_date }}
+                                {% elif task.repeatability == "weekly" %}
+                                    {{ task.repeatability }} {{ task.start_date.strftime("%A") }}
+                                {% else %}
+                                    {{ task.repeatability }}
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if task.category not in ["critical", "important"] and task.repeatability not in ["daily"] %}
+                                <img src="{{url_for('static', filename='img/delete.png')}}" alt="bin" class="bins">
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr><td rowspan="4">Not tasks yet</td></tr>
+                    {% endfor %}
+                </tbody>
+           </table>
+        </section>
+    </section>
+</body>
+</html>
