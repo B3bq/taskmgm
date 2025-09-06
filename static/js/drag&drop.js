@@ -68,13 +68,14 @@ bins.forEach(bin =>{
         let selected = e.target.closest(".task__list-card");
         const id = selected.getAttribute("data-id");
         const userName = selected.getAttribute("userName");
+        const from = selected.getAttribute('from')
 
         fetch("/delete_task", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({ id: id, userName: userName }),
+            body: JSON.stringify({ id: id, userName: userName, from: from }),
         }).then(response => response.json())
           .then(data => {
             if(data.success){

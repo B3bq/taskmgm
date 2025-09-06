@@ -161,6 +161,13 @@ def update_name(user, pet_id):
     db.session.commit()
     return redirect(url_for('main', user=user))
 
+@app.route('/all_tasks/<user>')
+def all_tasks(user):
+    user_data = Users.query.filter(Users.name == user).first()
+    tasks = user_data.tasks
+
+    return render_template('user_tasks.html', tasks=tasks, user=user_data)
+
 @app.route('/tasks/<user>')
 def tasks(user):
     today = datetime.today().date()
@@ -194,11 +201,15 @@ def delete_task():
     data = request.get_json()
     task_id = data.get("id")
     user = data.get("userName")
+    link = data.get("from")
 
     task = Tasks.query.get_or_404(task_id)
     db.session.delete(task)
     db.session.commit()
-    return jsonify({"success": True, "redirect": url_for("tasks", user=user)})
+    if link == "tasks":
+        return jsonify({"success": True, "redirect": url_for("tasks", user=user)})
+    else:
+        return jsonify({"success": True, "redirect": url_for("all_tasks", user=user)})
 
 @app.route('/task/<user>')
 def task(user):

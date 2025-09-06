@@ -37,11 +37,11 @@
                     <div class="task__list height" id="new"><!--think about colors based on category-->
                         {% for task in tasks %}
                             {% if task.status == "new" %}
-                                <div class="task__list-card" draggable="true" data-id="{{task.id}}" userID="{{user.id}}" userName="{{user.name}}">
+                                <div class="task__list-card" draggable="true" data-id="{{task.id}}" userID="{{user.id}}" userName="{{user.name}}" from="tasks">
                                     <h2>{{ loop.index }}</h2>
                                     <h3>{{task.name}}</h3>
                                     <p>{{task.description}}</p>
-                                    {% if task.category not in ["critical", "important"] %}
+                                    {% if task.category not in ["critical", "important"] and task.repeatability not in ["daily"] %}
                                         <img src="{{url_for('static', filename='img/delete.png')}}" alt="bin" class="bins">
                                     {% endif %}
                                 </div>
