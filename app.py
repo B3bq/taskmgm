@@ -119,7 +119,7 @@ def main(user):
 
         gif = Gifs.query.filter(
             and_(
-                Gifs.min < user_pet.feed,
+                Gifs.min <= user_pet.feed,
                 Gifs.max >= user_pet.feed,
                 Gifs.pet == user_pet.pet
             )
