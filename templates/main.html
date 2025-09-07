@@ -87,7 +87,7 @@
                             <select name="delete" id="">
                                 <option selected disabled hidden>Task</option>
                                 {% for task in tasks %}
-                                    <option value="{{ task.id }}">{{ task.name }} {{ task.repeatability }}</option>
+                                    <option value="{{ task.id }}">{{ task.name }} | {{ task.repeatability }}</option>
                                 {% endfor %}
                             </select>
                             <button type="submit"><span>DELETE</span><span>40</span></button>
