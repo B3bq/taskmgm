@@ -233,7 +233,6 @@ section > .shop {
   align-items: center;
   padding: 10px;
   border-radius: 15px;
-  margin-bottom: 25px;
 }
 .pet button span:nth-child(2) {
   margin: 0px 0px 0px 20px;
@@ -346,6 +345,49 @@ section > .shop {
   white-space: nowrap;
   width: 140%;
   text-align: center;
+}
+.shop__options #special::before {
+  display: block;
+  position: relative;
+  content: "";
+  background: #f0f3f4;
+  height: 2px;
+  left: -50px;
+  width: 125%;
+  margin: 0px 0px 20px 0px;
+}
+.shop__options-delete {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+}
+.shop__options-delete form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+}
+.shop__options-delete form select {
+  text-align: center;
+  height: 35px;
+  font-size: 1.25rem;
+  border-radius: 15px;
+}
+.shop__options-delete form button {
+  display: inline-flex;
+  align-items: center;
+  padding: 10px;
+  margin: 10px 0px;
+  border-radius: 15px;
+}
+.shop__options-delete form button span:last-child {
+  margin: 0px 0px 0px 20px;
+}
+.shop__options-delete form button::after {
+  display: inline-block;
+  vertical-align: middle;
+  content: url("../img/coin.png")/"Coin";
 }
 
 .new > header {

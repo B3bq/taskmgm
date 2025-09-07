@@ -80,17 +80,17 @@
                             <img src="{{url_for('static', filename='img/pet/animal.png')}}" alt="pet3">
                         </figure>
                     </section>
-                    <h3>Buy delete</h3>
+                    <h3 id="special">Buy delete</h3>
                     <p>You can delete every task you want, but you have to pay 40 coins</p>
                     <section class="shop__options-delete">
-                        <form action="">
-                            <select name="" id="">
+                        <form action="{{url_for('delete', user=user.name)}}" method="POST">
+                            <select name="delete" id="">
                                 <option selected disabled hidden>Task</option>
                                 {% for task in tasks %}
-                                    <option value="{{ task.name }}">{{ task.name }} {{ task.repeatability }}</option>
+                                    <option value="{{ task.id }}">{{ task.name }} {{ task.repeatability }}</option>
                                 {% endfor %}
                             </select>
-                            <input type="submit" value="Delete" class="btn_delete">
+                            <button type="submit"><span>DELETE</span><span>40</span></button>
                         </form>
                     </section>
                 </section>
