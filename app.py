@@ -211,6 +211,20 @@ def delete_task():
     else:
         return jsonify({"success": True, "redirect": url_for("all_tasks", user=user)})
 
+@app.route('/delete/<user>', methods=["POST"])
+def delete(user):
+    task_id = request.form['delete']
+
+    user_data = Users.query.filter(Users.name == user).first()
+    task = Tasks.query.get_or_404(task_id)
+
+    if user_data.coins >= 40:
+        user_data.coins -= 40
+        db.session.delete(task)
+        db.session.commit()
+
+    return redirect(url_for('main', user=user))
+
 @app.route('/task/<user>')
 def task(user):
     user_data = Users.query.filter(Users.name == user).first()
