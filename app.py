@@ -22,12 +22,12 @@ db = SQLAlchemy(app)
 class Users(db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(50), nullable=False)
+    name = db.Column(db.String(50), unique=True, nullable=False)
     email = db.Column(db.String(50), nullable=False)
     password = db.Column(db.String(100), nullable=False)
     coins = db.Column(db.Integer, nullable=False, server_default="0")
-    pet = db.relationship("Pet", backref="owner")
-    tasks = db.relationship("Tasks", backref="owner")
+    pet = db.relationship("Pet", backref="owner", cascade="all, delete-orphan")
+    tasks = db.relationship("Tasks", backref="owner", cascade="all, delete-orphan")
 
 class Tasks(db.Model):
     __tablename__ = 'tasks'
@@ -49,7 +49,7 @@ class Gifs(db.Model):
     max = db.Column(db.Integer, nullable=False)
     gif_url = db.Column(db.String(255), nullable=False)
     pet = db.Column(db.String(50), nullable=False)
-    pets = db.relationship("Pet", backref="gif")
+    pets = db.relationship("Pet", backref="gif", cascade="all, delete-orphan")
 
 class Pet(db.Model):
     __tablename__ = 'pet'
@@ -166,6 +166,77 @@ def update_name(user, pet_id):
     pet.name = new_name
     db.session.commit()
     return redirect(url_for('main', user=user))
+
+# user data updates
+@app.route('/user_name/<int:user_id>', methods=["POST"])
+def user_name(user_id):
+    user_data = Users.query.get_or_404(user_id)
+
+    new_name = request.form['new_name'].strip()
+
+    users = Users.query.filter(Users.name == new_name).first()
+
+    if users and users.id != user_data.id:
+        return render_template('account.html', user=user_data, name="Name is taken")
+    else:
+        user_data.name = new_name
+        db.session.commit()
+
+        user_data = Users.query.filter(Users.name == new_name).first()
+
+        return redirect(url_for('account', user=user_data.name))
+
+@app.route('/update_mail/<user>', methods=["POST"])
+def update_mail(user):
+    user_data = Users.query.filter(Users.name == user).first()
+    new_mail = request.form['mail']
+
+    pattern = r"^[\w\.-]+@[\w\.-]+\.\w+$"
+
+    if re.match(pattern, new_mail):
+        code = random.randrange(1000, 9999)
+        print(user_data.name)
+
+        session['code'] = code
+        session['from'] = "account"
+        session['username'] = user_data.name
+        session['mail'] = new_mail
+
+        sent = mail_sent(new_mail, code)
+
+        if sent:
+            return render_template("code.html")
+        else:
+            return render_template("account.html", user=user_data, mail="Something wrong")
+    else:
+        return render_template("account.html", user=user_data, mail="Incorrect e-mail")
+
+@app.route('/update_pass/<user>', methods=["POST"])
+def update_pass(user):
+    user_data = Users.query.filter(Users.name == user).first()
+
+    password = request.form['pass']
+    rpassword = request.form['repass']
+
+    if password == rpassword:
+        hashed = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
+        hashed_str = hashed.decode('utf-8')
+        user_data.password = hashed_str
+        db.session.commit()
+
+        user_data = Users.query.filter(Users.name == user).first()
+
+        return render_template('account.html', user=user_data, passw="Password changed")
+    else:
+        return render_template('account.html', user=user_data, passw="Password are not the same")
+
+@app.route('/delete_user/<int:user_id>')
+def delete_user(user_id):
+    user_data = Users.query.get_or_404(user_id)
+
+    db.session.delete(user_data)
+    db.session.commit()
+    return redirect(url_for('index'))
 
 @app.route('/all_tasks/<user>')
 def all_tasks(user):
@@ -287,9 +358,8 @@ def add_task(user_id, user):
     return redirect(url_for('tasks', user=user))
 
 
-@app.route('/login', methods=['GET', 'POST'])
+@app.route('/login', methods=['POST'])
 def login():
-    if request.method == 'POST':
         user = request.form['nm']
         password = request.form['password']
 
@@ -301,11 +371,7 @@ def login():
         if user == db_name and bcrypt.checkpw(password.encode('utf-8'), db_pass.encode('utf-8')):
             return redirect(url_for('main', user=user))
         else:
-            return redirect(url_for('login'))
-    else:
-        print('te czesc')
-        user = request.args.get('nm')
-        return redirect(url_for('success', name=user))
+            return redirect(url_for('index'))
 
 @app.route('/form')
 def sign():
@@ -334,6 +400,7 @@ def insert():
                 session['mail'] = mail
                 session['pass'] = hashed_str
                 session['code'] = code
+                session['from'] = "sign"
 
                 if sent:
                     return render_template('code.html')
@@ -354,16 +421,26 @@ def verification():
     data = request.get_json()
     user_code = data.get('userCode')
     user = session['username']
+    print(user)
 
-    if int(user_code) == session['code']:
-        with app.app_context():
-            new_user = Users(name=session['username'], email=session['mail'], password=session['pass'])
-            db.session.add(new_user)
-            db.session.commit()
+    if session['from'] == "sign":
+        if int(user_code) == session['code']:
+            with app.app_context():
+                new_user = Users(name=session['username'], email=session['mail'], password=session['pass'])
+                db.session.add(new_user)
+                db.session.commit()
 
-        return jsonify({"success": True, "redirect": url_for("main", user=user)})
+            return jsonify({"success": True, "redirect": url_for("main", user=user)})
+        else:
+            return jsonify({"success": False, "error": "Incorrect code"})
     else:
-        return jsonify({"success": False, "error": "Incorrect code"})
+        if int(user_code) == session['code']:
+            user_data = Users.query.filter(Users.name == session['userName']).first()
+            user_data.email = session['mail']
+            db.session.commit()
+            return jsonify({"success": True, "redirect": url_for("account", user=user)})
+        else:
+            return jsonify({"success": False, "error": "Incorrect code"})
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -30,14 +30,17 @@
                 <img src="{{url_for('static', filename='img/pencil.png')}}" alt="pen" id="edit" onclick="enableEditing()" class="pen">
                 <div class="buttons" id="buttons">    
                     <button onclick="resetValue()" class="pet__btn-btn" id="cancel"><img src="{{url_for('static', filename='img/cancel.png')}}" alt="cancel"></button>
-                    <form action="" method="post">
+                    <form action="{{url_for('user_name', user_id=user.id)}}" method="post">
                         <input type="hidden" name="new_name" id="hiddenName">
                         <button class="pet__btn-btn" id="confirm">
                             <img src="{{url_for('static', filename='img/check.png')}}" alt="confirm">
                         </button>
                     </form>
                 </div>
-                <form action="" method="post" class="forms">
+                {% if name != '' %}
+                    <p>{{name}}</p>
+                {% endif %}
+                <form action="{{url_for('update_mail', user=user.name)}}" method="post" class="forms">
                     <div class="forms__first">    
                         <input type="email" name="mail" id="mail" disabled value="{{user.email}}">
                         <img src="{{url_for('static', filename='img/pencil.png')}}" alt="pen" id="edit2" onclick="inputEdit('mail', 'btns', 'edit2')" class="forms__first-pen">
@@ -47,7 +50,10 @@
                         <input type="submit" value="✅">
                     </div>
                 </form>
-                <form action="" method="post" class="forms">
+                {% if mail != '' %}
+                    <p>{{mail}}</p>
+                {% endif %}
+                <form action="{{url_for('update_pass', user=user.name)}}" method="post" class="forms">
                     <div class="forms__first">    
                         <input type="password" name="pass" id="pass" disabled value="password">
                         <img src="{{url_for('static', filename='img/pencil.png')}}" alt="pen" id="edit3" onclick="inputEdit('pass', 'btns2', 'edit3')" class="forms__first-pen">
@@ -58,7 +64,10 @@
                         <input type="submit" value="✅">
                     </div>
                 </form>
-                <a href="" class="specialDelete"><button>DELETE ACCOUNT</button></a>
+                {% if passw != '' %}
+                    <p>{{passw}}</p>
+                {% endif %}
+                <a href="/delete_user/{{user.id}}" class="specialDelete"><button>DELETE ACCOUNT</button></a>
             </section>
         </section>
    </body>
