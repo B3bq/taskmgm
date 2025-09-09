@@ -9,14 +9,14 @@ load_dotenv()  # ładowanie zmiennych z pliku .env
 
 app = Flask(__name__)
 
-# konfiguracja bazy
+# database config
 app.config['SQLALCHEMY_DATABASE_URI'] = (
     f"postgresql://{os.getenv('DB_USER')}:{os.getenv('DB_PASSWORD')}"
     f"@{os.getenv('DB_HOST')}:{os.getenv('DB_PORT')}/{os.getenv('DB_NAME')}"
 )
 db = SQLAlchemy(app)
 
-# model ORM
+# models ORM
 class Users(db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
@@ -63,7 +63,7 @@ class Pet(db.Model):
 with app.app_context():
     db.create_all()
 
-
+# simple updates in each app run
 with app.app_context():
     pets = Pet.query.all()
     tasks = Tasks.query.all()
@@ -91,11 +91,12 @@ with app.app_context():
 
     db.session.commit()
 
-# main page
+# log in page as index
 @app.route('/')
 def index():
     return render_template('index.html')
 
+# main page for user
 @app.route('/main/<user>')
 def main(user):
     with app.app_context():
@@ -137,8 +138,6 @@ def main(user):
             src = 'img/pet/4bamboo.png'
         else:
             src = 'img/pet/5bamboo.png'
-
-        
 
     return render_template('main.html', tasks=tasks, user_pet=user_pet, gif=gif, user=user_data, src=src)
 
@@ -196,6 +195,7 @@ def update_status():
         return jsonify({"success": True, "id": task.id, "status": task.status})
     return jsonify({"success": False, "error": "Task not found"}), 404
 
+# Deleting task, first in all tasks and tasks page, second from shop
 @app.route('/delete_task', methods=["POST"])
 def delete_task():
     data = request.get_json()
@@ -253,7 +253,7 @@ def add_task(user_id, user):
     
             if ' - ' in date_str:
                 start_str, end_str = date_str.split(' - ')
-            elif '-' in date_str:  # fallback na samą jedną datę
+            elif '-' in date_str:  # fallback on only one date
                 start_str = end_str = date_str
             else:
                 raise ValueError(f"Unexpected date format: {date_str}")
@@ -279,9 +279,6 @@ def add_task(user_id, user):
 
     return redirect(url_for('tasks', user=user))
 
-@app.route('/success/<name>')
-def success(name):
-    return f'siema {name}'
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
