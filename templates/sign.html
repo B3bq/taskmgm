@@ -17,6 +17,9 @@
                 <input type="password" name="re_password" placeholder="Reapet password">
                 <input type="submit" value="Submit">
             </form>
+            {% if text != '' %}
+                <p>{{ text }}</p>
+            {% endif %}
         </section>
     </section>
 </body>

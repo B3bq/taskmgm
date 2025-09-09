@@ -1,13 +1,15 @@
-from flask import Flask, redirect, url_for, request, render_template, jsonify
+from flask import Flask, session, redirect, url_for, request, render_template, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import and_, func
-import os, bcrypt, random
+import os, bcrypt, random, re
 from datetime import datetime, timedelta
 from dotenv import load_dotenv
+from mail import mail_sent
 
 load_dotenv()  # ładowanie zmiennych z pliku .env
 
 app = Flask(__name__)
+app.secret_key = "1234"
 
 # database config
 app.config['SQLALCHEMY_DATABASE_URI'] = (
@@ -312,20 +314,51 @@ def insert():
         password = request.form['password']
         rpassword = request.form['re_password']
 
-        if password == rpassword:
-            hashed = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
-            hashed_str = hashed.decode('utf-8')
-            with app.app_context():
-                new_user = Users(name=user, email=mail, password=hashed_str)
-                db.session.add(new_user)
-                db.session.commit()
-                
-                return "<p>Added user</p><a href='/'><button>Back</button></a>"
+        pattern = r"^[\w\.-]+@[\w\.-]+\.\w+$"
+
+        if re.match(pattern, mail):
+            if password == rpassword:
+                hashed = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
+                hashed_str = hashed.decode('utf-8')
+
+                code = random.randrange(1000, 9999)
+                sent = mail_sent(mail=mail, code=code)
+
+                # seve in session            
+                session['username'] = user
+                session['mail'] = mail
+                session['pass'] = hashed_str
+                session['code'] = code
+
+                if sent:
+                    return render_template('code.html')
+                else:
+                    text = "Something wrong"
+                    return render_template('sign.html', text=text)
+            else:
+                text = "Passwords are not the same"
+                return render_template('sign.html', text=text)
         else:
-            print('nie zgadza sie')
-            return render_template('sign.html')
+            text = "Mail is not correct"
+            return render_template('sign.html', text=text)
     else:
         return "nic"
+    
+@app.route("/verification", methods=["POST"])
+def verification():
+    data = request.get_json()
+    user_code = data.get('userCode')
+    user = session['username']
+
+    if int(user_code) == session['code']:
+        with app.app_context():
+            new_user = Users(name=session['username'], email=session['mail'], password=session['pass'])
+            db.session.add(new_user)
+            db.session.commit()
+
+        return jsonify({"success": True, "redirect": url_for("main", user=user)})
+    else:
+        return jsonify({"success": False, "error": "Incorrect code"})
 
 if __name__ == "__main__":
     app.run(debug=True)

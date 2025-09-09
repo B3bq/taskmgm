@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task mgm</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+    <script src="{{url_for('static', filename='js/functions.js')}}"></script>
+    <script src="{{url_for('static', filename='js/code.js')}}" defer></script>
+</head>
+<html>
+   <body>
+      <section class="userForm">
+         <section>
+                <h1>Enter your verification code</h1>
+                <section class="verification" contenteditable="true" spellcheck="false">
+                    <input type="text" maxlength="1" class="code">
+                    <input type="text" maxlength="1" class="code">
+                    <input type="text" maxlength="1" class="code">
+                    <input type="text" maxlength="1" class="code">
+                </section>
+                <button onclick="takeCode()">Verify</button>
+                <p id="response" hidden></p>
+         </section>
+      </section>
+   </body>
+</html>
