@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task mgm</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+    <script src="{{url_for('static', filename='js/script.js')}}" defer></script>
+    <script src="{{url_for('static', filename='js/functions.js')}}"></script>
+</head>
+<html>
+   <body>
+        <header>
+            <h3>{{user.coins}}</h3>
+            <img src="{{url_for('static', filename='img/money.png')}}" alt="money">
+            <nav>    
+                <button id="js-toggle-menu">
+                    <img src="{{url_for('static', filename='img/account.png')}}" alt="account">
+                </button>
+                <ul id="js-toggleable-menu">
+                    <li><a href="/account/{{user.name}}">Account</a></li>
+                    <li><a href="/main/{{user.name}}">Main Page</a></li>
+                    <li><a href="/">Log out</a></li>
+                </ul>
+            </nav>
+        </header>
+        <section class="userForm">
+            <section>
+                <h1 id="userName">{{ user.name }}</h1>
+                <img src="{{url_for('static', filename='img/pencil.png')}}" alt="pen" id="edit" onclick="enableEditing()" class="pen">
+                <div class="buttons" id="buttons">    
+                    <button onclick="resetValue()" class="pet__btn-btn" id="cancel"><img src="{{url_for('static', filename='img/cancel.png')}}" alt="cancel"></button>
+                    <form action="" method="post">
+                        <input type="hidden" name="new_name" id="hiddenName">
+                        <button class="pet__btn-btn" id="confirm">
+                            <img src="{{url_for('static', filename='img/check.png')}}" alt="confirm">
+                        </button>
+                    </form>
+                </div>
+                <form action="" method="post" class="forms">
+                    <div class="forms__first">    
+                        <input type="email" name="mail" id="mail" disabled value="{{user.email}}">
+                        <img src="{{url_for('static', filename='img/pencil.png')}}" alt="pen" id="edit2" onclick="inputEdit('mail', 'btns', 'edit2')" class="forms__first-pen">
+                    </div>
+                    <div class="buttons" id="btns">
+                        <input type="reset" value="❌" onclick="defaultInput('mail', 'btns', 'edit2')">
+                        <input type="submit" value="✅">
+                    </div>
+                </form>
+                <form action="" method="post" class="forms">
+                    <div class="forms__first">    
+                        <input type="password" name="pass" id="pass" disabled value="password">
+                        <img src="{{url_for('static', filename='img/pencil.png')}}" alt="pen" id="edit3" onclick="inputEdit('pass', 'btns2', 'edit3')" class="forms__first-pen">
+                    </div>
+                    <input type="text" name="repass" id="repass" hidden>
+                    <div class="buttons" id="btns2">
+                        <input type="reset" value="❌" onclick="defaultInput('pass', 'btns2', 'edit3')">
+                        <input type="submit" value="✅">
+                    </div>
+                </form>
+                <a href="" class="specialDelete"><button>DELETE ACCOUNT</button></a>
+            </section>
+        </section>
+   </body>
+</html>

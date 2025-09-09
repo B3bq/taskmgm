@@ -15,6 +15,44 @@ function resetValue(){
     document.getElementById('edit').hidden = false;
 }
 
+function inputEdit(input, btns, edit){
+    input = document.getElementById(input);
+    const buttons = document.getElementById(btns);
+    const pen = document.getElementById(edit);
+    if(input.name == "mail"){
+        defaultValue = input.value;
+        input.disabled = false;
+        buttons.style.visibility = 'visible';
+        pen.hidden = true;
+    }else{
+        input.disabled = false;
+        input.value = '';
+        input.type = "text";
+        document.getElementById('repass').hidden = false;
+        buttons.style.visibility = 'visible';
+        pen.hidden = true;
+    }
+}
+
+function defaultInput(input, btns, edit){
+    input = document.getElementById(input);
+    const buttons = document.getElementById(btns);
+    const pen = document.getElementById(edit);
+    if(input.name == "mail"){
+        input.value = defaultValue;
+        input.disabled = true;
+        buttons.style.visibility = "hidden";
+        pen.hidden = false;
+    }else{
+        input.disabled = true;
+        input.type = "password";
+        document.getElementById('repass').value = '';
+        document.getElementById('repass').hidden = true;
+        buttons.style.visibility = "hidden";
+        pen.hidden = false;
+    }
+}
+
 function takeCode(){
     const code = document.querySelectorAll('.code');
     const response = document.getElementById('response');

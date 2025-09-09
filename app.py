@@ -98,6 +98,11 @@ with app.app_context():
 def index():
     return render_template('index.html')
 
+@app.route('/account/<user>')
+def account(user):
+    user_data = Users.query.filter(Users.name == user).first()
+    return render_template("account.html", user=user_data)
+
 # main page for user
 @app.route('/main/<user>')
 def main(user):

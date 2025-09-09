@@ -17,7 +17,7 @@
                 <img src="{{url_for('static', filename='img/account.png')}}" alt="account">
             </button>
             <ul id="js-toggleable-menu">
-                <li><a href="">Account</a></li>
+                <li><a href="/account/{{user.name}}">Account</a></li>
                 <li><a href="/main/{{user.name}}">Main Page</a></li>
                 <li><a href="/">Log out</a></li>
             </ul>
