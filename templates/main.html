@@ -32,7 +32,7 @@
                 <section>
                     <div class="task__list">
                         {% for task in tasks %}
-                            <div class="task__list-card">
+                            <div class="task__list-card" style="cursor: pointer;">
                                 <h3 class="hover-task">{{task.name}}</h3>
                                 <p class="hover-desc">{{task.description}}</p>
                             </div>
@@ -78,6 +78,53 @@
                         </figure>
                         <figure data-diag="COMING SOON">
                             <img src="{{url_for('static', filename='img/pet/animal.png')}}" alt="pet3">
+                        </figure>
+                    </section>
+                    <h3 id="special">Buy perks</h3>
+                    <section class="shop__options-perks">
+                        <figure>
+                            <img src="{{url_for('static', filename='img/poisonous.png')}}" alt="heal">
+                            <div class="desc">
+                                <h4>Instant health</h4>
+                                <p>This item will add 45 feed points</p>
+                                <div>
+                                    <h5>Cost</h5>
+                                    <p>70</p>
+                                </div>
+                            </div>
+                        </figure>
+                        <figure>
+                            <img src="{{url_for('static', filename='img/fire.png')}}" alt="">
+                            <div class="desc">
+                                <h4>Streak return</h4>
+                                <p>If you forgot make one task per day and lost your strak. You can buy it and resume your streak</p>
+                                <div>
+                                    <h5>Cost</h5>
+                                    <p>110</p>
+                                </div>
+                            </div>
+                        </figure>
+                        <figure>
+                            <img src="{{url_for('static', filename='img/apple.png')}}" alt="">
+                            <div class="desc">
+                                <h4>Golden apple</h4>
+                                <p>This item gives full feed</p>
+                                <div>
+                                    <h5>Cost</h5>
+                                    <p>90</p>
+                                </div>
+                            </div>
+                        </figure>
+                        <figure>
+                            <img src="{{url_for('static', filename='img/zeus.png')}}" alt="">
+                            <div class="desc">
+                                <h4>God hand</h4>
+                                <p>God hand gives full feed and resume your streak</p>
+                                <div>
+                                    <h5>Cost</h5>
+                                    <p>175</p>
+                                </div>
+                            </div>
                         </figure>
                     </section>
                     <h3 id="special">Buy delete</h3>

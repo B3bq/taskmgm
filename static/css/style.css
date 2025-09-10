@@ -265,6 +265,7 @@ section > .shop {
   position: relative;
   top: -24px;
   left: 58px;
+  cursor: pointer;
 }
 .pet__btn {
   display: flex;
@@ -351,6 +352,58 @@ section > .shop {
   white-space: nowrap;
   width: 140%;
   text-align: center;
+}
+.shop__options-perks {
+  display: flex;
+  flex-direction: row;
+  justify-self: flex-start;
+  padding: 0 !important;
+}
+.shop__options-perks img {
+  display: block;
+  width: 64px;
+  height: auto;
+  border: 3px solid #858585;
+  border-radius: 15px;
+  padding: 2px;
+}
+.shop__options-perks figure {
+  margin: 5px;
+  position: relative;
+  display: inline-block;
+  overflow: visible;
+  cursor: pointer;
+}
+.shop__options-perks figure .desc {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #858585;
+  color: #f0f3f4;
+  padding: 8px 12px;
+  border: 3px solid black;
+  border-radius: 8px;
+  white-space: nowrap;
+  z-index: 10;
+}
+.shop__options-perks figure .desc div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  float: right;
+}
+.shop__options-perks figure .desc div h5, .shop__options-perks figure .desc div p {
+  margin: 0;
+}
+.shop__options-perks figure .desc div p:after {
+  display: inline-block;
+  vertical-align: middle;
+  content: url("../img/coin.png")/"Coin";
+}
+.shop__options-perks figure:hover .desc {
+  display: block;
 }
 .shop__options #special::before {
   display: block;

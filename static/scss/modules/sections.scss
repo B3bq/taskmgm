@@ -146,6 +146,7 @@ section>.shop{
         position: relative;
         top: -24px;
         left: 58px;
+        cursor: pointer;
     }
 
     &__btn{
@@ -242,6 +243,65 @@ section>.shop{
                         width: 140%;
                         text-align: center;
                     }
+                }
+            }
+        }
+
+        &-perks{
+            display: flex;
+            flex-direction: row;
+            justify-self: flex-start;
+            padding: 0 !important;
+
+            img{
+                display: block;
+                width: 64px;
+                height: auto;
+                border: 3px solid $fifthColor;
+                border-radius: 15px;
+                padding: 2px;
+            }
+            figure{
+                margin: 5px;
+                position: relative;
+                display: inline-block;
+                overflow: visible;
+                cursor: pointer;
+
+                .desc{
+                    display: none;
+                    position: absolute;
+                    top: 100%;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    background-color: $fifthColor;
+                    color: $fontColor;
+                    padding: 8px 12px;
+                    border: 3px solid black;
+                    border-radius: 8px;
+                    white-space: nowrap;
+                    z-index: 10;
+        
+                    div{
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        float: right;
+
+                        h5, p{
+                            margin: 0;
+                        }
+
+                        p:after{
+                            display: inline-block;
+                            vertical-align: middle;
+                            content: url('../img/coin.png') / "Coin";
+                        }
+                    }
+                }
+
+                &:hover .desc{
+                    display: block;
                 }
             }
         }
