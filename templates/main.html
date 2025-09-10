@@ -17,7 +17,7 @@
                 <img src="{{url_for('static', filename='img/account.png')}}" alt="account">
             </button>
             <ul id="js-toggleable-menu">
-                <li><a href="">Account</a></li>
+                <li><a href="/account/{{user.name}}">Account</a></li>
                 <li><a href="/main/{{user.name}}">Main Page</a></li>
                 <li><a href="/">Log out</a></li>
             </ul>
@@ -50,10 +50,10 @@
                 <h2 id="userName">{{user_pet.name}}</h2>
                 <img src="{{url_for('static', filename='img/pencil.png')}}" alt="pen" id="edit" onclick="enableEditing()" class="pet-pen">
                 <div class="pet__btn" id="buttons">    
-                    <button onclick="resetValue()" class="pet__btn-btn" id="cancel" hidden><img src="{{url_for('static', filename='img/cancel.png')}}" alt="cancel"></button>
+                    <button onclick="resetValue()" class="pet__btn-btn" id="cancel"><img src="{{url_for('static', filename='img/cancel.png')}}" alt="cancel"></button>
                     <form action="{{url_for('update_name', user=user.name, pet_id=user_pet.id)}}" method="post">
                         <input type="hidden" name="new_name" id="hiddenName">
-                        <button class="pet__btn-btn" id="confirm" hidden>
+                        <button class="pet__btn-btn" id="confirm">
                             <img src="{{url_for('static', filename='img/check.png')}}" alt="confirm">
                         </button>
                     </form>

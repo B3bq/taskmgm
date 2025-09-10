@@ -552,4 +552,46 @@ section > .shop {
   font-size: 1.5rem;
 }
 
+.buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  visibility: hidden;
+}
+
+.pen {
+  position: relative;
+  cursor: pointer;
+  top: -40px;
+  left: 45px;
+}
+
+.forms {
+  display: flex;
+  flex-direction: column;
+}
+.forms__first {
+  display: flex;
+  flex-direction: row;
+}
+.forms__first-pen {
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+}
+
+.specialDelete {
+  text-decoration-style: none;
+}
+.specialDelete button {
+  background-color: #f51426;
+  color: #f0f3f4;
+}
+.specialDelete button:hover {
+  color: #141414;
+}
+.specialDelete::before {
+  display: none !important;
+}
+
 /*# sourceMappingURL=style.css.map */
