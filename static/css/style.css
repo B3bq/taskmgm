@@ -64,6 +64,12 @@ body > header {
   align-items: center;
   flex-wrap: wrap;
 }
+body > header div {
+  width: 75%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
 body > header button {
   background: none;
   border: none;
