@@ -82,8 +82,18 @@
                     </section>
                     <h3 id="special">Buy perks</h3>
                     <section class="shop__options-perks">
-                        <figure>
+                        {% if user.coins == 70 %}
+                            <figure style="cursor: pointer;">
+                        {% else %}
+                            <figure>
+                        {% endif %}
+                            {% if user.coins == 70 %}
+                                <a href="">
+                            {% endif %}
                             <img src="{{url_for('static', filename='img/poisonous.png')}}" alt="heal">
+                            {% if user.coins == 70 %}
+                                </a>
+                            {% endif %}
                             <div class="desc">
                                 <h4>Instant health</h4>
                                 <p>This item will add 45 feed points</p>
@@ -93,8 +103,18 @@
                                 </div>
                             </div>
                         </figure>
-                        <figure>
+                        {% if user.coins == 110 %}
+                            <figure style="cursor: pointer;">
+                        {% else %}
+                            <figure>
+                        {% endif %}
+                            {% if user.coins == 110 %}
+                                <a href="">
+                            {% endif %}
                             <img src="{{url_for('static', filename='img/fire.png')}}" alt="">
+                            {% if user.coins == 110 %}
+                                </a>
+                            {% endif %}
                             <div class="desc">
                                 <h4>Streak return</h4>
                                 <p>If you forgot make one task per day and lost your strak. You can buy it and resume your streak</p>
@@ -104,8 +124,18 @@
                                 </div>
                             </div>
                         </figure>
-                        <figure>
+                        {% if user.coins == 90 %}
+                            <figure style="cursor: pointer;">
+                        {% else %}
+                            <figure>
+                        {% endif %}
+                            {% if user.coins == 90 %}
+                                <a href="">
+                            {% endif %}
                             <img src="{{url_for('static', filename='img/apple.png')}}" alt="">
+                            {% if user.coins == 90 %}
+                                </a>
+                            {% endif %}
                             <div class="desc">
                                 <h4>Golden apple</h4>
                                 <p>This item gives full feed</p>
@@ -115,8 +145,18 @@
                                 </div>
                             </div>
                         </figure>
-                        <figure>
+                        {% if user.coins == 175 %}
+                            <figure style="cursor: pointer;">
+                        {% else %}
+                            <figure>
+                        {% endif %}
+                            {% if user.coins == 175 %}
+                                <a href="">
+                            {% endif %}
                             <img src="{{url_for('static', filename='img/zeus.png')}}" alt="">
+                            {% if user.coins == 175 %}
+                                </a>
+                            {% endif %}
                             <div class="desc">
                                 <h4>God hand</h4>
                                 <p>God hand gives full feed and resume your streak</p>

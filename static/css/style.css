@@ -372,7 +372,7 @@ section > .shop {
   position: relative;
   display: inline-block;
   overflow: visible;
-  cursor: pointer;
+  cursor: not-allowed;
 }
 .shop__options-perks figure .desc {
   display: none;
