@@ -82,16 +82,16 @@
                     </section>
                     <h3 id="special">Buy perks</h3>
                     <section class="shop__options-perks">
-                        {% if user.coins == 70 %}
+                        {% if user.coins >= 70 %}
                             <figure style="cursor: pointer;">
                         {% else %}
                             <figure>
                         {% endif %}
-                            {% if user.coins == 70 %}
-                                <a href="">
+                            {% if user.coins >= 70 %}
+                                <a href="/potka/{{user.name}}">
                             {% endif %}
                             <img src="{{url_for('static', filename='img/poisonous.png')}}" alt="heal">
-                            {% if user.coins == 70 %}
+                            {% if user.coins >= 70 %}
                                 </a>
                             {% endif %}
                             <div class="desc">
@@ -103,16 +103,16 @@
                                 </div>
                             </div>
                         </figure>
-                        {% if user.coins == 110 %}
+                        {% if user.coins >= 110 %}
                             <figure style="cursor: pointer;">
                         {% else %}
                             <figure>
                         {% endif %}
-                            {% if user.coins == 110 %}
-                                <a href="">
+                            {% if user.coins >= 110 %}
+                                <a href="/streak_return/{{user.name}}">
                             {% endif %}
                             <img src="{{url_for('static', filename='img/fire.png')}}" alt="">
-                            {% if user.coins == 110 %}
+                            {% if user.coins >= 110 %}
                                 </a>
                             {% endif %}
                             <div class="desc">
@@ -124,16 +124,16 @@
                                 </div>
                             </div>
                         </figure>
-                        {% if user.coins == 90 %}
+                        {% if user.coins >= 90 %}
                             <figure style="cursor: pointer;">
                         {% else %}
                             <figure>
                         {% endif %}
-                            {% if user.coins == 90 %}
-                                <a href="">
+                            {% if user.coins >= 90 %}
+                                <a href="/apple/{{user.name}}">
                             {% endif %}
                             <img src="{{url_for('static', filename='img/apple.png')}}" alt="">
-                            {% if user.coins == 90 %}
+                            {% if user.coins >= 90 %}
                                 </a>
                             {% endif %}
                             <div class="desc">
@@ -145,16 +145,16 @@
                                 </div>
                             </div>
                         </figure>
-                        {% if user.coins == 175 %}
+                        {% if user.coins >= 175 %}
                             <figure style="cursor: pointer;">
                         {% else %}
                             <figure>
                         {% endif %}
-                            {% if user.coins == 175 %}
-                                <a href="">
+                            {% if user.coins >= 175 %}
+                                <a href="/god_hand/{{user.name}}">
                             {% endif %}
                             <img src="{{url_for('static', filename='img/zeus.png')}}" alt="">
-                            {% if user.coins == 175 %}
+                            {% if user.coins >= 175 %}
                                 </a>
                             {% endif %}
                             <div class="desc">

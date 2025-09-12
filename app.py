@@ -26,6 +26,10 @@ class Users(db.Model):
     email = db.Column(db.String(50), nullable=False)
     password = db.Column(db.String(100), nullable=False)
     coins = db.Column(db.Integer, nullable=False, server_default="0")
+    streak = db.Column(db.Integer, nullable=False, server_default="0")
+    streak_update = db.Column(db.Date, nullable=True)
+    streak_saved = db.Column(db.Integer, nullable=False, server_default="0")
+    streak_record = db.Column(db.Integer, nullable=False, server_default="0")
     pet = db.relationship("Pet", backref="owner", cascade="all, delete-orphan")
     tasks = db.relationship("Tasks", backref="owner", cascade="all, delete-orphan")
 
@@ -41,6 +45,7 @@ class Tasks(db.Model):
     repeatability = db.Column(db.String(50), nullable=False)
     start_date = db.Column(db.Date, nullable=False)
     end_date = db.Column(db.Date, nullable=False)
+    completed_at = db.Column(db.Date, nullable=True)
 
 class Gifs(db.Model):
     __tablename__ = 'gifs'
@@ -69,6 +74,7 @@ with app.app_context():
 with app.app_context():
     pets = Pet.query.all()
     tasks = Tasks.query.all()
+    users = Users.query.all()
 
     today = datetime.today().date()
 
@@ -90,6 +96,19 @@ with app.app_context():
             pet.feed = max(0, pet.feed - feed_loss)
         else:
             pet.feed = 0
+
+
+    for user in users:
+        if user.streak_update == today:
+            print("count today")
+
+        if user.streak_update not in (today, today - timedelta(days=1)):
+            user.streak_saved = user.streak
+            user.streak = 0
+            if user.streak_record < user.streak_saved:
+                user.streak_record = user.streak_saved
+
+
 
     db.session.commit()
 
@@ -238,6 +257,70 @@ def delete_user(user_id):
     db.session.commit()
     return redirect(url_for('index'))
 
+# perks
+@app.route('/potka/<user>')
+def potka(user):
+    user_data = Users.query.filter(Users.name == user).first()
+
+    user_pet = user_data.pet[0]
+    user_pet.feed += 45
+    user_pet.feed_time = datetime.now()
+    user_data.coins -= 70
+
+    db.session.commit()
+
+    return redirect(url_for('main', user=user))
+
+@app.route('/streak_return/<user>')
+def strak_return(user):
+    user_data = Users.query.filter(Users.name == user).first()
+
+    if user_data.streak == 0:
+        user_data.streak = user_data.streak_saved
+        user_data.streak_saved = 0
+        user_data.streak_update = datetime.today().date()
+        user_data.coins -= 110
+
+        db.session.commit()
+
+    return redirect(url_for('main', user=user))
+
+@app.route('/apple/<user>')
+def apple(user):
+    user_data = Users.query.filter(Users.name == user).first()
+
+    user_pet = user_data.pet[0]
+    pet_feed = user_pet.feed
+    full = 100 - pet_feed
+    user_pet.feed += full
+    user_pet.feed_time = datetime.now()
+    user_data.coins -= 90
+
+    db.session.commit()
+
+    return redirect(url_for('main', user=user))
+
+@app.route('/god_hand/<user>')
+def god_hand(user):
+    user_data = Users.query.filter(Users.name == user).first()
+
+    user_pet = user_data.pet[0]
+    pet_feed = user_pet.feed
+    full = 100 - pet_feed
+    user_pet.feed += full
+    user_pet.feed_time = datetime.now()
+
+    if user_data.streak == 0:
+        user_data.streak = user_data.streak_saved
+        user_data.streak_saved = 0
+        user_data.streak_update = datetime.today().date()
+
+    user_data.coins -= 175
+
+    db.session.commit()
+
+    return redirect(url_for('main', user=user))
+
 @app.route('/all_tasks/<user>')
 def all_tasks(user):
     user_data = Users.query.filter(Users.name == user).first()
@@ -269,6 +352,15 @@ def update_status():
         if task.status == "done" and old_status != "done":
             user = Users.query.get(user_id)
             user.coins += task.reward
+            task.complete_at = datetime.today().date()
+            
+            if user.streak_update == datetime.today().date():
+                print("było")
+
+            if user.streak_update == datetime.today().date() - timedelta(days=1):
+                user.streak +=1
+                user.streak_update = datetime.today().date()
+
         db.session.commit()
         return jsonify({"success": True, "id": task.id, "status": task.status})
     return jsonify({"success": False, "error": "Task not found"}), 404
