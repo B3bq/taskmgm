@@ -120,7 +120,15 @@ def index():
 @app.route('/account/<user>')
 def account(user):
     user_data = Users.query.filter(Users.name == user).first()
-    return render_template("account.html", user=user_data)
+
+    if user_data.streak > 15:
+        streak_src = 'img/fire-flame.gif'
+    elif user_data.streak > 9:
+        streak_src = 'img/icons8-fire.gif'
+    else:
+        streak_src = 'img/streak.png'
+
+    return render_template("account.html", user=user_data, streak_src=streak_src)
 
 # main page for user
 @app.route('/main/<user>')
@@ -165,7 +173,14 @@ def main(user):
         else:
             src = 'img/pet/5bamboo.png'
 
-    return render_template('main.html', tasks=tasks, user_pet=user_pet, gif=gif, user=user_data, src=src)
+        if user_data.streak > 15:
+            streak_src = 'img/fire-flame.gif'
+        elif user_data.streak > 9:
+            streak_src = 'img/icons8-fire.gif'
+        else:
+            streak_src = 'img/streak.png'
+
+    return render_template('main.html', tasks=tasks, user_pet=user_pet, gif=gif, user=user_data, src=src, streak_src=streak_src)
 
 @app.route('/increase/<user>/<int:user_coins>/<int:pet_id>', methods=['POST'])
 def increase_feed(user, user_coins, pet_id):
@@ -326,7 +341,14 @@ def all_tasks(user):
     user_data = Users.query.filter(Users.name == user).first()
     tasks = user_data.tasks
 
-    return render_template('user_tasks.html', tasks=tasks, user=user_data)
+    if user_data.streak > 15:
+        streak_src = 'img/fire-flame.gif'
+    elif user_data.streak > 9:
+        streak_src = 'img/icons8-fire.gif'
+    else:
+        streak_src = 'img/streak.png'
+
+    return render_template('user_tasks.html', tasks=tasks, user=user_data, streak_src=streak_src)
 
 @app.route('/tasks/<user>')
 def tasks(user):
@@ -335,7 +357,14 @@ def tasks(user):
 
     tasks = Tasks.query.filter(Tasks.user_id == user_data.id, Tasks.start_date <= today, Tasks.end_date >= today).all()
 
-    return render_template('tasks.html', user=user_data, tasks=tasks)
+    if user_data.streak > 15:
+        streak_src = 'img/fire-flame.gif'
+    elif user_data.streak > 9:
+        streak_src = 'img/icons8-fire.gif'
+    else:
+        streak_src = 'img/streak.png'
+
+    return render_template('tasks.html', user=user_data, tasks=tasks, streak_src=streak_src)
 
 @app.route('/update_status', methods=["POST"])
 def update_status():
@@ -399,7 +428,14 @@ def delete(user):
 def task(user):
     user_data = Users.query.filter(Users.name == user).first()
 
-    return render_template('task.html', user=user_data)
+    if user_data.streak > 15:
+        streak_src = 'img/fire-flame.gif'
+    elif user_data.streak > 9:
+        streak_src = 'img/icons8-fire.gif'
+    else:
+        streak_src = 'img/streak.png'
+
+    return render_template('task.html', user=user_data, streak_src=streak_src)
 
 @app.route('/add_task/<int:user_id>/<user>', methods=['POST'])
 def add_task(user_id, user):

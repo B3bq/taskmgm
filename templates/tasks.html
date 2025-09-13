@@ -17,6 +17,12 @@
         </div>
         <h3>{{user.coins}}</h3>
         <img src="{{url_for('static', filename='img/money.png')}}" alt="money">
+        {% if user.streak > 1 %}
+            <div class="streak">
+                <img src="{{url_for('static', filename=streak_src)}}" alt="streak" style="width: 32px; height: 32px;">
+                <p>{{user.streak}}</p>
+            </div>
+        {% endif %}
         <nav>    
             <button id="js-toggle-menu">
                 <img src="{{url_for('static', filename='img/account.png')}}" alt="account">

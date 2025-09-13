@@ -12,6 +12,12 @@
     <header>
         <h3>{{user.coins}}</h3>
         <img src="{{url_for('static', filename='img/money.png')}}" alt="money">
+        {% if user.streak > 1 %}
+            <div class="streak">
+                <img src="{{url_for('static', filename=streak_src)}}" alt="streak" style="width: 32px; height: 32px;">
+                <p>{{user.streak}}</p>
+            </div>
+        {% endif %}
         <nav>    
             <button id="js-toggle-menu">
                 <img src="{{url_for('static', filename='img/account.png')}}" alt="account">
@@ -85,7 +91,7 @@
                         {% if user.coins >= 70 %}
                             <figure style="cursor: pointer;">
                         {% else %}
-                            <figure>
+                            <figure style="filter: grayscale(80%);">
                         {% endif %}
                             {% if user.coins >= 70 %}
                                 <a href="/potka/{{user.name}}">
@@ -106,12 +112,12 @@
                         {% if user.coins >= 110 %}
                             <figure style="cursor: pointer;">
                         {% else %}
-                            <figure>
+                            <figure style="filter: grayscale(80%);">
                         {% endif %}
                             {% if user.coins >= 110 %}
                                 <a href="/streak_return/{{user.name}}">
                             {% endif %}
-                            <img src="{{url_for('static', filename='img/fire.png')}}" alt="">
+                            <img src="{{url_for('static', filename='img/fire.png')}}" alt="fire">
                             {% if user.coins >= 110 %}
                                 </a>
                             {% endif %}
@@ -127,12 +133,12 @@
                         {% if user.coins >= 90 %}
                             <figure style="cursor: pointer;">
                         {% else %}
-                            <figure>
+                            <figure style="filter: grayscale(80%);">
                         {% endif %}
                             {% if user.coins >= 90 %}
                                 <a href="/apple/{{user.name}}">
                             {% endif %}
-                            <img src="{{url_for('static', filename='img/apple.png')}}" alt="">
+                            <img src="{{url_for('static', filename='img/apple.png')}}" alt="apple">
                             {% if user.coins >= 90 %}
                                 </a>
                             {% endif %}
@@ -148,12 +154,12 @@
                         {% if user.coins >= 175 %}
                             <figure style="cursor: pointer;">
                         {% else %}
-                            <figure>
+                            <figure style="filter: grayscale(80%);">
                         {% endif %}
                             {% if user.coins >= 175 %}
                                 <a href="/god_hand/{{user.name}}">
                             {% endif %}
-                            <img src="{{url_for('static', filename='img/zeus.png')}}" alt="">
+                            <img src="{{url_for('static', filename='img/zeus.png')}}" alt="hand">
                             {% if user.coins >= 175 %}
                                 </a>
                             {% endif %}

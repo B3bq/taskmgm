@@ -18,6 +18,12 @@
             </div>
             <h3>{{user.coins}}</h3>
             <img src="{{url_for('static', filename='img/money.png')}}" alt="money">
+            {% if user.streak > 1 %}
+            <div class="streak">
+                <img src="{{url_for('static', filename=streak_src)}}" alt="streak" style="width: 32px; height: 32px;">
+                <p>{{user.streak}}</p>
+            </div>
+            {% endif %}
             <nav>    
                 <button id="js-toggle-menu">
                     <img src="{{url_for('static', filename='img/account.png')}}" alt="account">
@@ -31,6 +37,22 @@
         </header>
         <section class="userForm">
             <section>
+                <div class="streaks">
+                    <div class="streaks-left">
+                        <h1>{{user.streak}}</h1>
+                        {% if user.streak == 0 %}
+                            <img src="{{url_for('static', filename='img/streak.png')}}" alt="current" style="width: 64px; height: 64px; filter: grayscale(80%);">
+                        {% else %}
+                            <img src="{{url_for('static', filename='img/streak.png')}}" alt="current" style="width: 64px; height: 64px;">
+                        {% endif %}
+                        <h3>Current streak</h3>
+                    </div>
+                    <div>
+                        <h1>{{user.streak_record}}</h1>
+                        <img src="{{url_for('static', filename='img/fire-flame.gif')}}" alt="record" style="width: 64px; height: 64px;">
+                        <h3>Record streak</h3>
+                    </div>
+                </div>
                 <h1 id="userName">{{ user.name }}</h1>
                 <img src="{{url_for('static', filename='img/pencil.png')}}" alt="pen" id="edit" onclick="enableEditing()" class="pen">
                 <div class="buttons" id="buttons">    

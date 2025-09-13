@@ -578,3 +578,47 @@ section>.shop{
         display: none !important;
     }
 }
+
+.streaks{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    
+    div{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: 0px 25px;
+
+        h1{
+            position: relative;
+            top: 75px;
+            color: $primaryColor;
+            font-size: 1.5rem;
+            font-weight: bolder;
+            z-index: 1;
+        }
+    }
+    &-left::after{
+        display: block;
+        position: absolute;
+        content: '';
+        background: $fontColor;
+        width: 2px;
+        height: 140px;
+        top: 215px;
+        left: 50%;
+    }
+
+    &::after{
+        display: block;
+        position: absolute;
+        content: '';
+        background: $fontColor;
+        width: 370px;
+        height: 2px;
+        top: 37%;
+        left: 40%;
+    }
+}

@@ -31,6 +31,21 @@ body>header{
         flex-direction: row;
         justify-content: flex-start;
     }
+    .streak{
+        width: auto;
+        position: relative;
+        top: 16px;
+        left: 95px;
+        z-index: 1;
+        P{
+            position: relative;
+            top: 0;
+            left: -35px;
+            color: $primaryColor;
+            font-weight: bolder;
+            z-index: 1;
+        }
+    }
 
     button{
         background: none;
