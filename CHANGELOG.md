@@ -1,3 +1,11 @@
+## version 0.0.6 (2025-09-13)
+
+### Added
+- account site (can change name, mail and pass)
+- delete user button
+- perks in shop
+- streak
+
 ## version 0.0.5 (2025-09-7)
 
 ### Added
