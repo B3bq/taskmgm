@@ -82,10 +82,10 @@
                 {% endif %}
                 <form action="{{url_for('update_pass', user=user.name)}}" method="post" class="forms">
                     <div class="forms__first">    
-                        <input type="password" name="pass" id="pass" disabled value="password">
+                        <input type="password" name="pass" id="pass" disabled value="password" placeholder="Password" where="acc">
                         <img src="{{url_for('static', filename='img/pencil.png')}}" alt="pen" id="edit3" onclick="inputEdit('pass', 'btns2', 'edit3')" class="forms__first-pen">
                     </div>
-                    <input type="text" name="repass" id="repass" hidden>
+                    <input type="text" name="repass" id="repass" hidden placeholder="Reapet password">
                     <div class="buttons" id="btns2">
                         <input type="reset" value="❌" onclick="defaultInput('pass', 'btns2', 'edit3')">
                         <input type="submit" value="✅">

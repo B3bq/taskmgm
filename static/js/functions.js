@@ -29,6 +29,7 @@ function inputEdit(input, btns, edit){
         input.value = '';
         input.type = "text";
         document.getElementById('repass').hidden = false;
+        document.getElementById('repass').type = 'text';
         buttons.style.visibility = 'visible';
         pen.hidden = true;
     }
@@ -53,6 +54,7 @@ function defaultInput(input, btns, edit){
     }
 }
 
+// taking verifiction code
 function takeCode(){
     const code = document.querySelectorAll('.code');
     const response = document.getElementById('response');
@@ -77,4 +79,29 @@ function takeCode(){
             window.location.href = data.redirect;
         }
       })
+}
+
+// showing password
+let isShowing = true;
+
+function showPass(input){
+    const pass = document.getElementById(input);
+    const where = pass.getAttribute('where');
+
+    if(where == "index"){
+        if(isShowing){
+            pass.type = 'text';
+        }else{
+            pass.type = 'password';
+        }
+    }else{
+        if(isShowing){
+            pass.type = 'text';
+            document.getElementById('repass').type = 'text';
+        }else{
+            pass.type = 'password';
+            document.getElementById('repass').type = 'password';
+        }
+    }
+    isShowing = !isShowing;
 }

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Task mgm</title>
     <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+    <script src="{{url_for('static', filename='js/functions.js')}}"></script>
 </head>
 <body>
     <section class="userForm">
@@ -13,8 +14,12 @@
             <form action="http://localhost:5000/sign" method="post">
                 <input type="text" name="name" placeholder="Name/Login">
                 <input type="text" name="email" placeholder="E-mail">
-                <input type="password" name="password" placeholder="Password">
-                <input type="password" name="re_password" placeholder="Reapet password">
+                <input type="password" name="password" placeholder="Password" id="pass" where="sign">
+                <input type="password" name="re_password" placeholder="Reapet password" id="repass">
+                <div class="show">
+                    <input type="checkbox" name="show" id="show" onclick="showPass('pass')">
+                    <p>Show password</p>
+                </div>
                 <input type="submit" value="Submit">
             </form>
             {% if text != '' %}

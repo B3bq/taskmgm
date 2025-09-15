@@ -709,4 +709,9 @@ section > .shop {
   left: 40%;
 }
 
+.show {
+  display: flex;
+  flex-direction: row;
+}
+
 /*# sourceMappingURL=style.css.map */
