@@ -43,9 +43,20 @@ class Tasks(db.Model):
     category = db.Column(db.String(50), nullable=False)
     reward = db.Column(db.Integer, nullable=False)
     repeatability = db.Column(db.String(50), nullable=False)
+    groupe = db.Column(db.String(50), nullable=True)
     start_date = db.Column(db.Date, nullable=False)
     end_date = db.Column(db.Date, nullable=False)
     completed_at = db.Column(db.Date, nullable=True)
+
+    details = db.relationship("Details", back_populates="task", cascade="all, delete-orphan")
+
+class Details(db.Model):
+    __tablename__ = 'details'
+    id = db.Column(db.Integer, primary_key=True)
+    task_id = db.Column(db.Integer, db.ForeignKey('tasks.id'), nullable=False)
+    text = db.Column(db.String(150), nullable=False)
+    checked = db.Column(db.Boolean, server_default="False")
+    task = db.relationship("Tasks", back_populates="details")
 
 class Gifs(db.Model):
     __tablename__ = 'gifs'
@@ -365,6 +376,15 @@ def tasks(user):
         streak_src = 'img/streak.png'
 
     return render_template('tasks.html', user=user_data, tasks=tasks, streak_src=streak_src)
+
+@app.route('/details/<user>/<id>')
+def details(user, id):
+    user_data = Users.query.filter(Users.name == user).first()
+    task_id = int(id)
+    task = Tasks.query.get_or_404(task_id)
+
+
+    return render_template('details.html', user=user_data, task=task)
 
 @app.route('/update_status', methods=["POST"])
 def update_status():

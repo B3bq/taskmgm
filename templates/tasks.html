@@ -52,6 +52,9 @@
                                     <h2>{{ loop.index }}</h2>
                                     <h3>{{task.name}}</h3>
                                     <p>{{task.description}}</p>
+                                    <a href="/details/{{user.name}}/{{task.id}}" title="Show details">
+                                        <img src="{{url_for('static', filename='img/eye.png')}}" alt="eye" style="width: 32px; height: 32px;">
+                                    </a>
                                     {% if task.category not in ["critical", "important"] and task.repeatability not in ["daily"] %}
                                         <img src="{{url_for('static', filename='img/delete.png')}}" alt="bin" class="bins">
                                     {% endif %}

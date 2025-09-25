@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task mgm</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+    <script src="{{url_for('static', filename='js/script.js')}}" defer></script>
+    <script src="{{url_for('static', filename='js/functions.js')}}"></script>
+</head>
+<body>
+    <header>
+        <div>
+            <a href="/tasks/{{user.name}}">
+                <img src="{{url_for('static', filename='img/back.png')}}" alt="left-arrow">
+            </a>
+        </div>
+        <h3>{{user.coins}}</h3>
+        <img src="{{url_for('static', filename='img/money.png')}}" alt="money">
+        {% if user.streak > 1 %}
+            <div class="streak">
+                <img src="{{url_for('static', filename=streak_src)}}" alt="streak" style="width: 32px; height: 32px;">
+                <p>{{user.streak}}</p>
+            </div>
+        {% endif %}
+        <nav>    
+            <button id="js-toggle-menu">
+                <img src="{{url_for('static', filename='img/account.png')}}" alt="account">
+            </button>
+            <ul id="js-toggleable-menu">
+                <li><a href="/account/{{user.name}}">Account</a></li>
+                <li><a href="/main/{{user.name}}">Main Page</a></li>
+                <li><a href="/">Log out</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section class="main">
+        <section>
+            
+        </section>
+    </section>
+</body>
+</html>
