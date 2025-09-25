@@ -184,6 +184,10 @@ section > .shop {
   background-color: #3b3a3a;
 }
 
+.tasks_main {
+  height: 400px;
+}
+
 .task h1 {
   font-size: 2rem;
   width: 200px;
@@ -192,6 +196,8 @@ section > .shop {
 .task__list {
   display: flex;
   flex-direction: column;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 .task__list-card {
   display: inline-block;

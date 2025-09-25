@@ -37,6 +37,10 @@ section>.shop{
     }
 }
 
+.tasks_main{
+    height: 400px;
+}
+
 .task{
     h1{
         font-size: 2rem;
@@ -47,6 +51,8 @@ section>.shop{
     &__list{
         display: flex;
         flex-direction: column;
+        overflow-y: auto;
+        overflow-x: hidden;
 
         &-card{
             display: inline-block;
