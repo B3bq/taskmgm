@@ -619,12 +619,22 @@ section > .shop {
   grid-row: 1;
   align-content: center;
   justify-self: center;
+  font-size: 2rem;
 }
 .details .coins {
   grid-column: 1;
-  grid-row: 2/4;
+  grid-row: 2/3;
   align-content: center;
   justify-self: center;
+}
+.details .coins::after {
+  display: inline-block;
+  vertical-align: middle;
+  content: url("../img/coin.png")/"Coin";
+}
+.details .c_title {
+  grid-column: 1;
+  grid-row: 3/4;
 }
 .details h3 {
   grid-column: 2;
