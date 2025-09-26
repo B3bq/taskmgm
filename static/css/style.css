@@ -553,8 +553,49 @@ section > .shop {
   flex-direction: column;
   justify-content: center;
 }
+.addTask section form .big {
+  display: flex;
+  flex-direction: row;
+}
+.addTask section form .big .right, .addTask section form .big .left {
+  display: flex;
+  flex-direction: column;
+  margin: 10px 50px;
+}
+.addTask section form .big .right__quests {
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+.addTask section form .big .days {
+  display: flex;
+  flex-direction: row;
+}
+.addTask section form .big .days button {
+  opacity: 0.5;
+  pointer-events: none;
+}
+.addTask section form .big .days button.selected {
+  background: #00BCD4;
+  color: white;
+  border-radius: 5px;
+}
+.addTask section form .big .active {
+  display: flex;
+  flex-direction: row;
+}
+.addTask section form .big .active button {
+  opacity: 1;
+  pointer-events: auto;
+}
 .addTask section form input {
   text-align: left;
+}
+.addTask section form input[type=submit] {
+  width: 50%;
+  align-self: center;
+  text-align: center;
 }
 .addTask section form textarea {
   border-radius: 5px;
@@ -567,6 +608,60 @@ section > .shop {
   margin: 10px;
   padding: 2px;
   text-align: center;
+}
+
+.details {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr);
+}
+.details h1 {
+  grid-column: 1/4;
+  grid-row: 1;
+  align-content: center;
+  justify-self: center;
+}
+.details .coins {
+  grid-column: 1;
+  grid-row: 2/4;
+  align-content: center;
+  justify-self: center;
+}
+.details h3 {
+  grid-column: 2;
+  grid-row: 2/4;
+  align-content: center;
+  justify-self: center;
+}
+.details h4 {
+  grid-column: 3;
+  grid-row: 2;
+  align-content: center;
+  justify-self: center;
+}
+.details h5 {
+  grid-column: 3;
+  grid-row: 3;
+  align-content: center;
+  justify-self: center;
+}
+.details .desc {
+  grid-column: 1;
+  grid-row: 4;
+  align-items: center;
+}
+.details p {
+  grid-column: 1/4;
+  grid-row: 5;
+  align-content: center;
+  justify-self: center;
+}
+.details .checkboxes {
+  grid-column: 1/4;
+  grid-row: 6;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 .hover-label {

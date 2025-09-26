@@ -455,8 +455,51 @@ section>.shop{
             flex-direction: column;
             justify-content: center;
 
+            .big{
+                display: flex;
+                flex-direction: row;
+
+                .right, .left{
+                    display: flex;
+                    flex-direction: column;
+                    margin: 10px 50px;
+                }
+                .right__quests{
+                    height: 200px;
+                    display: flex;
+                    flex-direction: column;
+                    overflow-y: auto;
+                }
+                .days{
+                    display: flex;
+                    flex-direction: row;
+                    button{
+                        opacity: 0.5;
+                        pointer-events: none;
+                    }
+                    button.selected{
+                        background: $blueColor;
+                        color: white;
+                        border-radius: 5px;
+                    }
+                }
+                .active{
+                    display: flex;
+                    flex-direction: row; 
+                    button {
+                        opacity: 1;
+                        pointer-events: auto;
+                    }
+                }
+            }
+
             input{
                 text-align: left;
+            }
+            input[type="submit"]{
+                width: 50%;
+                align-self: center;
+                text-align: center;
             }
 
             textarea{
@@ -477,7 +520,60 @@ section>.shop{
     }
 }
 
+.details{
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr);
 
+    h1{
+        grid-column: 1/4;
+        grid-row: 1;
+        align-content: center;
+        justify-self: center;
+    }
+    .coins{
+        grid-column: 1;
+        grid-row: 2/4;
+        align-content: center;
+        justify-self: center;
+    }
+    h3{
+        grid-column: 2;
+        grid-row: 2/4;
+        align-content: center;
+        justify-self: center;
+    }
+    h4{
+        grid-column: 3;
+        grid-row: 2;
+        align-content: center;
+        justify-self: center;
+    }
+    h5{
+        grid-column: 3;
+        grid-row: 3;
+        align-content: center;
+        justify-self: center;
+    }
+    .desc{
+        grid-column: 1;
+        grid-row: 4;
+        align-items: center;
+    }
+    p{
+        grid-column: 1/4;
+        grid-row: 5;
+        align-content: center;
+        justify-self: center;
+    }
+    .checkboxes{
+        grid-column: 1/4;
+        grid-row: 6;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+}
 
 .hover-label{
     display: inline-flex;
