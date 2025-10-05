@@ -1,7 +1,7 @@
 from flask import Flask, session, redirect, url_for, request, render_template, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import and_, func
-import os, bcrypt, random, re
+import os, bcrypt, random, re, string
 from datetime import datetime, timedelta
 from dotenv import load_dotenv
 from mail import mail_sent
@@ -43,7 +43,7 @@ class Tasks(db.Model):
     category = db.Column(db.String(50), nullable=False)
     reward = db.Column(db.Integer, nullable=False)
     repeatability = db.Column(db.String(50), nullable=False)
-    groupe = db.Column(db.String(50), nullable=True)
+    group = db.Column(db.String(50), nullable=True)
     start_date = db.Column(db.Date, nullable=False)
     end_date = db.Column(db.Date, nullable=False)
     completed_at = db.Column(db.Date, nullable=True)
@@ -76,6 +76,12 @@ class Pet(db.Model):
     name = db.Column(db.String(50), nullable=False, server_default='Ryszard')
     feed = db.Column(db.Integer, nullable=False, server_default="100")
     feed_time = db.Column(db.DateTime, nullable=False, server_default=func.now())
+
+# useful function
+def random_letter():
+    letters = string.ascii_letters
+    # 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    return random.choice(letters)
 
 # create table in base
 with app.app_context():
@@ -464,28 +470,10 @@ def add_task(user_id, user):
     des = request.form['description']
     prio = request.form['priority']
     repeatability = request.form['option']
+    quest = int(request.form.get('quest', 0))
+
+    DAY_MAP = {"Mon": 0, "Tue": 1, "Wed": 2, "Thu": 3, "Fri": 4, "Sat": 5, "Sun": 6}
     
-    match repeatability:
-        case "daily":
-            start_date = datetime.today().date()
-            end_str = "2073-04-28"
-            end_date = datetime.strptime(end_str, "%Y-%m-%d").date()
-        case "weekly":
-            start_date_str = request.form['weekly']
-            start_date = datetime.strptime(start_date_str, "%Y-%m-%d").date()
-            end_date = start_date + timedelta(days=1)
-        case _:
-            date_str = request.form['range'].strip()
-    
-            if ' - ' in date_str:
-                start_str, end_str = date_str.split(' - ')
-            elif '-' in date_str:  # fallback on only one date
-                start_str = end_str = date_str
-            else:
-                raise ValueError(f"Unexpected date format: {date_str}")
-            start_date = datetime.strptime(start_str.strip(), "%Y-%m-%d").date()
-            end_date = datetime.strptime(end_str.strip(), "%Y-%m-%d").date()
-        
     match prio:
         case 'critical':
             reward = random.randint(35, 50)
@@ -499,8 +487,100 @@ def add_task(user_id, user):
             reward = random.randint(1, 10)
 
     with app.app_context():
-        new_task = Tasks(user_id=user_id, name=name, description=des, category=prio, reward=reward, repeatability=repeatability, start_date=start_date, end_date=end_date)    
-        db.session.add(new_task)
+        match repeatability:
+            case "daily":
+                start_date = datetime.today().date()
+                end_str = "2073-04-28"
+                end_date = datetime.strptime(end_str, "%Y-%m-%d").date()
+
+
+                new_task = Tasks(user_id=user_id, name=name, description=des, category=prio, reward=reward, repeatability=repeatability, start_date=start_date, end_date=end_date)    
+                db.session.add(new_task)
+                db.session.flush()
+
+                i = 1
+                while i <= quest:
+                    quest_desc = f"quest{str(i)}"
+                    text = request.form[quest_desc]
+                    new_quest = Details(task_id=new_task.id, text=text)
+                    db.session.add(new_quest)
+                    i += 1
+            case "weekly":
+                start_date_str = request.form['weekly']
+                start_date = datetime.strptime(start_date_str, "%Y-%m-%d").date()
+                end_date = start_date + timedelta(days=1)
+
+
+                new_task = Tasks(user_id=user_id, name=name, description=des, category=prio, reward=reward, repeatability=repeatability, start_date=start_date, end_date=end_date)    
+                db.session.add(new_task)
+                db.session.flush()
+
+                i = 1
+                while i <= quest:
+                    quest_desc = f"quest{i}"
+                    text = request.form[quest_desc]
+                    new_quest = Details(task_id=new_task.id, text=text)
+                    db.session.add(new_quest)
+                    i += 1
+            case "days":
+                selected_days = request.form['days'].split(',')
+                today = datetime.today().date()
+                today_weekday = today.weekday()
+
+                letter = random_letter()
+                numbers = random.randint(100, 999)
+
+                group = f"{user_id}{letter}{numbers}"
+
+                created_task_ids = []
+
+                for day in selected_days:
+                    target_weekday = DAY_MAP[day]
+
+                    delta_days = (target_weekday - today_weekday) % 7
+
+                    start_date = today + timedelta(days=delta_days)
+                    end_date = start_date + timedelta(days=1)
+
+                    new_task = Tasks(user_id=user_id, name=name, description=des, category=prio, reward=reward, repeatability=repeatability, group=group, start_date=start_date, end_date=end_date)    
+                    db.session.add(new_task)
+                    db.session.flush()
+
+                    created_task_ids.append(new_task.id)
+
+                if created_task_ids:
+                    first_id = created_task_ids[0]
+                    for i in range(1, quest + 1):
+                        key = f"quest{i}"
+                        if key in request.form:
+                            text = request.form[key]
+                            new_quest = Details(task_id=first_id, text=text)
+                            db.session.add(new_quest)
+            case _:
+                date_str = request.form['range'].strip()
+
+                if ' - ' in date_str:
+                    start_str, end_str = date_str.split(' - ')
+                elif '-' in date_str:  # fallback on only one date
+                    start_str = end_str = date_str
+                else:
+                    raise ValueError(f"Unexpected date format: {date_str}")
+                start_date = datetime.strptime(start_str.strip(), "%Y-%m-%d").date()
+                end_date = datetime.strptime(end_str.strip(), "%Y-%m-%d").date()
+
+
+                new_task = Tasks(user_id=user_id, name=name, description=des, category=prio, reward=reward, repeatability=repeatability, start_date=start_date, end_date=end_date)    
+                db.session.add(new_task)
+                db.session.flush()
+
+                i = 1
+                while i <= quest:
+                    quest_desc = f"quest{i}"
+                    text = request.form[quest_desc]
+                    new_quest = Details(task_id=new_task.id, text=text)
+                    db.session.add(new_quest)
+                    i += 1
+
         db.session.commit()
 
     return redirect(url_for('tasks', user=user))

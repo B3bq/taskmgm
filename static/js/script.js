@@ -21,6 +21,9 @@ checkBoxes.forEach(cb =>{
         
         dateOnce.disabled = !document.getElementById('once').checked;
         dateRnage.disabled = !document.getElementById('range').checked;
+        if (!daysCheckbox.checked){
+            week.classList.remove("active");
+        };
     })
 })
 
@@ -31,19 +34,26 @@ const buttons = week.querySelectorAll("button");
 daysCheckbox.addEventListener("change", () => {
     if (daysCheckbox.checked) {
         week.classList.add("active");
-        console.log("wykonywany");
-  } else {
-    week.classList.remove("active");
-    buttons.forEach(btn => btn.classList.remove("selected")); 
-  }
+    } else {
+        week.classList.remove("active");
+        buttons.forEach(btn => btn.classList.remove("selected")); 
+    }
 });
 
-buttons.forEach(btn => {
-  btn.addEventListener("click", () => {
-    btn.classList.toggle("selected");
-    console.log("wykonywany");
-  });
-});
+const selected = new Set();
+document.querySelectorAll('#week button').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+        const day = btn.dataset.day;
+        if (selected.has(day)){
+            selected.delete(day);
+            btn.classList.remove('selected');
+        } else {
+            selected.add(day);
+            btn.classList.add('selected');
+        }
+        document.getElementById('daysInput').value = Array.from(selected).join(',');
+    })
+})
 
 const quest = document.getElementById("quest");
 const quest_name = document.getElementById("quest_name");
