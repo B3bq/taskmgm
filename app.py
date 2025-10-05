@@ -105,6 +105,12 @@ with app.app_context():
                 task.start_date += timedelta(days=7)
                 task.end_date += timedelta(days=7)
                 task.status = "new"
+        elif task.repeatability == "days":
+            while task.end_date < today:
+                task.start_date += timedelta(days=7)
+                task.end_date += timedelta(days=7)
+                task.status = "new"
+        
 
     for pet in pets:
         if pet.feed > 0:
