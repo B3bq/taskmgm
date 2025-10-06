@@ -6,6 +6,7 @@
     <title>Task mgm</title>
     <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
     <script src="{{url_for('static', filename='js/script.js')}}" defer></script>
+    <script src="{{url_for('static', filename='js/checkboxes.js')}}" defer></script>
     <script src="{{url_for('static', filename='js/functions.js')}}"></script>
 </head>
 <body>
@@ -55,20 +56,18 @@
                 <p>{{ task.description }}</p>
                 <section class="checkboxes">
                     {% if task.details %}
-                        {% for d in task.details %}
-                            {% if d.checked %}
-                                <div class="checkbox">    
-                                    <input type="checkbox" name="quest" id="" value="{{ d.id }}" checked>
-                                    <p>{{ d.text }}</p>
-                                </div>
-                            {% else %}     
-                                <div class="checkbox">    
-                                    <input type="checkbox" name="quest" id="" value="{{ d.id }}">
-                                    <p>{{ d.text }}</p>
-                                </div>
-                            {% endif %}
-                        {% endfor %}
-                    {% endif %}
+                    {% for d in task.details %}
+                        <div class="checkbox-item {{ 'checkboxes__checked' if d.checked else 'checkboxes__normal' }}">
+                            <input 
+                                type="checkbox" 
+                                name="quest" 
+                                value="{{ d.id }}" 
+                                {% if d.checked %}checked{% endif %}
+                                onchange="updateCheckboxStatus('{{ d.id }}', this.checked, this)">
+                            <p>{{ d.text }}</p>
+                        </div>
+                    {% endfor %}
+                {% endif %}
                 </section>
             </section>
         </section>

@@ -582,6 +582,21 @@ section>.shop{
         flex-direction: column;
         justify-content: center;
         flex-wrap: wrap;
+
+        &__normal, &__checked{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            font-size: larger;
+
+            p{
+                margin-left: 50px;
+            }
+        }
+
+        &__checked{
+            text-decoration: line-through;
+        }
     }
 }
 

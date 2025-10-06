@@ -673,6 +673,18 @@ section > .shop {
   justify-content: center;
   flex-wrap: wrap;
 }
+.details .checkboxes__normal, .details .checkboxes__checked {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: larger;
+}
+.details .checkboxes__normal p, .details .checkboxes__checked p {
+  margin-left: 50px;
+}
+.details .checkboxes__checked {
+  text-decoration: line-through;
+}
 
 .hover-label {
   display: inline-flex;

@@ -398,6 +398,24 @@ def details(user, id):
 
     return render_template('details.html', user=user_data, task=task)
 
+@app.route('/update_details', methods=["POST"])
+def update_details():
+    data = request.get_json()
+    if not data:
+        return {"error": "No JSON data"}, 400
+    detail_id = data.get("id")
+    checked = data.get("checked")
+
+    detail = Details.query.get(detail_id)
+
+    if not detail:
+        return jsonify({"success": False, "error": "Not found"}), 404
+    
+    detail.checked = checked
+    db.session.commit()
+
+    return jsonify({"success": True})
+
 @app.route('/update_status', methods=["POST"])
 def update_status():
     data = request.get_json()
