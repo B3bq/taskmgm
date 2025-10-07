@@ -545,6 +545,8 @@ section>.shop{
     .c_title{
         grid-column: 1;
         grid-row: 3/4;
+        align-content: start;
+        margin: 0;
     }
     h3{
         grid-column: 2;
@@ -555,8 +557,9 @@ section>.shop{
     h4{
         grid-column: 3;
         grid-row: 2;
-        align-content: center;
+        align-content: end;
         justify-self: center;
+        margin-bottom: 0;
     }
     .repeat{
         grid-column: 3;
