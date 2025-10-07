@@ -43,15 +43,30 @@
                 <h3 class="coins">{{ task.reward }}</h3>
                 <h3>{{ task.category }}</h3>
                 <h4>Repeatability</h4>
-                <h5>
-                    {% if task.repeatability == "range" %}
-                    {{ task.start_date }} - {{ task.end_date }}
-                    {% elif task.repeatability == "weekly" %}
-                    {{ task.repeatability }} {{ task.start_date.strftime("%A") }}
-                    {% else %}
-                    {{ task.repeatability }}
-                    {% endif %}
-                </h5>
+                <div class="repeat">
+                    <h5>
+                        {% if task.repeatability == "range" %}
+                            {{ task.start_date }} - {{ task.end_date }}
+                        {% elif task.repeatability == "weekly" %}
+                            {{ task.repeatability }} {{ task.start_date.strftime("%A") }}
+                        {% elif task.repeatability == "days" %}
+                            {{ task.repeatability }}
+                            <h6>
+                            {% set group_tasks = task_groups[task.group] if task.group in task_groups else [task] %}
+                            {% set days = [] %}
+                            {% for t in group_tasks %}
+                                {% set day_name = t.start_date.strftime("%A") %}
+                                {% if day_name not in days %}
+                                    {% set _ = days.append(day_name) %}
+                                {% endif %}
+                            {% endfor %}
+                            {{ days|join(', ') }}
+                            </h6>
+                        {% else %}
+                            {{ task.repeatability }}
+                        {% endif %}
+                    </h5>
+                </div>
                 <h4 class="desc">Description</h4>
                 <p>{{ task.description }}</p>
                 <section class="checkboxes">

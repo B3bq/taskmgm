@@ -394,9 +394,13 @@ def details(user, id):
     user_data = Users.query.filter(Users.name == user).first()
     task_id = int(id)
     task = Tasks.query.get_or_404(task_id)
+    tasks = Tasks.query.all()
 
+    task_group = {}
+    for t in tasks:
+        task_group.setdefault(t.group, []).append(t)
 
-    return render_template('details.html', user=user_data, task=task)
+    return render_template('details.html', user=user_data, task=task, task_groups=task_group)
 
 @app.route('/update_details', methods=["POST"])
 def update_details():

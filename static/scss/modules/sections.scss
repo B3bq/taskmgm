@@ -558,11 +558,16 @@ section>.shop{
         align-content: center;
         justify-self: center;
     }
-    h5{
+    .repeat{
         grid-column: 3;
         grid-row: 3;
-        align-content: center;
-        justify-self: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        h6{
+            margin-top: 0;
+        }
     }
     .desc{
         grid-column: 1;
