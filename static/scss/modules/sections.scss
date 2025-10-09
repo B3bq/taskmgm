@@ -455,8 +455,51 @@ section>.shop{
             flex-direction: column;
             justify-content: center;
 
+            .big{
+                display: flex;
+                flex-direction: row;
+
+                .right, .left{
+                    display: flex;
+                    flex-direction: column;
+                    margin: 10px 50px;
+                }
+                .right__quests{
+                    height: 200px;
+                    display: flex;
+                    flex-direction: column;
+                    overflow-y: auto;
+                }
+                .days{
+                    display: flex;
+                    flex-direction: row;
+                    button{
+                        opacity: 0.5;
+                        pointer-events: none;
+                    }
+                    button.selected{
+                        background: $blueColor;
+                        color: white;
+                        border-radius: 5px;
+                    }
+                }
+                .active{
+                    display: flex;
+                    flex-direction: row; 
+                    button {
+                        opacity: 1;
+                        pointer-events: auto;
+                    }
+                }
+            }
+
             input{
                 text-align: left;
+            }
+            input[type="submit"]{
+                width: 50%;
+                align-self: center;
+                text-align: center;
             }
 
             textarea{
@@ -477,7 +520,93 @@ section>.shop{
     }
 }
 
+.details{
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr);
 
+    h1{
+        grid-column: 1/4;
+        grid-row: 1;
+        align-content: center;
+        justify-self: center;
+        font-size: 2rem;
+    }
+    .coins{
+        grid-column: 1;
+        grid-row: 2/3;
+        align-content: center;
+        justify-self: center;
+        &::after{
+            display: inline-block;
+            vertical-align: middle;
+            content: url('../img/coin.png') / 'Coin';
+        }
+    }
+    .c_title{
+        grid-column: 1;
+        grid-row: 3/4;
+        align-content: start;
+        margin: 0;
+    }
+    h3{
+        grid-column: 2;
+        grid-row: 2/4;
+        align-content: center;
+        justify-self: center;
+    }
+    h4{
+        grid-column: 3;
+        grid-row: 2;
+        align-content: end;
+        justify-self: center;
+        margin-bottom: 0;
+    }
+    .repeat{
+        grid-column: 3;
+        grid-row: 3;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        h6{
+            margin-top: 0;
+        }
+    }
+    .desc{
+        grid-column: 1;
+        grid-row: 4;
+        align-items: center;
+    }
+    p{
+        grid-column: 1/4;
+        grid-row: 5;
+        align-content: center;
+        justify-self: center;
+    }
+    .checkboxes{
+        grid-column: 1/4;
+        grid-row: 6;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        flex-wrap: wrap;
+
+        &__normal, &__checked{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            font-size: larger;
+
+            p{
+                margin-left: 50px;
+            }
+        }
+
+        &__checked{
+            text-decoration: line-through;
+        }
+    }
+}
 
 .hover-label{
     display: inline-flex;

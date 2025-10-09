@@ -105,3 +105,23 @@ function showPass(input){
     }
     isShowing = !isShowing;
 }
+
+let n = 1;
+// taking quests
+function createQuest(){
+    const quest = document.getElementById("quest_name");
+    const quest_box = document.getElementById("quest_box");
+    const quest_checkbox = document.getElementById('quest');
+
+    const quest_added = document.createElement('input');
+    quest_added.type = "text";
+    quest_added.readOnly = true;
+    quest_added.value = quest.value;
+    quest_added.name = "quest" + String(n);
+
+    quest_checkbox.value = n;
+
+    quest_box.appendChild(quest_added);
+    quest.value = defaultValue;
+    n++;
+}

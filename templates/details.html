@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task mgm</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+    <script src="{{url_for('static', filename='js/script.js')}}" defer></script>
+    <script src="{{url_for('static', filename='js/checkboxes.js')}}" defer></script>
+    <script src="{{url_for('static', filename='js/functions.js')}}"></script>
+</head>
+<body>
+    <header>
+        <div>
+            <a href="/{{back}}/{{user.name}}">
+                <img src="{{url_for('static', filename='img/back.png')}}" alt="left-arrow">
+            </a>
+        </div>
+        <h3>{{user.coins}}</h3>
+        <img src="{{url_for('static', filename='img/money.png')}}" alt="money">
+        {% if user.streak > 1 %}
+            <div class="streak">
+                <img src="{{url_for('static', filename=streak_src)}}" alt="streak" style="width: 32px; height: 32px;">
+                <p>{{user.streak}}</p>
+            </div>
+        {% endif %}
+        <nav>    
+            <button id="js-toggle-menu">
+                <img src="{{url_for('static', filename='img/account.png')}}" alt="account">
+            </button>
+            <ul id="js-toggleable-menu">
+                <li><a href="/account/{{user.name}}">Account</a></li>
+                <li><a href="/main/{{user.name}}">Main Page</a></li>
+                <li><a href="/">Log out</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section class="main">
+        <section>
+            <section class="details">
+                <h1>{{ task.name }}</h1>
+                <h4 class="c_title">Reward</h4>
+                <h3 class="coins">{{ task.reward }}</h3>
+                <h3>{{ task.category }}</h3>
+                <h4>Repeatability</h4>
+                <div class="repeat">
+                    <h5>
+                        {% if task.repeatability == "range" %}
+                            {{ task.start_date }} - {{ task.end_date }}
+                        {% elif task.repeatability == "weekly" %}
+                            {{ task.repeatability }} {{ task.start_date.strftime("%A") }}
+                        {% elif task.repeatability == "days" %}
+                            {{ task.repeatability }}
+                            <h6>
+                            {% set group_tasks = task_groups[task.group] if task.group in task_groups else [task] %}
+                            {% set days = [] %}
+                            {% for t in group_tasks %}
+                                {% set day_name = t.start_date.strftime("%A") %}
+                                {% if day_name not in days %}
+                                    {% set _ = days.append(day_name) %}
+                                {% endif %}
+                            {% endfor %}
+                            {{ days|join(', ') }}
+                            </h6>
+                        {% else %}
+                            {{ task.repeatability }}
+                        {% endif %}
+                    </h5>
+                </div>
+                <h4 class="desc">Description</h4>
+                <p>{{ task.description }}</p>
+                <section class="checkboxes">
+                    {% if task.details %}
+                    {% for d in task.details %}
+                        <div class="checkbox-item {{ 'checkboxes__checked' if d.checked else 'checkboxes__normal' }}">
+                            <input 
+                                type="checkbox" 
+                                name="quest" 
+                                value="{{ d.id }}" 
+                                {% if d.checked %}checked{% endif %}
+                                onchange="updateCheckboxStatus('{{ d.id }}', this.checked, this)">
+                            <p>{{ d.text }}</p>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+                </section>
+            </section>
+        </section>
+    </section>
+</body>
+</html>

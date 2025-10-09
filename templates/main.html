@@ -37,14 +37,25 @@
                 </header>
                 <section>
                     <div class="task__list tasks_main">
-                        {% for task in tasks %}
-                            <div class="task__list-card" style="cursor: pointer;">
-                                <h3 class="hover-task">{{task.name}}</h3>
-                                <p class="hover-desc">{{task.description}}</p>
-                            </div>
+                        {% if group_reprs or ungrouped_tasks %}
+                            {# group representation #}
+                            {% for task in group_reprs %}
+                                <div class="task__list-card group-card" style="cursor: pointer;">
+                                    <h3 class="hover-task">{{ task.name }}</h3>
+                                    <p class="hover-desc">{{ task.description }}</p>
+                                </div>
+                            {% endfor %}
+                                
+                            {# single tasks #}
+                            {% for task in ungrouped_tasks %}
+                                <div class="task__list-card group-card" style="cursor: pointer;">
+                                    <h3 class="hover-task">{{ task.name }}</h3>
+                                    <p class="hover-desc">{{ task.description }}</p>
+                                </div>
+                            {% endfor %}
                         {% else %}
                             <h2>No tasks yet</h2>
-                        {% endfor %}
+                        {% endif %}
                     </div>
                 </section>
                 <a href="/tasks/{{user.name}}"><button>Manage</button></a>
@@ -179,9 +190,14 @@
                         <form action="{{url_for('delete', user=user.name)}}" method="POST">
                             <select name="delete" id="">
                                 <option selected disabled hidden>Task</option>
-                                {% for task in tasks %}
-                                    <option value="{{ task.id }}">{{ task.name }} | {{ task.repeatability }}</option>
-                                {% endfor %}
+                                {% if group_reprs or ungrouped_tasks %}
+                                    {% for task in group_reprs %}
+                                        <option value="{{ task.id }}">{{ task.name }} | {{ task.repeatability }}</option>
+                                        {% endfor %}
+                                    {% for task in ungrouped_tasks %}
+                                        <option value="{{ task.id }}">{{ task.name }} | {{ task.repeatability }}</option>
+                                    {% endfor %}
+                                {% endif %}
                             </select>
                             <button type="submit"><span>DELETE</span><span>40</span></button>
                         </form>

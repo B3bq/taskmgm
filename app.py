@@ -1,7 +1,7 @@
 from flask import Flask, session, redirect, url_for, request, render_template, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import and_, func
-import os, bcrypt, random, re
+import os, bcrypt, random, re, string
 from datetime import datetime, timedelta
 from dotenv import load_dotenv
 from mail import mail_sent
@@ -43,9 +43,20 @@ class Tasks(db.Model):
     category = db.Column(db.String(50), nullable=False)
     reward = db.Column(db.Integer, nullable=False)
     repeatability = db.Column(db.String(50), nullable=False)
+    group = db.Column(db.String(50), nullable=True)
     start_date = db.Column(db.Date, nullable=False)
     end_date = db.Column(db.Date, nullable=False)
     completed_at = db.Column(db.Date, nullable=True)
+
+    details = db.relationship("Details", back_populates="task", cascade="all, delete-orphan")
+
+class Details(db.Model):
+    __tablename__ = 'details'
+    id = db.Column(db.Integer, primary_key=True)
+    task_id = db.Column(db.Integer, db.ForeignKey('tasks.id'), nullable=False)
+    text = db.Column(db.String(150), nullable=False)
+    checked = db.Column(db.Boolean, server_default="False")
+    task = db.relationship("Tasks", back_populates="details")
 
 class Gifs(db.Model):
     __tablename__ = 'gifs'
@@ -65,6 +76,12 @@ class Pet(db.Model):
     name = db.Column(db.String(50), nullable=False, server_default='Ryszard')
     feed = db.Column(db.Integer, nullable=False, server_default="100")
     feed_time = db.Column(db.DateTime, nullable=False, server_default=func.now())
+
+# useful function
+def random_letter():
+    letters = string.ascii_letters
+    # 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    return random.choice(letters)
 
 # create table in base
 with app.app_context():
@@ -88,6 +105,12 @@ with app.app_context():
                 task.start_date += timedelta(days=7)
                 task.end_date += timedelta(days=7)
                 task.status = "new"
+        elif task.repeatability == "days":
+            while task.end_date < today:
+                task.start_date += timedelta(days=7)
+                task.end_date += timedelta(days=7)
+                task.status = "new"
+        
 
     for pet in pets:
         if pet.feed > 0:
@@ -160,6 +183,16 @@ def main(user):
             )
         ).first()
 
+        task_group = {}
+        for t in tasks:
+            if t.group is None:
+                continue
+            task_group.setdefault(t.group, []).append(t)
+
+        group_reprs = [group_tasks[0] for group_tasks in task_group.values()] # tasks with group
+
+        ungrouped_tasks = [t for t in tasks if t.group is None] # tasks without a group
+
         if user_pet.feed == 0 :
             src = 'img/pet/basket.png'
         elif user_pet.feed <= 20:
@@ -180,7 +213,7 @@ def main(user):
         else:
             streak_src = 'img/streak.png'
 
-    return render_template('main.html', tasks=tasks, user_pet=user_pet, gif=gif, user=user_data, src=src, streak_src=streak_src)
+    return render_template('main.html', group_reprs=group_reprs, ungrouped_tasks=ungrouped_tasks, user_pet=user_pet, gif=gif, user=user_data, src=src, streak_src=streak_src)
 
 @app.route('/increase/<user>/<int:user_coins>/<int:pet_id>', methods=['POST'])
 def increase_feed(user, user_coins, pet_id):
@@ -341,6 +374,16 @@ def all_tasks(user):
     user_data = Users.query.filter(Users.name == user).first()
     tasks = user_data.tasks
 
+    task_group = {}
+    for t in tasks:
+        if t.group is None:
+            continue
+        task_group.setdefault(t.group, []).append(t)
+    
+    group_reprs = [group_tasks[0] for group_tasks in task_group.values()] # tasks with group
+    
+    ungrouped_tasks = [t for t in tasks if t.group is None] # tasks without a group
+
     if user_data.streak > 15:
         streak_src = 'img/fire-flame.gif'
     elif user_data.streak > 9:
@@ -348,14 +391,16 @@ def all_tasks(user):
     else:
         streak_src = 'img/streak.png'
 
-    return render_template('user_tasks.html', tasks=tasks, user=user_data, streak_src=streak_src)
+    session['back'] = 'all_tasks'
+
+    return render_template('user_tasks.html', tasks=tasks, group_reprs=group_reprs, ungrouped_tasks=ungrouped_tasks, user=user_data, streak_src=streak_src)
 
 @app.route('/tasks/<user>')
 def tasks(user):
     today = datetime.today().date()
     user_data = Users.query.filter(Users.name == user).first()
 
-    tasks = Tasks.query.filter(Tasks.user_id == user_data.id, Tasks.start_date <= today, Tasks.end_date >= today).all()
+    tasks = Tasks.query.filter(Tasks.user_id == user_data.id, Tasks.start_date <= today, Tasks.end_date > today).all()
 
     if user_data.streak > 15:
         streak_src = 'img/fire-flame.gif'
@@ -364,7 +409,42 @@ def tasks(user):
     else:
         streak_src = 'img/streak.png'
 
+    session['back'] = 'tasks'
+
     return render_template('tasks.html', user=user_data, tasks=tasks, streak_src=streak_src)
+
+@app.route('/details/<user>/<id>')
+def details(user, id):
+    user_data = Users.query.filter(Users.name == user).first()
+    task_id = int(id)
+    task = Tasks.query.get_or_404(task_id)
+    tasks = Tasks.query.all()
+
+    task_group = {}
+    for t in tasks:
+        task_group.setdefault(t.group, []).append(t)
+
+    back = session['back']
+
+    return render_template('details.html', back=back, user=user_data, task=task, task_groups=task_group)
+
+@app.route('/update_details', methods=["POST"])
+def update_details():
+    data = request.get_json()
+    if not data:
+        return {"error": "No JSON data"}, 400
+    detail_id = data.get("id")
+    checked = data.get("checked")
+
+    detail = Details.query.get(detail_id)
+
+    if not detail:
+        return jsonify({"success": False, "error": "Not found"}), 404
+    
+    detail.checked = checked
+    db.session.commit()
+
+    return jsonify({"success": True})
 
 @app.route('/update_status', methods=["POST"])
 def update_status():
@@ -444,28 +524,10 @@ def add_task(user_id, user):
     des = request.form['description']
     prio = request.form['priority']
     repeatability = request.form['option']
+    quest = int(request.form.get('quest', 0))
+
+    DAY_MAP = {"Mon": 0, "Tue": 1, "Wed": 2, "Thu": 3, "Fri": 4, "Sat": 5, "Sun": 6}
     
-    match repeatability:
-        case "daily":
-            start_date = datetime.today().date()
-            end_str = "2073-04-28"
-            end_date = datetime.strptime(end_str, "%Y-%m-%d").date()
-        case "weekly":
-            start_date_str = request.form['weekly']
-            start_date = datetime.strptime(start_date_str, "%Y-%m-%d").date()
-            end_date = start_date + timedelta(days=1)
-        case _:
-            date_str = request.form['range'].strip()
-    
-            if ' - ' in date_str:
-                start_str, end_str = date_str.split(' - ')
-            elif '-' in date_str:  # fallback on only one date
-                start_str = end_str = date_str
-            else:
-                raise ValueError(f"Unexpected date format: {date_str}")
-            start_date = datetime.strptime(start_str.strip(), "%Y-%m-%d").date()
-            end_date = datetime.strptime(end_str.strip(), "%Y-%m-%d").date()
-        
     match prio:
         case 'critical':
             reward = random.randint(35, 50)
@@ -479,8 +541,100 @@ def add_task(user_id, user):
             reward = random.randint(1, 10)
 
     with app.app_context():
-        new_task = Tasks(user_id=user_id, name=name, description=des, category=prio, reward=reward, repeatability=repeatability, start_date=start_date, end_date=end_date)    
-        db.session.add(new_task)
+        match repeatability:
+            case "daily":
+                start_date = datetime.today().date()
+                end_str = "2073-04-28"
+                end_date = datetime.strptime(end_str, "%Y-%m-%d").date()
+
+
+                new_task = Tasks(user_id=user_id, name=name, description=des, category=prio, reward=reward, repeatability=repeatability, start_date=start_date, end_date=end_date)    
+                db.session.add(new_task)
+                db.session.flush()
+
+                i = 1
+                while i <= quest:
+                    quest_desc = f"quest{str(i)}"
+                    text = request.form[quest_desc]
+                    new_quest = Details(task_id=new_task.id, text=text)
+                    db.session.add(new_quest)
+                    i += 1
+            case "weekly":
+                start_date_str = request.form['weekly']
+                start_date = datetime.strptime(start_date_str, "%Y-%m-%d").date()
+                end_date = start_date + timedelta(days=1)
+
+
+                new_task = Tasks(user_id=user_id, name=name, description=des, category=prio, reward=reward, repeatability=repeatability, start_date=start_date, end_date=end_date)    
+                db.session.add(new_task)
+                db.session.flush()
+
+                i = 1
+                while i <= quest:
+                    quest_desc = f"quest{i}"
+                    text = request.form[quest_desc]
+                    new_quest = Details(task_id=new_task.id, text=text)
+                    db.session.add(new_quest)
+                    i += 1
+            case "days":
+                selected_days = request.form['days'].split(',')
+                today = datetime.today().date()
+                today_weekday = today.weekday()
+
+                letter = random_letter()
+                numbers = random.randint(100, 999)
+
+                group = f"{user_id}{letter}{numbers}"
+
+                created_task_ids = []
+
+                for day in selected_days:
+                    target_weekday = DAY_MAP[day]
+
+                    delta_days = (target_weekday - today_weekday) % 7
+
+                    start_date = today + timedelta(days=delta_days)
+                    end_date = start_date + timedelta(days=1)
+
+                    new_task = Tasks(user_id=user_id, name=name, description=des, category=prio, reward=reward, repeatability=repeatability, group=group, start_date=start_date, end_date=end_date)    
+                    db.session.add(new_task)
+                    db.session.flush()
+
+                    created_task_ids.append(new_task.id)
+
+                if created_task_ids:
+                    first_id = created_task_ids[0]
+                    for i in range(1, quest + 1):
+                        key = f"quest{i}"
+                        if key in request.form:
+                            text = request.form[key]
+                            new_quest = Details(task_id=first_id, text=text)
+                            db.session.add(new_quest)
+            case _:
+                date_str = request.form['range'].strip()
+
+                if ' - ' in date_str:
+                    start_str, end_str = date_str.split(' - ')
+                elif '-' in date_str:  # fallback on only one date
+                    start_str = end_str = date_str
+                else:
+                    raise ValueError(f"Unexpected date format: {date_str}")
+                start_date = datetime.strptime(start_str.strip(), "%Y-%m-%d").date()
+                end_date = datetime.strptime(end_str.strip(), "%Y-%m-%d").date()
+
+
+                new_task = Tasks(user_id=user_id, name=name, description=des, category=prio, reward=reward, repeatability=repeatability, start_date=start_date, end_date=end_date)    
+                db.session.add(new_task)
+                db.session.flush()
+
+                i = 1
+                while i <= quest:
+                    quest_desc = f"quest{i}"
+                    text = request.form[quest_desc]
+                    new_quest = Details(task_id=new_task.id, text=text)
+                    db.session.add(new_quest)
+                    i += 1
+
         db.session.commit()
 
     return redirect(url_for('tasks', user=user))
