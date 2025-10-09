@@ -190,7 +190,14 @@
                         <form action="{{url_for('delete', user=user.name)}}" method="POST">
                             <select name="delete" id="">
                                 <option selected disabled hidden>Task</option>
-                                
+                                {% if group_reprs or ungrouped_tasks %}
+                                    {% for task in group_reprs %}
+                                        <option value="{{ task.id }}">{{ task.name }} | {{ task.repeatability }}</option>
+                                        {% endfor %}
+                                    {% for task in ungrouped_tasks %}
+                                        <option value="{{ task.id }}">{{ task.name }} | {{ task.repeatability }}</option>
+                                    {% endfor %}
+                                {% endif %}
                             </select>
                             <button type="submit"><span>DELETE</span><span>40</span></button>
                         </form>
