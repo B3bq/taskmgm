@@ -400,7 +400,7 @@ def tasks(user):
     today = datetime.today().date()
     user_data = Users.query.filter(Users.name == user).first()
 
-    tasks = Tasks.query.filter(Tasks.user_id == user_data.id, Tasks.start_date <= today, Tasks.end_date >= today).all()
+    tasks = Tasks.query.filter(Tasks.user_id == user_data.id, Tasks.start_date <= today, Tasks.end_date > today).all()
 
     if user_data.streak > 15:
         streak_src = 'img/fire-flame.gif'
