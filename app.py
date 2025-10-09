@@ -183,6 +183,16 @@ def main(user):
             )
         ).first()
 
+        task_group = {}
+        for t in tasks:
+            if t.group is None:
+                continue
+            task_group.setdefault(t.group, []).append(t)
+
+        group_reprs = [group_tasks[0] for group_tasks in task_group.values()] # tasks with group
+
+        ungrouped_tasks = [t for t in tasks if t.group is None] # tasks without a group
+
         if user_pet.feed == 0 :
             src = 'img/pet/basket.png'
         elif user_pet.feed <= 20:
@@ -203,7 +213,7 @@ def main(user):
         else:
             streak_src = 'img/streak.png'
 
-    return render_template('main.html', tasks=tasks, user_pet=user_pet, gif=gif, user=user_data, src=src, streak_src=streak_src)
+    return render_template('main.html', group_reprs=group_reprs, ungrouped_tasks=ungrouped_tasks, user_pet=user_pet, gif=gif, user=user_data, src=src, streak_src=streak_src)
 
 @app.route('/increase/<user>/<int:user_coins>/<int:pet_id>', methods=['POST'])
 def increase_feed(user, user_coins, pet_id):
@@ -364,6 +374,16 @@ def all_tasks(user):
     user_data = Users.query.filter(Users.name == user).first()
     tasks = user_data.tasks
 
+    task_group = {}
+    for t in tasks:
+        if t.group is None:
+            continue
+        task_group.setdefault(t.group, []).append(t)
+    
+    group_reprs = [group_tasks[0] for group_tasks in task_group.values()] # tasks with group
+    
+    ungrouped_tasks = [t for t in tasks if t.group is None] # tasks without a group
+
     if user_data.streak > 15:
         streak_src = 'img/fire-flame.gif'
     elif user_data.streak > 9:
@@ -371,7 +391,7 @@ def all_tasks(user):
     else:
         streak_src = 'img/streak.png'
 
-    return render_template('user_tasks.html', tasks=tasks, user=user_data, streak_src=streak_src)
+    return render_template('user_tasks.html', tasks=tasks, group_reprs=group_reprs, ungrouped_tasks=ungrouped_tasks, user=user_data, streak_src=streak_src)
 
 @app.route('/tasks/<user>')
 def tasks(user):

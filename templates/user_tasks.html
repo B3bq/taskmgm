@@ -38,9 +38,12 @@
         <section>
            <table class="taskTable">
                 <tr><th>On.</th><th>Name</th><th>Description</th><th>Repeat</th></tr>
-                    {% for task in tasks %}
+                {% set n = namespace(i=1) %}
+                {% if group_reprs or ungrouped_tasks %}
+                    {# group representation #}    
+                    {% for task in group_reprs %}
                         <tr class="task__list-card" data-id="{{task.id}}" userName="{{user.name}}" from="user_tasks">
-                            <td>{{ loop.index }}</td>
+                            <td>{{ n.i }}</td>
                             <td>{{ task.name }}</td>
                             <td>{{ task.description }}</td>
                             <td>
@@ -53,14 +56,50 @@
                                 {% endif %}
                             </td>
                             <td>
+                                <a href="/details/{{user.name}}/{{task.id}}" title="Show details">
+                                    <img src="{{url_for('static', filename='img/eye.png')}}" alt="eye" style="width: 32px; height: 32px;">
+                                </a>
+                            </td>
+                            <td>
                                 {% if task.category not in ["critical", "important"] and task.repeatability not in ["daily"] %}
                                     <img src="{{url_for('static', filename='img/delete.png')}}" alt="bin" class="bins">
                                 {% endif %}
                             </td>
                         </tr>
-                    {% else %}
-                        <tr><td rowspan="4">Not tasks yet</td></tr>
+                        {% set n.i = n.i + 1 %}
+                        {% endfor %}
+                        
+                        {# single tasks #}
+                        {% for task in ungrouped_tasks %}
+                        <tr class="task__list-card" data-id="{{task.id}}" userName="{{user.name}}" from="user_tasks">
+                            <td>{{ n.i }}</td>
+                            <td>{{ task.name }}</td>
+                            <td>{{ task.description }}</td>
+                            <td>
+                                {% if task.repeatability == "range" %}
+                                {{ task.start_date }} - {{ task.end_date }}
+                                {% elif task.repeatability == "weekly" %}
+                                {{ task.repeatability }} {{ task.start_date.strftime("%A") }}
+                                {% else %}
+                                {{ task.repeatability }}
+                                {% endif %}
+                            </td>
+                            <td>
+                                <a href="/details/{{user.name}}/{{task.id}}" title="Show details">
+                                    <img src="{{url_for('static', filename='img/eye.png')}}" alt="eye" style="width: 32px; height: 32px;">
+                                </a>
+                            </td>
+                            <td>
+                                {% if task.category not in ["critical", "important"] and task.repeatability not in ["daily"] %}
+                                <img src="{{url_for('static', filename='img/delete.png')}}" alt="bin" class="bins">
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% set n.i = n.i + 1 %}
                     {% endfor %}
+                {% else %}
+                    <tr><td rowspan="4">Not tasks yet</td></tr>
+                {% endif %}
            </table>
         </section>
     </section>
