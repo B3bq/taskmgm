@@ -391,6 +391,8 @@ def all_tasks(user):
     else:
         streak_src = 'img/streak.png'
 
+    session['back'] = 'all_tasks'
+
     return render_template('user_tasks.html', tasks=tasks, group_reprs=group_reprs, ungrouped_tasks=ungrouped_tasks, user=user_data, streak_src=streak_src)
 
 @app.route('/tasks/<user>')
@@ -407,6 +409,8 @@ def tasks(user):
     else:
         streak_src = 'img/streak.png'
 
+    session['back'] = 'tasks'
+
     return render_template('tasks.html', user=user_data, tasks=tasks, streak_src=streak_src)
 
 @app.route('/details/<user>/<id>')
@@ -420,7 +424,9 @@ def details(user, id):
     for t in tasks:
         task_group.setdefault(t.group, []).append(t)
 
-    return render_template('details.html', user=user_data, task=task, task_groups=task_group)
+    back = session['back']
+
+    return render_template('details.html', back=back, user=user_data, task=task, task_groups=task_group)
 
 @app.route('/update_details', methods=["POST"])
 def update_details():
