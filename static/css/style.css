@@ -56,6 +56,11 @@ body {
   align-content: center;
   min-height: 100dvh;
 }
+@media (max-width: 768px) {
+  body {
+    width: 100%;
+  }
+}
 
 body > header {
   display: flex;
@@ -64,11 +69,27 @@ body > header {
   align-items: center;
   flex-wrap: wrap;
 }
+@media (max-width: 768px) {
+  body > header {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+}
 body > header div {
   width: 75%;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
+}
+@media (max-width: 768px) {
+  body > header div {
+    width: 60%;
+  }
 }
 body > header .streak {
   width: auto;
@@ -92,6 +113,11 @@ body > header button {
   height: 64px;
   margin: 0px 150px 0px 5px;
 }
+@media (max-width: 768px) {
+  body > header button {
+    margin: 5px 15px 0px 5px;
+  }
+}
 body > header button img {
   scale: 2;
 }
@@ -113,11 +139,24 @@ body > header ul::before {
 body > header ul li {
   margin: 5px 0px 5px 0px;
 }
+@media (max-width: 768px) {
+  body > header ul li {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+}
 body > header ul.active {
   display: flex;
   flex-direction: column;
   position: absolute;
   padding: 10px;
+}
+@media (max-width: 768px) {
+  body > header ul.active {
+    width: 100%;
+    left: 0;
+  }
 }
 body > header ul.active a {
   color: #f0f3f4;
@@ -131,6 +170,11 @@ body > header ul::before {
   border-width: 20px;
   border-style: solid;
   border-color: transparent transparent #141414 transparent;
+}
+@media (max-width: 768px) {
+  body > header ul::before {
+    left: 88.5%;
+  }
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -154,6 +198,11 @@ button, input[type=submit] {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+@media (max-width: 768px) {
+  .main {
+    display: none;
+  }
 }
 .main section {
   display: flex;

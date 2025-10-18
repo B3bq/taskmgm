@@ -5,6 +5,10 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    @media (max-width: $mobileBreakPoint){
+        display: none;
+    }
     
     section{
         display: flex;
