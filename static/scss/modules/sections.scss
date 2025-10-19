@@ -7,7 +7,8 @@
     align-items: center;
 
     @media (max-width: $mobileBreakPoint){
-        display: none;
+        width: 100%;
+        margin-top: 100px;
     }
     
     section{
@@ -16,6 +17,11 @@
         background-color: $secondaryColor;
         border-radius: 15px;
         padding: 25px;
+
+        @media (max-width: $mobileBreakPoint){
+            flex-direction: column;
+            width: 100%;
+        }
     }
 }
 
@@ -24,13 +30,23 @@ section>.task, section>.pet, section>.new, section>.ongoing, section>.complete{
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    margin: 0px 50px 0px 50px;
+    margin: 0px 50px;
+
+    @media (max-width: $mobileBreakPoint){
+        justify-content: center;
+        margin: 0;      
+    }
 }
 section>.shop{
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 0px 50px 0px 50px;
+    margin: 0px 50px;
+    
+    @media (max-width: $mobileBreakPoint){
+        justify-content: center;
+        margin: 0;      
+    }
 }
 
 .task, .new, .ongoing, .complete{
@@ -46,6 +62,10 @@ section>.shop{
 }
 
 .task{
+    @media (max-width: $mobileBreakPoint){
+        order: 3;       
+    }
+
     h1{
         font-size: 2rem;
         width: 200px;
@@ -111,6 +131,10 @@ section>.shop{
 
 .pet{
     position: relative;
+
+    @media (max-width: $mobileBreakPoint){
+        order: 1;       
+    }
 
     h2{
         margin: 0;
@@ -197,6 +221,10 @@ section>.shop{
         width: 2px;
         background: $fontColor;
         top: 0;
+
+        @media (max-width: $mobileBreakPoint){
+            display: none;   
+        }
     }
 }
 .pet::before{
@@ -207,22 +235,41 @@ section>.shop{
 }
 
 .shop{
+    @media (max-width: $mobileBreakPoint){
+        order: 2;
+        
+        &::before,&::after{
+            display: block;
+            position: relative;
+            content: '';
+            background: $fontColor;
+            height: 5px;
+            left: -50px;
+            width: 125%;
+            margin: 0px 0px 20px 100px;
+        }
+    }
+
+
     h1{
         font-size: 2rem;
     }
-
-   
 
     &__options{
         display: flex;
         flex-direction: column !important;
 
+        
         &-pets{
             display: flex;
             flex-direction: row;
             justify-self: flex-start;
             padding: 0 !important;
-
+            
+            @media (max-width: $mobileBreakPoint){
+                flex-direction: row !important;
+            }
+            
             img{
                 display: block;
                 width: 64px;
@@ -230,7 +277,7 @@ section>.shop{
                 border: 3px solid $fifthColor;
                 border-radius: 15px;
             }
-
+            
             figure{
                 margin: 5px;
                 position: relative;
@@ -256,12 +303,16 @@ section>.shop{
                 }
             }
         }
-
+        
         &-perks{
             display: flex;
             flex-direction: row;
             justify-self: flex-start;
             padding: 0 !important;
+            
+            @media (max-width: $mobileBreakPoint){
+                flex-direction: row !important;
+            }
 
             img{
                 display: block;
@@ -325,6 +376,10 @@ section>.shop{
             left: -50px;
             width: 125%;
             margin: 0px 0px 20px 0px;
+            
+            @media (max-width: $mobileBreakPoint){
+                margin: 0px 0px 20px 15px;
+            }
         }
 
         &-delete{

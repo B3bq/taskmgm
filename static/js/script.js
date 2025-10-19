@@ -13,3 +13,14 @@ const confirmBtn = document.getElementById('confirm');
 confirmBtn.addEventListener("click", ()=>{
     hiddenInput.value = userName.innerText.trim();
 })
+
+window.addEventListener("scroll", () => {
+    const header = document.getElementById('onTop');
+    const triggerPoint = header.offsetTop + header.offsetHeight;
+  
+    if (window.scrollY > triggerPoint) {
+      header.style.background = '#141414';
+    } else {
+      header.style.background = '#242424';
+    }
+});

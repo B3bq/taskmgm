@@ -34,9 +34,10 @@ body>header{
         flex-direction: row;
         justify-content: flex-end;
         width: 100%;
-        position: absolute;
+        position: fixed;
         top: 0;
         left: 0;
+        z-index: 1;
     }
 
     div{
@@ -117,6 +118,8 @@ body>header{
             @media (max-width: $mobileBreakPoint){
                 width: 100%;
                 left: 0;
+                z-index: 1;
+                background-color: $fourColor;
             }
 
             a{
@@ -136,6 +139,7 @@ body>header{
 
             @media (max-width: $mobileBreakPoint){
                 left: 88.5%;
+                border-color: transparent transparent $fourColor transparent;
             }
         }
     }

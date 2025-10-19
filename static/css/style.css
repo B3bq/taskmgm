@@ -75,9 +75,10 @@ body > header {
     flex-direction: row;
     justify-content: flex-end;
     width: 100%;
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
+    z-index: 1;
   }
 }
 body > header div {
@@ -156,6 +157,8 @@ body > header ul.active {
   body > header ul.active {
     width: 100%;
     left: 0;
+    z-index: 1;
+    background-color: #5e5e5e;
   }
 }
 body > header ul.active a {
@@ -174,6 +177,7 @@ body > header ul::before {
 @media (max-width: 768px) {
   body > header ul::before {
     left: 88.5%;
+    border-color: transparent transparent #5e5e5e transparent;
   }
 }
 
@@ -201,7 +205,8 @@ button, input[type=submit] {
 }
 @media (max-width: 768px) {
   .main {
-    display: none;
+    width: 100%;
+    margin-top: 100px;
   }
 }
 .main section {
@@ -211,20 +216,38 @@ button, input[type=submit] {
   border-radius: 15px;
   padding: 25px;
 }
+@media (max-width: 768px) {
+  .main section {
+    flex-direction: column;
+    width: 100%;
+  }
+}
 
 section > .task, section > .pet, section > .new, section > .ongoing, section > .complete {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  margin: 0px 50px 0px 50px;
+  margin: 0px 50px;
+}
+@media (max-width: 768px) {
+  section > .task, section > .pet, section > .new, section > .ongoing, section > .complete {
+    justify-content: center;
+    margin: 0;
+  }
 }
 
 section > .shop {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 0px 50px 0px 50px;
+  margin: 0px 50px;
+}
+@media (max-width: 768px) {
+  section > .shop {
+    justify-content: center;
+    margin: 0;
+  }
 }
 
 .task section, .new section, .ongoing section, .complete section {
@@ -237,6 +260,11 @@ section > .shop {
   height: 400px;
 }
 
+@media (max-width: 768px) {
+  .task {
+    order: 3;
+  }
+}
 .task h1 {
   font-size: 2rem;
   width: 200px;
@@ -297,6 +325,11 @@ section > .shop {
 
 .pet {
   position: relative;
+}
+@media (max-width: 768px) {
+  .pet {
+    order: 1;
+  }
 }
 .pet h2 {
   margin: 0;
@@ -371,6 +404,11 @@ section > .shop {
   background: #f0f3f4;
   top: 0;
 }
+@media (max-width: 768px) {
+  .pet::before, .pet::after {
+    display: none;
+  }
+}
 
 .pet::before {
   left: -10px;
@@ -380,6 +418,21 @@ section > .shop {
   right: -10px;
 }
 
+@media (max-width: 768px) {
+  .shop {
+    order: 2;
+  }
+  .shop::before, .shop::after {
+    display: block;
+    position: relative;
+    content: "";
+    background: #f0f3f4;
+    height: 5px;
+    left: -50px;
+    width: 125%;
+    margin: 0px 0px 20px 100px;
+  }
+}
 .shop h1 {
   font-size: 2rem;
 }
@@ -392,6 +445,11 @@ section > .shop {
   flex-direction: row;
   justify-self: flex-start;
   padding: 0 !important;
+}
+@media (max-width: 768px) {
+  .shop__options-pets {
+    flex-direction: row !important;
+  }
 }
 .shop__options-pets img {
   display: block;
@@ -428,6 +486,11 @@ section > .shop {
   flex-direction: row;
   justify-self: flex-start;
   padding: 0 !important;
+}
+@media (max-width: 768px) {
+  .shop__options-perks {
+    flex-direction: row !important;
+  }
 }
 .shop__options-perks img {
   display: block;
@@ -484,6 +547,11 @@ section > .shop {
   left: -50px;
   width: 125%;
   margin: 0px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+  .shop__options #special::before {
+    margin: 0px 0px 20px 15px;
+  }
 }
 .shop__options-delete {
   display: flex;

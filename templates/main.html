@@ -9,7 +9,7 @@
     <script src="{{url_for('static', filename='js/functions.js')}}"></script>
 </head>
 <body>
-    <header>
+    <header id="onTop">
         <h3>{{user.coins}}</h3>
         <img src="{{url_for('static', filename='img/money.png')}}" alt="money">
         {% if user.streak > 1 %}
