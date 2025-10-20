@@ -643,6 +643,11 @@ section > .shop {
   background: #f0f3f4;
   top: 0;
 }
+@media (max-width: 768px) {
+  .ongoing::before, .ongoing::after {
+    display: none;
+  }
+}
 .ongoing::before {
   left: -10px;
 }

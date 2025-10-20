@@ -12,8 +12,10 @@ window.addEventListener("scroll", () => {
   
     if (window.scrollY > triggerPoint) {
       header.style.background = '#141414';
+      header.style.boxShadow = '1px 2px 10px #5e5e5e';
     } else {
       header.style.background = '#242424';
+      header.style.boxShadow = 'none';
     }
 });
 

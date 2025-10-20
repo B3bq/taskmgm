@@ -485,6 +485,9 @@ section>.shop{
         width: 2px;
         background: $fontColor;
         top: 0;
+        @media (max-width: $mobileBreakPoint){
+            display: none;
+        }
     }
     &::before{
         left: -10px;
@@ -503,7 +506,7 @@ section>.shop{
     @media (max-width: $mobileBreakPoint) {
         margin-top: 100px;
     }
-    
+
     section{
         display: flex;
         flex-direction: column;
