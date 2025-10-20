@@ -946,6 +946,11 @@ section > .shop {
   top: 215px;
   left: 50%;
 }
+@media (max-width: 768px) {
+  .streaks-left::after {
+    top: 170px;
+  }
+}
 .streaks::after {
   display: block;
   position: absolute;
@@ -955,6 +960,12 @@ section > .shop {
   height: 2px;
   top: 37%;
   left: 40%;
+}
+@media (max-width: 768px) {
+  .streaks::after {
+    top: 33.25%;
+    left: 8%;
+  }
 }
 
 .show {
