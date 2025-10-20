@@ -56,6 +56,11 @@ body {
   align-content: center;
   min-height: 100dvh;
 }
+@media (max-width: 768px) {
+  body {
+    width: 100%;
+  }
+}
 
 body > header {
   display: flex;
@@ -64,11 +69,28 @@ body > header {
   align-items: center;
   flex-wrap: wrap;
 }
+@media (max-width: 768px) {
+  body > header {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+  }
+}
 body > header div {
   width: 75%;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
+}
+@media (max-width: 768px) {
+  body > header div {
+    width: 60%;
+  }
 }
 body > header .streak {
   width: auto;
@@ -92,6 +114,11 @@ body > header button {
   height: 64px;
   margin: 0px 150px 0px 5px;
 }
+@media (max-width: 768px) {
+  body > header button {
+    margin: 5px 15px 0px 5px;
+  }
+}
 body > header button img {
   scale: 2;
 }
@@ -113,11 +140,26 @@ body > header ul::before {
 body > header ul li {
   margin: 5px 0px 5px 0px;
 }
+@media (max-width: 768px) {
+  body > header ul li {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+}
 body > header ul.active {
   display: flex;
   flex-direction: column;
   position: absolute;
   padding: 10px;
+}
+@media (max-width: 768px) {
+  body > header ul.active {
+    width: 100%;
+    left: 0;
+    z-index: 1;
+    background-color: #5e5e5e;
+  }
 }
 body > header ul.active a {
   color: #f0f3f4;
@@ -131,6 +173,12 @@ body > header ul::before {
   border-width: 20px;
   border-style: solid;
   border-color: transparent transparent #141414 transparent;
+}
+@media (max-width: 768px) {
+  body > header ul::before {
+    left: 88.5%;
+    border-color: transparent transparent #5e5e5e transparent;
+  }
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -155,6 +203,12 @@ button, input[type=submit] {
   justify-content: center;
   align-items: center;
 }
+@media (max-width: 768px) {
+  .main {
+    width: 100%;
+    margin-top: 100px;
+  }
+}
 .main section {
   display: flex;
   flex-direction: row;
@@ -162,20 +216,38 @@ button, input[type=submit] {
   border-radius: 15px;
   padding: 25px;
 }
+@media (max-width: 768px) {
+  .main section {
+    flex-direction: column;
+    width: 100%;
+  }
+}
 
 section > .task, section > .pet, section > .new, section > .ongoing, section > .complete {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  margin: 0px 50px 0px 50px;
+  margin: 0px 50px;
+}
+@media (max-width: 768px) {
+  section > .task, section > .pet, section > .new, section > .ongoing, section > .complete {
+    justify-content: center;
+    margin: 0;
+  }
 }
 
 section > .shop {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 0px 50px 0px 50px;
+  margin: 0px 50px;
+}
+@media (max-width: 768px) {
+  section > .shop {
+    justify-content: center;
+    margin: 0;
+  }
 }
 
 .task section, .new section, .ongoing section, .complete section {
@@ -188,6 +260,11 @@ section > .shop {
   height: 400px;
 }
 
+@media (max-width: 768px) {
+  .task {
+    order: 3;
+  }
+}
 .task h1 {
   font-size: 2rem;
   width: 200px;
@@ -248,6 +325,11 @@ section > .shop {
 
 .pet {
   position: relative;
+}
+@media (max-width: 768px) {
+  .pet {
+    order: 1;
+  }
 }
 .pet h2 {
   margin: 0;
@@ -322,6 +404,11 @@ section > .shop {
   background: #f0f3f4;
   top: 0;
 }
+@media (max-width: 768px) {
+  .pet::before, .pet::after {
+    display: none;
+  }
+}
 
 .pet::before {
   left: -10px;
@@ -331,6 +418,21 @@ section > .shop {
   right: -10px;
 }
 
+@media (max-width: 768px) {
+  .shop {
+    order: 2;
+  }
+  .shop::before, .shop::after {
+    display: block;
+    position: relative;
+    content: "";
+    background: #f0f3f4;
+    height: 5px;
+    left: -50px;
+    width: 125%;
+    margin: 0px 0px 20px 100px;
+  }
+}
 .shop h1 {
   font-size: 2rem;
 }
@@ -343,6 +445,11 @@ section > .shop {
   flex-direction: row;
   justify-self: flex-start;
   padding: 0 !important;
+}
+@media (max-width: 768px) {
+  .shop__options-pets {
+    flex-direction: row !important;
+  }
 }
 .shop__options-pets img {
   display: block;
@@ -379,6 +486,11 @@ section > .shop {
   flex-direction: row;
   justify-self: flex-start;
   padding: 0 !important;
+}
+@media (max-width: 768px) {
+  .shop__options-perks {
+    flex-direction: row !important;
+  }
 }
 .shop__options-perks img {
   display: block;
@@ -435,6 +547,11 @@ section > .shop {
   left: -50px;
   width: 125%;
   margin: 0px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+  .shop__options #special::before {
+    margin: 0px 0px 20px 15px;
+  }
 }
 .shop__options-delete {
   display: flex;
@@ -526,6 +643,11 @@ section > .shop {
   background: #f0f3f4;
   top: 0;
 }
+@media (max-width: 768px) {
+  .ongoing::before, .ongoing::after {
+    display: none;
+  }
+}
 .ongoing::before {
   left: -10px;
 }
@@ -538,6 +660,11 @@ section > .shop {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+@media (max-width: 768px) {
+  .addTask {
+    margin-top: 100px;
+  }
 }
 .addTask section {
   display: flex;
@@ -556,6 +683,11 @@ section > .shop {
 .addTask section form .big {
   display: flex;
   flex-direction: row;
+}
+@media (max-width: 768px) {
+  .addTask section form .big {
+    flex-direction: column;
+  }
 }
 .addTask section form .big .right, .addTask section form .big .left {
   display: flex;
@@ -829,6 +961,11 @@ section > .shop {
   top: 215px;
   left: 50%;
 }
+@media (max-width: 768px) {
+  .streaks-left::after {
+    top: 170px;
+  }
+}
 .streaks::after {
   display: block;
   position: absolute;
@@ -838,6 +975,12 @@ section > .shop {
   height: 2px;
   top: 37%;
   left: 40%;
+}
+@media (max-width: 768px) {
+  .streaks::after {
+    top: 33.25%;
+    left: 8%;
+  }
 }
 
 .show {
