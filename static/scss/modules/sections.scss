@@ -499,7 +499,11 @@ section>.shop{
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
+    
+    @media (max-width: $mobileBreakPoint) {
+        margin-top: 100px;
+    }
+    
     section{
         display: flex;
         flex-direction: column;
@@ -509,6 +513,7 @@ section>.shop{
         border-radius: 15px;
         padding: 25px;
 
+
         form{
             display: flex;
             flex-direction: column;
@@ -517,6 +522,10 @@ section>.shop{
             .big{
                 display: flex;
                 flex-direction: row;
+
+                @media (max-width: $mobileBreakPoint){
+                    flex-direction: column;
+                }
 
                 .right, .left{
                     display: flex;

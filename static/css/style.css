@@ -656,6 +656,11 @@ section > .shop {
   justify-content: center;
   align-items: center;
 }
+@media (max-width: 768px) {
+  .addTask {
+    margin-top: 100px;
+  }
+}
 .addTask section {
   display: flex;
   flex-direction: column;
@@ -673,6 +678,11 @@ section > .shop {
 .addTask section form .big {
   display: flex;
   flex-direction: row;
+}
+@media (max-width: 768px) {
+  .addTask section form .big {
+    flex-direction: column;
+  }
 }
 .addTask section form .big .right, .addTask section form .big .left {
   display: flex;

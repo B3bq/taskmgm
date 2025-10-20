@@ -6,14 +6,6 @@ toggleMenuEl?.addEventListener('click', function(){
     toggleableMenuEl?.classList.toggle('active');
 })
 
-const userName = document.getElementById('userName');
-const hiddenInput = document.getElementById('hiddenName');
-const confirmBtn = document.getElementById('confirm');
-
-confirmBtn.addEventListener("click", ()=>{
-    hiddenInput.value = userName.innerText.trim();
-})
-
 window.addEventListener("scroll", () => {
     const header = document.getElementById('onTop');
     const triggerPoint = header.offsetTop + header.offsetHeight;
@@ -24,3 +16,11 @@ window.addEventListener("scroll", () => {
       header.style.background = '#242424';
     }
 });
+
+const userName = document.getElementById('userName');
+const hiddenInput = document.getElementById('hiddenName');
+const confirmBtn = document.getElementById('confirm');
+
+confirmBtn.addEventListener("click", ()=>{
+    hiddenInput.value = userName.innerText.trim();
+})
