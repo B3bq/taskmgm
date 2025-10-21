@@ -322,6 +322,11 @@ section > .shop {
 .height {
   height: 500px;
 }
+@media (max-width: 768px) {
+  .height {
+    height: 150px;
+  }
+}
 
 .pet {
   position: relative;

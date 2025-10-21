@@ -127,6 +127,9 @@ section>.shop{
 }
 .height{
     height: 500px;
+    @media (max-width: $mobileBreakPoint){
+        height: 150px;
+    }
 }
 
 .pet{
