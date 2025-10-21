@@ -1,0 +1,130 @@
+{
+    "index": {
+        "show_pass": "Show password",
+        "sumbit": "Submit",
+        "sign": "Sign up"
+    },
+    "menu": {
+        "account": "Account",
+        "main": "Main Page",
+        "out": "Log out"
+    },
+    "main": {
+        "task": {
+            "header": "Tasks",
+            "btn": "Manage",
+            "link": "See all your tasks"
+        },
+        "pet": {
+            "feed": "FEED"
+        },
+        "shop": {
+            "header": "SHOP",
+            "h3": "Buy new pet",
+            "diag": "COMING SOON",
+            "special": "Buy perks",
+            "desc": {
+                "potka": {
+                    "h4": "Instant health",
+                    "p": "This item will add 45 feed points"
+                },
+                "streak": {
+                    "h4": "Streak return",
+                    "p": "If you forgot make one task per day and lost your strak. You can buy it and resume your streak"
+                },
+                "apple": {
+                    "h4": "Golden apple",
+                    "p": "This item gives full feed"
+                },
+                "hand": {
+                    "h4": "God hand",
+                    "p": "God hand gives full feed and resume your streak"
+                }
+            },
+            "delete": "Buy delete",
+            "ddesc": "You can delete every task you want, but you have to pay 40 coins",
+            "btn": "DELETE"
+        }
+    },
+    "addTask": {
+        "heading": "ADD NEW TASK",
+        "first": "Task name",
+        "desc": "Description",
+        "prio": {
+           "head": "Priority",
+           "dis": "Validity",
+           "cri": "Critical / Urgent",
+           "imp": "Important",
+           "med": "Medium",
+           "low": "Low",
+           "opt": "Optional"
+        },
+        "quest": {
+            "text": "Quest",
+            "desc": "Check if you want to add quest to your main task"
+        },
+        "repeat": {
+            "heading": "Repeatability",
+            "daily": "Everyday",
+            "weekly": "Once a week",
+            "rweekly": "It will reapet on each selected day",
+            "days": "Few days a week",
+            "rdays": "Select days when you will be do a task",
+            "week": {
+                "mon": "Mon.",
+                "tue": "Tue.",
+                "wed": "Wed.",
+                "thu": "Thu.",
+                "fri": "Fri.",
+                "sat": "Sat.",
+                "sun": "Sun"
+            },
+            "range": "Range",
+            "rdesc": "Task will reapet on selected range"
+        },
+        "submit": "ADD TASK"
+    },
+    "tasks": {
+        "table": {
+            "on": "On.",
+            "name": "Name",
+            "desc": "Description"
+        },
+        "new": "New",
+        "ongoing": "Ongoing",
+        "complete": "Complete",
+        "notyet": "No tasks yet",
+        "notprogress": "No tasks in progress yet",
+        "notdone": "No tasks done yet"
+    },
+    "allTask": {
+        "table": {
+            "on": "On.",
+            "name": "Name",
+            "desc": "Description",
+            "repeat": "Repeat" 
+        },
+        "text": "No tasks yet"
+    },
+    "details": {
+        "reward": "Reward",
+        "repeat": "Repeatability",
+        "desc": "Description"
+    },
+    "acc": {
+        "current": "Current streak",
+        "record": "Record streak",
+        "delete": "DELETE ACCOUNT"
+    },
+    "sign": {
+        "heading": "SIGN UP",
+        "pass": "Password",
+        "rpass": "Repeat password",
+        "show": "Show password",
+        "submit": "Submit"
+    },
+    "code": {
+        "heading": "Enter your verification code",
+        "btn": "Verify"
+    }
+}
