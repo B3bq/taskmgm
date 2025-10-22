@@ -1,7 +1,7 @@
 {
     "index": {
         "show_pass": "Show password",
-        "sumbit": "Submit",
+        "sumbit": "Log in",
         "sign": "Sign up"
     },
     "menu": {
@@ -52,7 +52,7 @@
         "desc": "Description",
         "prio": {
            "head": "Priority",
-           "dis": "Validity",
+           "des": "Validity",
            "cri": "Critical / Urgent",
            "imp": "Important",
            "med": "Medium",
