@@ -8,6 +8,9 @@
     <script src="{{url_for('static', filename='js/script.js')}}" defer></script>
     <script src="{{url_for('static', filename='js/checkboxes.js')}}" defer></script>
     <script src="{{url_for('static', filename='js/functions.js')}}"></script>
+
+    <script src="https://unpkg.com/i18next@23.4.6/dist/umd/i18next.min.js"></script>
+    <script src="{{url_for('static', filename='js/i18n.js')}}"></script>
 </head>
 <body>
     <header>
@@ -29,9 +32,9 @@
                 <img src="{{url_for('static', filename='img/account.png')}}" alt="account">
             </button>
             <ul id="js-toggleable-menu">
-                <li><a href="/account/{{user.name}}">Account</a></li>
-                <li><a href="/main/{{user.name}}">Main Page</a></li>
-                <li><a href="/">Log out</a></li>
+                <li><a href="/account/{{user.name}}" data-i18n="menu.account">Account</a></li>
+                <li><a href="/main/{{user.name}}" data-i18n="menu.main">Main Page</a></li>
+                <li><a href="/" data-i18n="menu.out">Log out</a></li>
             </ul>
         </nav>
     </header>
@@ -39,10 +42,10 @@
         <section>
             <section class="details">
                 <h1>{{ task.name }}</h1>
-                <h4 class="c_title">Reward</h4>
+                <h4 class="c_title" data-i18n="details.reward">Reward</h4>
                 <h3 class="coins">{{ task.reward }}</h3>
                 <h3>{{ task.category }}</h3>
-                <h4>Repeatability</h4>
+                <h4 data-i18n="details.repeat">Repeatability</h4>
                 <div class="repeat">
                     <h5>
                         {% if task.repeatability == "range" %}
@@ -67,7 +70,7 @@
                         {% endif %}
                     </h5>
                 </div>
-                <h4 class="desc">Description</h4>
+                <h4 class="desc" data-i18n="details.desc">Description</h4>
                 <p>{{ task.description }}</p>
                 <section class="checkboxes">
                     {% if task.details %}

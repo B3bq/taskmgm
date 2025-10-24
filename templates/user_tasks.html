@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
     <script src="{{url_for('static', filename='js/script.js')}}" defer></script>
     <script src="{{url_for('static', filename='js/drag&drop.js')}}" defer></script>
+
+    <script src="https://unpkg.com/i18next@23.4.6/dist/umd/i18next.min.js"></script>
+    <script src="{{url_for('static', filename='js/i18n.js')}}"></script>
 </head>
 <body>
     <header id="onTop">
@@ -28,16 +31,16 @@
                 <img src="{{url_for('static', filename='img/account.png')}}" alt="account">
             </button>
             <ul id="js-toggleable-menu">
-                <li><a href="/account/{{user.name}}">Account</a></li>
-                <li><a href="/main/{{user.name}}">Main Page</a></li>
-                <li><a href="/">Log out</a></li>
+                <li><a href="/account/{{user.name}}" data-i18n="menu.account">Account</a></li>
+                <li><a href="/main/{{user.name}}" data-i18n="menu.main">Main Page</a></li>
+                <li><a href="/" data-i18n="menu.out">Log out</a></li>
             </ul>
         </nav>
     </header>
     <section class="main">
         <section>
            <table class="taskTable">
-                <tr><th>On.</th><th>Name</th><th>Description</th><th>Repeat</th></tr>
+                <tr><th data-i18n="allTask.table.on">On.</th><th data-i18n="allTask.table.name">Name</th><th data-i18n="allTask.table.desc">Description</th><th data-i18n="allTask.table.repeat">Repeat</th></tr>
                 {% set n = namespace(i=1) %}
                 {% if group_reprs or ungrouped_tasks %}
                     {# group representation #}    
@@ -98,7 +101,7 @@
                         {% set n.i = n.i + 1 %}
                     {% endfor %}
                 {% else %}
-                    <tr><td rowspan="4">Not tasks yet</td></tr>
+                    <tr><td rowspan="4" data-i18n="allTask.text">Not tasks yet</td></tr>
                 {% endif %}
            </table>
         </section>

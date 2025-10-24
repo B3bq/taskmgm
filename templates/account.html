@@ -7,8 +7,10 @@
     <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
     <script src="{{url_for('static', filename='js/script.js')}}" defer></script>
     <script src="{{url_for('static', filename='js/functions.js')}}"></script>
+
+    <script src="https://unpkg.com/i18next@23.4.6/dist/umd/i18next.min.js"></script>
+    <script src="{{url_for('static', filename='js/i18n.js')}}"></script>
 </head>
-<html>
    <body>
         <header>
             <div>
@@ -29,9 +31,9 @@
                     <img src="{{url_for('static', filename='img/account.png')}}" alt="account">
                 </button>
                 <ul id="js-toggleable-menu">
-                    <li><a href="/account/{{user.name}}">Account</a></li>
-                    <li><a href="/main/{{user.name}}">Main Page</a></li>
-                    <li><a href="/">Log out</a></li>
+                    <li><a href="/account/{{user.name}}" data-i18n="menu.account">Account</a></li>
+                <li><a href="/main/{{user.name}}" data-i18n="menu.main">Main Page</a></li>
+                <li><a href="/" data-i18n="menu.out">Log out</a></li>
                 </ul>
             </nav>
         </header>
@@ -45,12 +47,12 @@
                         {% else %}
                             <img src="{{url_for('static', filename='img/streak.png')}}" alt="current" style="width: 64px; height: 64px;">
                         {% endif %}
-                        <h3>Current streak</h3>
+                        <h3 data-i18n="acc.current">Current streak</h3>
                     </div>
                     <div>
                         <h1>{{user.streak_record}}</h1>
                         <img src="{{url_for('static', filename='img/fire-flame.gif')}}" alt="record" style="width: 64px; height: 64px;">
-                        <h3>Record streak</h3>
+                        <h3 data-i18n="acc.record">Record streak</h3>
                     </div>
                 </div>
                 <h1 id="userName">{{ user.name }}</h1>
@@ -94,7 +96,7 @@
                 {% if passw != '' %}
                     <p>{{passw}}</p>
                 {% endif %}
-                <a href="/delete_user/{{user.id}}" class="specialDelete"><button>DELETE ACCOUNT</button></a>
+                <a href="/delete_user/{{user.id}}" class="specialDelete"><button data-i18n="acc.delete">DELETE ACCOUNT</button></a>
             </section>
         </section>
    </body>

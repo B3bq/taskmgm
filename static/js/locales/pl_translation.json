@@ -1,130 +1,130 @@
 {
     "index": {
-        "show_pass": "Show password",
-        "sumbit": "Log in",
-        "sign": "Sign up"
+        "show_pass": "Pokaż hasło",
+        "sumbit": "Zaloguj",
+        "sign": "Zarejestruj"
     },
     "menu": {
-        "account": "Account",
-        "main": "Main Page",
-        "out": "Log out"
+        "account": "Konto",
+        "main": "Strona główna",
+        "out": "Wyloguj"
     },
     "main": {
         "task": {
-            "header": "Tasks",
-            "btn": "Manage",
-            "link": "See all your tasks"
+            "header": "Zadania",
+            "btn": "Zarządzaj",
+            "link": "Zobacz wszystkie zadania"
         },
         "pet": {
-            "feed": "FEED"
+            "feed": "NAKARM"
         },
         "shop": {
-            "header": "SHOP",
-            "h3": "Buy new pet",
-            "diag": "COMING SOON",
-            "special": "Buy perks",
+            "header": "SKLEP",
+            "h3": "Kup nowe zwierzątko",
+            "diag": "WKRÓTCE",
+            "special": "Kup bonusy",
             "desc": {
                 "potka": {
-                    "h4": "Instant health",
-                    "p": "This item will add 45 feed points"
+                    "h4": "Natychmiastowe leczenie",
+                    "p": "Ten przedmiot doda 45 punktów głodu"
                 },
                 "streak": {
-                    "h4": "Streak return",
-                    "p": "If you forgot make one task per day and lost your strak. You can buy it and resume your streak"
+                    "h4": "Powrót serii",
+                    "p": "Jeśli zapomnisz zrobić zadania na dziń i stracisz twoją serie. Możesz kupić ten przedmiot i przywrócić swoją serie"
                 },
                 "apple": {
-                    "h4": "Golden apple",
-                    "p": "This item gives full feed"
+                    "h4": "Złote jabłko",
+                    "p": "Napełnia pasek głodu do końca"
                 },
                 "hand": {
-                    "h4": "God hand",
-                    "p": "God hand gives full feed and resume your streak"
+                    "h4": "Ręka boga",
+                    "p": "Ręka boga napełnia pasek głodu oraz przywraca serie"
                 }
             },
-            "delete": "Buy delete",
-            "ddesc": "You can delete every task you want, but you have to pay 40 coins",
-            "btn": "DELETE"
+            "delete": "Kup usunięcie",
+            "ddesc": "Możesz usunąć każde zadanie jakie chcesz, ale musisz zapłacić 40 żetonów",
+            "btn": "USUŃ"
         }
     },
     "addTask": {
-        "heading": "ADD NEW TASK",
-        "first": "Task name",
-        "desc": "Description",
+        "heading": "DODAJ NOWE ZADANIE",
+        "first": "Nazwa zadania",
+        "desc": "Opis",
         "prio": {
-           "head": "Priority",
-           "des": "Validity",
-           "cri": "Critical / Urgent",
-           "imp": "Important",
-           "med": "Medium",
-           "low": "Low",
-           "opt": "Optional"
+           "head": "Priorytet",
+           "des": "Ważność",
+           "cri": "Krytyczny / Pilny",
+           "imp": "Ważny",
+           "med": "Średni",
+           "low": "Niski",
+           "opt": "Opcjonalny"
         },
         "quest": {
-            "text": "Quest",
-            "desc": "Check if you want to add quest to your main task"
+            "text": "Podzadanie",
+            "desc": "Zaznacz jeśli chcesz dodać podzadania do głównego zadania"
         },
         "repeat": {
-            "heading": "Repeatability",
-            "daily": "Everyday",
-            "weekly": "Once a week",
-            "rweekly": "It will reapet on each selected day",
-            "days": "Few days a week",
-            "rdays": "Select days when you will be do a task",
+            "heading": "Powtarzalność",
+            "daily": "Codziennie",
+            "weekly": "Raz w tygodniu",
+            "rweekly": "Powtarza się w wybrany dzień co tydzień",
+            "days": "Wybrane dni tygodnia",
+            "rdays": "Wybierz dni w których zadanie będzie wykonywane",
             "week": {
-                "mon": "Mon.",
-                "tue": "Tue.",
-                "wed": "Wed.",
-                "thu": "Thu.",
-                "fri": "Fri.",
-                "sat": "Sat.",
-                "sun": "Sun"
+                "mon": "Pon.",
+                "tue": "Wt.",
+                "wed": "Śr.",
+                "thu": "Czw.",
+                "fri": "Pt.",
+                "sat": "Sob.",
+                "sun": "Niedz"
             },
-            "range": "Range",
-            "rdesc": "Task will reapet on selected range"
+            "range": "Zakres",
+            "rdesc": "Zadanie Trwa podany zakres"
         },
-        "submit": "ADD TASK"
+        "submit": "DODAJ ZADANIE"
     },
     "tasks": {
         "table": {
-            "on": "On.",
-            "name": "Name",
-            "desc": "Description"
+            "on": "Lp.",
+            "name": "Nazwa",
+            "desc": "Opis"
         },
-        "new": "New",
-        "ongoing": "Ongoing",
-        "complete": "Complete",
-        "notyet": "No tasks yet",
-        "notprogress": "No tasks in progress yet",
-        "notdone": "No tasks done yet"
+        "new": "Nowe",
+        "ongoing": "Trwające",
+        "complete": "Ukończone",
+        "notyet": "Brak zadań",
+        "notprogress": "Brak zadań w trakcie",
+        "notdone": "Brak ukończonych zadań"
     },
     "allTask": {
         "table": {
-            "on": "On.",
-            "name": "Name",
-            "desc": "Description",
-            "repeat": "Repeat" 
+            "on": "Lp.",
+            "name": "Nazwa",
+            "desc": "Opis",
+            "repeat": "Powtarzalność" 
         },
-        "text": "No tasks yet"
+        "text": "Brak zadań"
     },
     "details": {
-        "reward": "Reward",
-        "repeat": "Repeatability",
-        "desc": "Description"
+        "reward": "Nagroda",
+        "repeat": "Powtarzalność",
+        "desc": "Opis"
     },
     "acc": {
-        "current": "Current streak",
-        "record": "Record streak",
-        "delete": "DELETE ACCOUNT"
+        "current": "Aktualna seria",
+        "record": "Rekord serii",
+        "delete": "USUŃ KONTO"
     },
     "sign": {
-        "heading": "SIGN UP",
-        "pass": "Password",
-        "rpass": "Repeat password",
-        "show": "Show password",
-        "submit": "Submit"
+        "heading": "ZAREJESTRUJ",
+        "pass": "Hasło",
+        "rpass": "Powtórz hasło",
+        "show": "Pokaż hasło",
+        "submit": "Zarejestruj"
     },
     "code": {
-        "heading": "Enter your verification code",
-        "btn": "Verify"
+        "heading": "Podaj kod weryfikacyjny",
+        "btn": "Weryfikuj"
     }
 }

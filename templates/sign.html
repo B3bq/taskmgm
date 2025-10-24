@@ -6,21 +6,24 @@
     <title>Task mgm</title>
     <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
     <script src="{{url_for('static', filename='js/functions.js')}}"></script>
+
+    <script src="https://unpkg.com/i18next@23.4.6/dist/umd/i18next.min.js"></script>
+    <script src="{{url_for('static', filename='js/i18n.js')}}"></script>
 </head>
 <body>
     <section class="userForm">
         <section>
-            <h1>SIGN UP</h1>
+            <h1 data-i18n="sign.heading">SIGN UP</h1>
             <form action="http://localhost:5000/sign" method="post">
                 <input type="text" name="name" placeholder="Name/Login">
                 <input type="text" name="email" placeholder="E-mail">
-                <input type="password" name="password" placeholder="Password" id="pass" where="sign">
-                <input type="password" name="re_password" placeholder="Reapet password" id="repass">
+                <input type="password" name="password" data-i18n-attr="placeholder:sign.pass" id="pass" where="sign">
+                <input type="password" name="re_password" data-i18n-attr="placeholder:sign.rpass" id="repass">
                 <div class="show">
                     <input type="checkbox" name="show" id="show" onclick="showPass('pass')">
-                    <p>Show password</p>
+                    <p data-i18n="sign.show">Show password</p>
                 </div>
-                <input type="submit" value="Submit">
+                <input type="submit" data-i18n-attr="value:sign.submit">
             </form>
             {% if text != '' %}
                 <p>{{ text }}</p>
