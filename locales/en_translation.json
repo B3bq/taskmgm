@@ -1,7 +1,7 @@
 {
     "index": {
         "show_pass": "Show password",
-        "sumbit": "Log in",
+        "submit": "Log in",
         "sign": "Sign up"
     },
     "menu": {
@@ -24,6 +24,7 @@
             "diag": "COMING SOON",
             "special": "Buy perks",
             "desc": {
+                "cost": "Cost",
                 "potka": {
                     "h4": "Instant health",
                     "p": "This item will add 45 feed points"

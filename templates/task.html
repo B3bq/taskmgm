@@ -47,9 +47,9 @@
                 <div class="big">    
                     <div class="right">
                         <h3 data-i18n="addTask.first">Task name</h3>
-                        <input type="text" name="name" placeholder="Task name">
+                        <input type="text" name="name" data-i18n-attr="placeholder:addTask.first">
                         <h3 data-i18n="addTask.desc">Description</h3>
-                        <textarea name="description" placeholder="Description"></textarea>
+                        <textarea name="description" data-i18n-attr="placeholder:addTask.desc"></textarea>
                         <h3 data-i18n="addTask.prio.head">Priority</h3>
                         <select name="priority" id="priority">
                             <option selected disabled hidden data-i18n="addTask.prio.des">Validity</option>
@@ -60,7 +60,7 @@
                             <option value="optional" data-i18n="addTask.prio.opt">Optional</option>
                         </select>
                     
-                        <p><input type="checkbox" name="quest" id="quest" value="0" data-i18n="addTask.quest.text">Quests<label class="hover-label">?<span class="hover-text" data-i18n="addTask.quest.desc">Check if you want to add quest to your main task</span></label></p>
+                        <input type="checkbox" name="quest" id="quest" value="0"><p data-i18n="addTask.quest.text">Quests</p><label class="hover-label">?<span class="hover-text" data-i18n="addTask.quest.desc">Check if you want to add quest to your main task</span></label>
                         <div>
                             <input type="text" id="quest_name" disabled>
                             <button type="button" onclick="createQuest()" id="quest_btn" disabled>+</button>
@@ -71,11 +71,11 @@
                     </div>
 
                     <div class="left">
-                        <h3 data-i18n="repeat.heading">Repeatability</h3>
-                        <p data-i18n="addTask.repeat.daily"><input type="checkbox" name="option" value="daily">Everyday</p>
-                        <p data-i18n="addTask.repeat.weekly"><input type="checkbox" name="option" value="weekly" id="once">Once a week <label class="hover-label">?<span class="hover-text" data-i18n="repeat.rweekly">It will reapet on each selected day</span></label></p>
+                        <h3 data-i18n="addTask.repeat.heading">Repeatability</h3>
+                        <input type="checkbox" name="option" value="daily"><p data-i18n="addTask.repeat.daily">Everyday</p>
+                        <input type="checkbox" name="option" value="weekly" id="once"><p data-i18n="addTask.repeat.weekly">Once a week</p><label class="hover-label">?<span class="hover-text" data-i18n="addTask.repeat.rweekly">It will reapet on each selected day</span></label>
                         <input type="date" name="weekly" id="dateonce" disabled>
-                        <p data-i18n="addTask.repeat.days"><input type="checkbox" name="option" id="days" value="days">Few days a week<label class="hover-label">?<span class="hover-text" data-i18n="repeat.rdays">Select days when you will be do a task</span></label></p>
+                        <input type="checkbox" name="option" id="days" value="days"><p data-i18n="addTask.repeat.days">Few days a week</p><label class="hover-label">?<span class="hover-text" data-i18n="addTask.repeat.rdays">Select days when you will be do a task</span></label>
                         <input type="hidden" name="days" id="daysInput">
                         <div class="days" id="week">
                             <button type="button" data-day="Mon" data-i18n="addTask.repeat.week.mon">Mon.</button>
@@ -86,7 +86,7 @@
                             <button type="button" data-day="Sat" data-i18n="addTask.repeat.week.sat">Sat.</button>
                             <button type="button" data-day="Sun" data-i18n="addTask.repeat.week.sun">Sun.</button>
                         </div>
-                        <p data-i18n="addTask.repeat.range"><input type="checkbox" name="option" value="range" id="range">Range <label class="hover-label">?<span class="hover-text" data-i18n="addTask.repeat.rdesc">Task will reapet on selected range</span></label></p>
+                        <input type="checkbox" name="option" value="range" id="range"><p data-i18n="addTask.repeat.range">Range</p><label class="hover-label">?<span class="hover-text" data-i18n="addTask.repeat.rdesc">Task will reapet on selected range</span></label>
                         <input type="text" name="range" id="daterange" disabled>
                     </div>
                 </div>

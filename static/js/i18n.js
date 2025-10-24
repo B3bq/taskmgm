@@ -1,6 +1,6 @@
 Promise.all([
-    fetch("locales/en_translation.json").then(res => res.json()),
-    fetch("locales/pl_translation.json").then(res => res.json())
+    fetch("/locales/en_translation.json").then(res => res.json()),
+    fetch("/locales/pl_translation.json").then(res => res.json())
 ]).then(([en, pl]) => {
     const userLang = navigator.language.startsWith("en") ? "en" : "pl";
 
@@ -31,3 +31,9 @@ function translatePage() {
         });
       });
 }
+
+document.addEventListener("changeLang", e => {
+    const lang = e.detail;
+    i18next.changeLanguage(lang, translatePage);
+    localStorage.setItem("lang", lang);
+  });

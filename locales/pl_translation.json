@@ -1,7 +1,7 @@
 {
     "index": {
         "show_pass": "Pokaż hasło",
-        "sumbit": "Zaloguj",
+        "submit": "Zaloguj",
         "sign": "Zarejestruj"
     },
     "menu": {
@@ -24,6 +24,7 @@
             "diag": "WKRÓTCE",
             "special": "Kup bonusy",
             "desc": {
+                "cost": "Koszt",
                 "potka": {
                     "h4": "Natychmiastowe leczenie",
                     "p": "Ten przedmiot doda 45 punktów głodu"

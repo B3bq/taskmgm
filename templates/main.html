@@ -57,7 +57,7 @@
                                 </div>
                             {% endfor %}
                         {% else %}
-                            <h2>No tasks yet</h2>
+                            <h2 data-i18n="tasks.notyet">No tasks yet</h2>
                         {% endif %}
                     </div>
                 </section>
@@ -93,10 +93,10 @@
                         <figure>
                             <img src="{{url_for('static', filename='img/pet/panda.png')}}" alt="pet1">
                         </figure>
-                        <figure data-i18n="[data-diag]main.shop.diag">
+                        <figure data-i18n-attr="data-diag:main.shop.diag">
                             <img src="{{url_for('static', filename='img/pet/kitty.png')}}" alt="pet2">
                         </figure>
-                        <figure data-i18n="[data-diag]main.shop.diag">
+                        <figure data-i18n-attr="data-diag:main.shop.diag">
                             <img src="{{url_for('static', filename='img/pet/animal.png')}}" alt="pet3">
                         </figure>
                     </section>
@@ -118,7 +118,7 @@
                                 <h4 data-i18n="main.shop.desc.potka.h4">Instant health</h4>
                                 <p data-i18n="main.shop.desc.potka.p">This item will add 45 feed points</p>
                                 <div>
-                                    <h5>Cost</h5>
+                                    <h5 data-i18n="main.shop.desc.cost">Cost</h5>
                                     <p>70</p>
                                 </div>
                             </div>
@@ -139,7 +139,7 @@
                                 <h4 data-i18n="main.shop.desc.streak.h4">Streak return</h4>
                                 <p data-i18n="main.shop.desc.streak.p">If you forgot make one task per day and lost your strak. You can buy it and resume your streak</p>
                                 <div>
-                                    <h5>Cost</h5>
+                                    <h5 data-i18n="main.shop.desc.cost">Cost</h5>
                                     <p>110</p>
                                 </div>
                             </div>
@@ -160,7 +160,7 @@
                                 <h4 data-i18n="main.shop.desc.apple.h4">Golden apple</h4>
                                 <p data-i18n="main.shop.desc.apple.p">This item gives full feed</p>
                                 <div>
-                                    <h5>Cost</h5>
+                                    <h5 data-i18n="main.shop.desc.cost">Cost</h5>
                                     <p>90</p>
                                 </div>
                             </div>
@@ -181,7 +181,7 @@
                                 <h4 data-i18n="main.shop.desc.hand.h4">God hand</h4>
                                 <p data-i18n="main.shop.desc.hand.p">God hand gives full feed and resume your streak</p>
                                 <div>
-                                    <h5>Cost</h5>
+                                    <h5 data-i18n="main.shop.desc.cost">Cost</h5>
                                     <p>175</p>
                                 </div>
                             </div>
@@ -192,7 +192,7 @@
                     <section class="shop__options-delete">
                         <form action="{{url_for('delete', user=user.name)}}" method="POST">
                             <select name="delete" id="">
-                                <option selected disabled hidden>Task</option>
+                                <option selected disabled hidden data-i18n="main.task.header">Task</option>
                                 {% if group_reprs or ungrouped_tasks %}
                                     {% for task in group_reprs %}
                                         <option value="{{ task.id }}">{{ task.name }} | {{ task.repeatability }}</option>
