@@ -1,4 +1,4 @@
-from flask import Flask, session, redirect, url_for, request, render_template, jsonify
+from flask import Flask, session, redirect, url_for, request, render_template, jsonify, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import and_, func
 import os, bcrypt, random, re, string
@@ -134,6 +134,10 @@ with app.app_context():
 
 
     db.session.commit()
+
+@app.route('/locales/<path:filename>')
+def locales(filename):
+    return send_from_directory('locales', filename)
 
 # log in page as index
 @app.route('/')

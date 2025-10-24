@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
     <script src="{{url_for('static', filename='js/script.js')}}" defer></script>
     <script src="{{url_for('static', filename='js/drag&drop.js')}}" defer></script>
+
+    <script src="https://unpkg.com/i18next@23.4.6/dist/umd/i18next.min.js"></script>
+    <script src="{{url_for('static', filename='js/i18n.js')}}"></script>
 </head>
 <body>
     <header id="onTop">
@@ -28,9 +31,9 @@
                 <img src="{{url_for('static', filename='img/account.png')}}" alt="account">
             </button>
             <ul id="js-toggleable-menu">
-                <li><a href="/account/{{user.name}}">Account</a></li>
-                <li><a href="/main/{{user.name}}">Main Page</a></li>
-                <li><a href="/">Log out</a></li>
+                <li><a href="/account/{{user.name}}" data-i18n="menu.account">Account</a></li>
+                <li><a href="/main/{{user.name}}" data-i18n="menu.main">Main Page</a></li>
+                <li><a href="/" data-i18n="menu.out">Log out</a></li>
             </ul>
         </nav>
     </header>
@@ -38,12 +41,12 @@
         <section>
             <section class="new">
                 <header>
-                    <h1>NEW</h1>
+                    <h1 data-i18n="tasks.new">NEW</h1>
                     <a href="/task/{{user.name}}"><img src="{{url_for('static', filename='img/plus.png')}}" alt="plus"></a>
                 </header>
                 <section>
                     <table>
-                        <tr><th>On.</th><th>Name</th><th>Description</th></tr>
+                        <tr><th data-i18n="tasks.table.on">On.</th><th data-i18n="tasks.table.name">Name</th><th data-i18n="tasks.table.desc">Description</th></tr>
                     </table>
                     <div class="task__list height" id="new"><!--think about colors based on category-->
                         {% for task in tasks %}
@@ -61,18 +64,18 @@
                                 </div>
                             {% endif %}
                         {% else %}
-                            <h2>No tasks yet</h2>
+                            <h2 data-i18n="tasks.notyet">No tasks yet</h2>
                         {% endfor %}
                     </div>
                 </section>
             </section>
             <section class="ongoing">
                 <header>
-                    <h1>ONGOING</h1>
+                    <h1 data-i18n="tasks.ongoing">ONGOING</h1>
                 </header>
                 <section>
                     <table>
-                        <tr><th>On.</th><th>Name</th><th>Description</th></tr>
+                        <tr><th data-i18n="tasks.table.on">On.</th><th data-i18n="tasks.table.name">Name</th><th data-i18n="tasks.table.desc">Description</th></tr>
                     </table>
                     <div class="task__list height" id="ongoing"><!--think about colors based on category-->
                         {% for task in tasks %}
@@ -90,18 +93,18 @@
                                 </div>
                             {% endif %}
                         {% else %}
-                            <h2>No tasks in progress yet</h2>
+                            <h2 data-i18n="tasks.notprogress">No tasks in progress yet</h2>
                         {% endfor %}
                     </div>
                 </section>
             </section>
             <section class="complete">
                 <header>
-                    <h1>COMPLETE</h1>
+                    <h1 data-i18n="tasks.complete">COMPLETE</h1>
                 </header>
                 <section>
                     <table>
-                        <tr><th>On.</th><th>Name</th><th>Description</th></tr>
+                        <tr><th data-i18n="tasks.table.on">On.</th><th data-i18n="tasks.table.name">Name</th><th data-i18n="tasks.table.desc">Description</th></tr>
                     </table>
                     <div class="task__list height" id="complete"><!--think about colors based on category-->
                         {% for task in tasks %}
@@ -119,7 +122,7 @@
                                 </div>
                             {% endif %}
                         {% else %}
-                            <h2>No tasks done yet</h2>
+                            <h2 data-i18n="tasks.notdone">No tasks done yet</h2>
                         {% endfor %}
                     </div>
                 </section>

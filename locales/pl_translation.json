@@ -1,0 +1,131 @@
+{
+    "index": {
+        "show_pass": "Pokaż hasło",
+        "submit": "Zaloguj",
+        "sign": "Zarejestruj"
+    },
+    "menu": {
+        "account": "Konto",
+        "main": "Strona główna",
+        "out": "Wyloguj"
+    },
+    "main": {
+        "task": {
+            "header": "Zadania",
+            "btn": "Zarządzaj",
+            "link": "Zobacz wszystkie zadania"
+        },
+        "pet": {
+            "feed": "NAKARM"
+        },
+        "shop": {
+            "header": "SKLEP",
+            "h3": "Kup nowe zwierzątko",
+            "diag": "WKRÓTCE",
+            "special": "Kup bonusy",
+            "desc": {
+                "cost": "Koszt",
+                "potka": {
+                    "h4": "Natychmiastowe leczenie",
+                    "p": "Ten przedmiot doda 45 punktów głodu"
+                },
+                "streak": {
+                    "h4": "Powrót serii",
+                    "p": "Jeśli zapomnisz zrobić zadania na dziń i stracisz twoją serie. Możesz kupić ten przedmiot i przywrócić swoją serie"
+                },
+                "apple": {
+                    "h4": "Złote jabłko",
+                    "p": "Napełnia pasek głodu do końca"
+                },
+                "hand": {
+                    "h4": "Ręka boga",
+                    "p": "Ręka boga napełnia pasek głodu oraz przywraca serie"
+                }
+            },
+            "delete": "Kup usunięcie",
+            "ddesc": "Możesz usunąć każde zadanie jakie chcesz, ale musisz zapłacić 40 żetonów",
+            "btn": "USUŃ"
+        }
+    },
+    "addTask": {
+        "heading": "DODAJ NOWE ZADANIE",
+        "first": "Nazwa zadania",
+        "desc": "Opis",
+        "prio": {
+           "head": "Priorytet",
+           "des": "Ważność",
+           "cri": "Krytyczny / Pilny",
+           "imp": "Ważny",
+           "med": "Średni",
+           "low": "Niski",
+           "opt": "Opcjonalny"
+        },
+        "quest": {
+            "text": "Podzadanie",
+            "desc": "Zaznacz jeśli chcesz dodać podzadania do głównego zadania"
+        },
+        "repeat": {
+            "heading": "Powtarzalność",
+            "daily": "Codziennie",
+            "weekly": "Raz w tygodniu",
+            "rweekly": "Powtarza się w wybrany dzień co tydzień",
+            "days": "Wybrane dni tygodnia",
+            "rdays": "Wybierz dni w których zadanie będzie wykonywane",
+            "week": {
+                "mon": "Pon.",
+                "tue": "Wt.",
+                "wed": "Śr.",
+                "thu": "Czw.",
+                "fri": "Pt.",
+                "sat": "Sob.",
+                "sun": "Niedz"
+            },
+            "range": "Zakres",
+            "rdesc": "Zadanie Trwa podany zakres"
+        },
+        "submit": "DODAJ ZADANIE"
+    },
+    "tasks": {
+        "table": {
+            "on": "Lp.",
+            "name": "Nazwa",
+            "desc": "Opis"
+        },
+        "new": "Nowe",
+        "ongoing": "Trwające",
+        "complete": "Ukończone",
+        "notyet": "Brak zadań",
+        "notprogress": "Brak zadań w trakcie",
+        "notdone": "Brak ukończonych zadań"
+    },
+    "allTask": {
+        "table": {
+            "on": "Lp.",
+            "name": "Nazwa",
+            "desc": "Opis",
+            "repeat": "Powtarzalność" 
+        },
+        "text": "Brak zadań"
+    },
+    "details": {
+        "reward": "Nagroda",
+        "repeat": "Powtarzalność",
+        "desc": "Opis"
+    },
+    "acc": {
+        "current": "Aktualna seria",
+        "record": "Rekord serii",
+        "delete": "USUŃ KONTO"
+    },
+    "sign": {
+        "heading": "ZAREJESTRUJ",
+        "pass": "Hasło",
+        "rpass": "Powtórz hasło",
+        "show": "Pokaż hasło",
+        "submit": "Zarejestruj"
+    },
+    "code": {
+        "heading": "Podaj kod weryfikacyjny",
+        "btn": "Weryfikuj"
+    }
+}

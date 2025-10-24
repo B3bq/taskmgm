@@ -10,6 +10,9 @@
     <script src="{{url_for('static', filename='js/functions.js')}}"></script>
     <script src="{{url_for('static', filename='js/script.js')}}" defer></script>
     <script src="{{url_for('static', filename='js/task.js')}}" defer></script>
+
+    <script src="https://unpkg.com/i18next@23.4.6/dist/umd/i18next.min.js"></script>
+    <script src="{{url_for('static', filename='js/i18n.js')}}"></script>
 </head>
 <body>
     <header id="onTop">
@@ -31,33 +34,33 @@
                 <img src="{{url_for('static', filename='img/account.png')}}" alt="account">
             </button>
             <ul id="js-toggleable-menu">
-                <li><a href="/account/{{user.name}}">Account</a></li>
-                <li><a href="/main/{{user.name}}">Main Page</a></li>
-                <li><a href="/">Log out</a></li>
+                <li><a href="/account/{{user.name}}" data-i18n="menu.account">Account</a></li>
+                <li><a href="/main/{{user.name}}" data-i18n="menu.main">Main Page</a></li>
+                <li><a href="/" data-i18n="menu.out">Log out</a></li>
             </ul>
         </nav>
     </header>
     <section class="addTask">
         <section>
-            <h1>ADD NEW TASK</h1>
+            <h1 data-i18n="addTask.heading">ADD NEW TASK</h1>
             <form action="{{url_for('add_task', user_id=user.id, user=user.name)}}" method="post">
                 <div class="big">    
                     <div class="right">
-                        <h3>Task name</h3>
-                        <input type="text" name="name" placeholder="Task name">
-                        <h3>Description</h3>
-                        <textarea name="description" placeholder="Description"></textarea>
-                        <h3>Priority</h3>
+                        <h3 data-i18n="addTask.first">Task name</h3>
+                        <input type="text" name="name" data-i18n-attr="placeholder:addTask.first">
+                        <h3 data-i18n="addTask.desc">Description</h3>
+                        <textarea name="description" data-i18n-attr="placeholder:addTask.desc"></textarea>
+                        <h3 data-i18n="addTask.prio.head">Priority</h3>
                         <select name="priority" id="priority">
-                            <option selected disabled hidden>Validity</option>
-                            <option value="critical">Critical / Urgent</option>
-                            <option value="important">Important</option>
-                            <option value="medium">Medium</option>
-                            <option value="low">Low</option>
-                            <option value="optional">Optional</option>
+                            <option selected disabled hidden data-i18n="addTask.prio.des">Validity</option>
+                            <option value="critical" data-i18n="addTask.prio.cri">Critical / Urgent</option>
+                            <option value="important" data-i18n="addTask.prio.imp">Important</option>
+                            <option value="medium" data-i18n="addTask.prio.med">Medium</option>
+                            <option value="low" data-i18n="addTask.prio.low">Low</option>
+                            <option value="optional" data-i18n="addTask.prio.opt">Optional</option>
                         </select>
                     
-                        <p><input type="checkbox" name="quest" id="quest" value="0">Quests<label class="hover-label">?<span class="hover-text">Check if you want to add quest to your main task</span></label></p>
+                        <input type="checkbox" name="quest" id="quest" value="0"><p data-i18n="addTask.quest.text">Quests</p><label class="hover-label">?<span class="hover-text" data-i18n="addTask.quest.desc">Check if you want to add quest to your main task</span></label>
                         <div>
                             <input type="text" id="quest_name" disabled>
                             <button type="button" onclick="createQuest()" id="quest_btn" disabled>+</button>
@@ -68,27 +71,27 @@
                     </div>
 
                     <div class="left">
-                        <h3>Repeatability</h3>
-                        <p><input type="checkbox" name="option" value="daily">Everyday</p>
-                        <p><input type="checkbox" name="option" value="weekly" id="once">Once a week <label class="hover-label">?<span class="hover-text">It will reapet on each selected day</span></label></p>
+                        <h3 data-i18n="addTask.repeat.heading">Repeatability</h3>
+                        <input type="checkbox" name="option" value="daily"><p data-i18n="addTask.repeat.daily">Everyday</p>
+                        <input type="checkbox" name="option" value="weekly" id="once"><p data-i18n="addTask.repeat.weekly">Once a week</p><label class="hover-label">?<span class="hover-text" data-i18n="addTask.repeat.rweekly">It will reapet on each selected day</span></label>
                         <input type="date" name="weekly" id="dateonce" disabled>
-                        <p><input type="checkbox" name="option" id="days" value="days">Few days a week<label class="hover-label">?<span class="hover-text">Select days when you will be do a task</span></label></p>
+                        <input type="checkbox" name="option" id="days" value="days"><p data-i18n="addTask.repeat.days">Few days a week</p><label class="hover-label">?<span class="hover-text" data-i18n="addTask.repeat.rdays">Select days when you will be do a task</span></label>
                         <input type="hidden" name="days" id="daysInput">
                         <div class="days" id="week">
-                            <button type="button" data-day="Mon">Mon.</button>
-                            <button type="button" data-day="Tue">Tue.</button>
-                            <button type="button" data-day="Wed">Wed.</button>
-                            <button type="button" data-day="Thu">Thu.</button>
-                            <button type="button" data-day="Fri">Fri.</button>
-                            <button type="button" data-day="Sat">Sat.</button>
-                            <button type="button" data-day="Sun">Sun.</button>
+                            <button type="button" data-day="Mon" data-i18n="addTask.repeat.week.mon">Mon.</button>
+                            <button type="button" data-day="Tue" data-i18n="addTask.repeat.week.tue">Tue.</button>
+                            <button type="button" data-day="Wed" data-i18n="addTask.repeat.week.wed">Wed.</button>
+                            <button type="button" data-day="Thu" data-i18n="addTask.repeat.week.thu">Thu.</button>
+                            <button type="button" data-day="Fri" data-i18n="addTask.repeat.week.fri">Fri.</button>
+                            <button type="button" data-day="Sat" data-i18n="addTask.repeat.week.sat">Sat.</button>
+                            <button type="button" data-day="Sun" data-i18n="addTask.repeat.week.sun">Sun.</button>
                         </div>
-                        <p><input type="checkbox" name="option" value="range" id="range">Range <label class="hover-label">?<span class="hover-text">Task will reapet on selected range</span></label></p>
+                        <input type="checkbox" name="option" value="range" id="range"><p data-i18n="addTask.repeat.range">Range</p><label class="hover-label">?<span class="hover-text" data-i18n="addTask.repeat.rdesc">Task will reapet on selected range</span></label>
                         <input type="text" name="range" id="daterange" disabled>
                     </div>
                 </div>
 
-                <input type="submit" value="ADD TASK">
+                <input type="submit" data-i18n-attr="value:addTask.submit">
             </form>
         </section>
     </section>

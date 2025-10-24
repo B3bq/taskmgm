@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
     <script src="{{url_for('static', filename='js/script.js')}}" defer></script>
     <script src="{{url_for('static', filename='js/functions.js')}}"></script>
+
+    <script src="https://unpkg.com/i18next@23.4.6/dist/umd/i18next.min.js"></script>
+    <script src="{{url_for('static', filename='js/i18n.js')}}"></script>
 </head>
 <body>
     <header id="onTop">
@@ -23,9 +26,9 @@
                 <img src="{{url_for('static', filename='img/account.png')}}" alt="account">
             </button>
             <ul id="js-toggleable-menu">
-                <li><a href="/account/{{user.name}}">Account</a></li>
-                <li><a href="/main/{{user.name}}">Main Page</a></li>
-                <li><a href="/">Log out</a></li>
+                <li><a href="/account/{{user.name}}" data-i18n="menu.account">Account</a></li>
+                <li><a href="/main/{{user.name}}" data-i18n="menu.main">Main Page</a></li>
+                <li><a href="/" data-i18n="menu.out">Log out</a></li>
             </ul>
         </nav>
     </header>
@@ -33,7 +36,7 @@
         <section>
             <section class="task">
                 <header>
-                    <h1>Tasks</h1>
+                    <h1 data-i18n="main.task.header">Tasks</h1>
                 </header>
                 <section>
                     <div class="task__list tasks_main">
@@ -54,12 +57,12 @@
                                 </div>
                             {% endfor %}
                         {% else %}
-                            <h2>No tasks yet</h2>
+                            <h2 data-i18n="tasks.notyet">No tasks yet</h2>
                         {% endif %}
                     </div>
                 </section>
-                <a href="/tasks/{{user.name}}"><button>Manage</button></a>
-                <a href="/all_tasks/{{user.name}}">See all your tasks</a>
+                <a href="/tasks/{{user.name}}"><button data-i18n="main.task.btn">Manage</button></a>
+                <a href="/all_tasks/{{user.name}}" data-i18n="main.task.link">See all your tasks</a>
             </section>
             <section class="pet">
                 <img src="{{url_for('static', filename=gif.gif_url)}}" alt="pet" class="pet-gif">
@@ -77,27 +80,27 @@
                 </div>
                 <progress value="{{user_pet.feed}}" max="100"></progress>
                 <form action="{{url_for('increase_feed', user=user.name, user_coins=user.coins, pet_id=user_pet.id)}}" method="post">
-                    <button><span>FEED</span><span>20</span></button>
+                    <button><span data-i18n="main.pet.feed">FEED</span><span>20</span></button>
                 </form>
             </section>
             <section class="shop">
                 <header>
-                    <h1>SHOP</h1>
+                    <h1 data-i18n="main.shop.header">SHOP</h1>
                 </header>
                 <section class="shop__options">
-                    <h3>Buy new pet</h3>
+                    <h3 data-i18n="main.shop.h3">Buy new pet</h3>
                     <section class="shop__options-pets">
                         <figure>
                             <img src="{{url_for('static', filename='img/pet/panda.png')}}" alt="pet1">
                         </figure>
-                        <figure data-diag="COMING SOON">
+                        <figure data-i18n-attr="data-diag:main.shop.diag">
                             <img src="{{url_for('static', filename='img/pet/kitty.png')}}" alt="pet2">
                         </figure>
-                        <figure data-diag="COMING SOON">
+                        <figure data-i18n-attr="data-diag:main.shop.diag">
                             <img src="{{url_for('static', filename='img/pet/animal.png')}}" alt="pet3">
                         </figure>
                     </section>
-                    <h3 id="special">Buy perks</h3>
+                    <h3 id="special" data-i18n="main.shop.special">Buy perks</h3>
                     <section class="shop__options-perks">
                         {% if user.coins >= 70 %}
                             <figure style="cursor: pointer;">
@@ -112,10 +115,10 @@
                                 </a>
                             {% endif %}
                             <div class="desc">
-                                <h4>Instant health</h4>
-                                <p>This item will add 45 feed points</p>
+                                <h4 data-i18n="main.shop.desc.potka.h4">Instant health</h4>
+                                <p data-i18n="main.shop.desc.potka.p">This item will add 45 feed points</p>
                                 <div>
-                                    <h5>Cost</h5>
+                                    <h5 data-i18n="main.shop.desc.cost">Cost</h5>
                                     <p>70</p>
                                 </div>
                             </div>
@@ -133,10 +136,10 @@
                                 </a>
                             {% endif %}
                             <div class="desc">
-                                <h4>Streak return</h4>
-                                <p>If you forgot make one task per day and lost your strak. You can buy it and resume your streak</p>
+                                <h4 data-i18n="main.shop.desc.streak.h4">Streak return</h4>
+                                <p data-i18n="main.shop.desc.streak.p">If you forgot make one task per day and lost your strak. You can buy it and resume your streak</p>
                                 <div>
-                                    <h5>Cost</h5>
+                                    <h5 data-i18n="main.shop.desc.cost">Cost</h5>
                                     <p>110</p>
                                 </div>
                             </div>
@@ -154,10 +157,10 @@
                                 </a>
                             {% endif %}
                             <div class="desc">
-                                <h4>Golden apple</h4>
-                                <p>This item gives full feed</p>
+                                <h4 data-i18n="main.shop.desc.apple.h4">Golden apple</h4>
+                                <p data-i18n="main.shop.desc.apple.p">This item gives full feed</p>
                                 <div>
-                                    <h5>Cost</h5>
+                                    <h5 data-i18n="main.shop.desc.cost">Cost</h5>
                                     <p>90</p>
                                 </div>
                             </div>
@@ -175,21 +178,21 @@
                                 </a>
                             {% endif %}
                             <div class="desc">
-                                <h4>God hand</h4>
-                                <p>God hand gives full feed and resume your streak</p>
+                                <h4 data-i18n="main.shop.desc.hand.h4">God hand</h4>
+                                <p data-i18n="main.shop.desc.hand.p">God hand gives full feed and resume your streak</p>
                                 <div>
-                                    <h5>Cost</h5>
+                                    <h5 data-i18n="main.shop.desc.cost">Cost</h5>
                                     <p>175</p>
                                 </div>
                             </div>
                         </figure>
                     </section>
-                    <h3 id="special">Buy delete</h3>
-                    <p>You can delete every task you want, but you have to pay 40 coins</p>
+                    <h3 id="special" data-i18n="main.shop.delete">Buy delete</h3>
+                    <p data-i18n="main.shop.ddesc">You can delete every task you want, but you have to pay 40 coins</p>
                     <section class="shop__options-delete">
                         <form action="{{url_for('delete', user=user.name)}}" method="POST">
                             <select name="delete" id="">
-                                <option selected disabled hidden>Task</option>
+                                <option selected disabled hidden data-i18n="main.task.header">Task</option>
                                 {% if group_reprs or ungrouped_tasks %}
                                     {% for task in group_reprs %}
                                         <option value="{{ task.id }}">{{ task.name }} | {{ task.repeatability }}</option>
@@ -199,7 +202,7 @@
                                     {% endfor %}
                                 {% endif %}
                             </select>
-                            <button type="submit"><span>DELETE</span><span>40</span></button>
+                            <button type="submit"><span data-i18n="main.shop.btn">DELETE</span><span>40</span></button>
                         </form>
                     </section>
                 </section>
