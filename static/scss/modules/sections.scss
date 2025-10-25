@@ -593,6 +593,15 @@ section>.shop{
         }
     }
 }
+.container{
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    label{
+        align-self: center;
+        margin-left: 3px;
+    }
+}
 
 .details{
     display: grid !important;
