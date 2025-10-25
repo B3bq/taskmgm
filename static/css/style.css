@@ -747,6 +747,16 @@ section > .shop {
   text-align: center;
 }
 
+.container {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+}
+.container label {
+  align-self: center;
+  margin-left: 3px;
+}
+
 .details {
   display: grid !important;
   grid-template-columns: repeat(3, 1fr);
