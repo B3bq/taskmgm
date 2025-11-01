@@ -7,7 +7,8 @@
     "menu": {
         "account": "Account",
         "main": "Main Page",
-        "out": "Log out"
+        "out": "Log out",
+        "buycoffee": "Support us"
     },
     "main": {
         "task": {

@@ -7,7 +7,8 @@
     "menu": {
         "account": "Konto",
         "main": "Strona główna",
-        "out": "Wyloguj"
+        "out": "Wyloguj",
+        "buycoffee": "Wesprzyj nas"
     },
     "main": {
         "task": {
