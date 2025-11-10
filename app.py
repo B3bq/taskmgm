@@ -435,7 +435,7 @@ def details(user, id):
         task_group.setdefault(t.group, []).append(t)
 
     back = session.get('back', 'index')
-
+    
     return render_template('details.html', back=back, user=user_data, task=task, task_groups=task_group)
 
 @app.route('/update_details', methods=["POST"])
