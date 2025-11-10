@@ -1,6 +1,6 @@
 async function updateCheckboxStatus(detailsId, isChecked, element) {
     try{
-        const response = fetch("/update_details", {
+        const response = fetch("{{ url_for('update_details') }}", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

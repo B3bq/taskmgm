@@ -28,10 +28,10 @@
                 <img src="{{url_for('static', filename='img/account.png')}}" alt="account">
             </button>
             <ul id="js-toggleable-menu">
-                <li><a href="/account/{{user.name}}" data-i18n="menu.account">Account</a></li>
-                <li><a href="/main/{{user.name}}" data-i18n="menu.main">Main Page</a></li>
+                <li><a href="{{ url_for('account', user=user.name) }}" data-i18n="menu.account">Account</a></li>
+                <li><a href="{{ url_for('main', user=user.name) }}" data-i18n="menu.main">Main Page</a></li>
                 <li><a href="https://buycoffee.to/s3qu" data-i18n="menu.buycoffee">Buycoffee</a></li>
-                <li><a href="/" data-i18n="menu.out">Log out</a></li>
+                <li><a href="{{ url_for('index') }}" data-i18n="menu.out">Log out</a></li>
             </ul>
         </nav>
     </header>
@@ -64,8 +64,8 @@
                         {% endif %}
                     </div>
                 </section>
-                <a href="/tasks/{{user.name}}"><button data-i18n="main.task.btn">Manage</button></a>
-                <a href="/all_tasks/{{user.name}}" data-i18n="main.task.link">See all your tasks</a>
+                <a href="{{ url_for('tasks', user=user.name) }}"><button data-i18n="main.task.btn">Manage</button></a>
+                <a href="{{ url_for('all_tasks', user=user.name) }}" data-i18n="main.task.link">See all your tasks</a>
             </section>
             <section class="pet">
                 <img src="{{url_for('static', filename=gif.gif_url)}}" alt="pet" class="pet-gif">
@@ -111,7 +111,7 @@
                             <figure style="filter: grayscale(80%);">
                         {% endif %}
                             {% if user.coins >= 70 %}
-                                <a href="/potka/{{user.name}}">
+                                <a href="{{ url_for('potka', user=user.name) }}">
                             {% endif %}
                             <img src="{{url_for('static', filename='img/poisonous.png')}}" alt="heal">
                             {% if user.coins >= 70 %}
@@ -132,7 +132,7 @@
                             <figure style="filter: grayscale(80%);">
                         {% endif %}
                             {% if user.coins >= 110 %}
-                                <a href="/streak_return/{{user.name}}">
+                                <a href="{{ url_for('streak_return', user=user.name)}}">
                             {% endif %}
                             <img src="{{url_for('static', filename='img/fire.png')}}" alt="fire">
                             {% if user.coins >= 110 %}
@@ -153,7 +153,7 @@
                             <figure style="filter: grayscale(80%);">
                         {% endif %}
                             {% if user.coins >= 90 %}
-                                <a href="/apple/{{user.name}}">
+                                <a href="{{ url_for('apple', user=user.name) }}">
                             {% endif %}
                             <img src="{{url_for('static', filename='img/apple.png')}}" alt="apple">
                             {% if user.coins >= 90 %}
@@ -174,7 +174,7 @@
                             <figure style="filter: grayscale(80%);">
                         {% endif %}
                             {% if user.coins >= 175 %}
-                                <a href="/god_hand/{{user.name}}">
+                                <a href="{{ url_for('god_hand', user=user.name) }}">
                             {% endif %}
                             <img src="{{url_for('static', filename='img/zeus.png')}}" alt="hand">
                             {% if user.coins >= 175 %}

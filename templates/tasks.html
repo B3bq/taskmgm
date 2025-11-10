@@ -16,7 +16,7 @@
 <body>
     <header id="onTop">
         <div>
-            <a href="/main/{{user.name}}">
+            <a href="{{ url_for('main', user=user.name) }}">
                 <img src="{{url_for('static', filename='img/back.png')}}" alt="left-arrow">
             </a>
         </div>
@@ -33,10 +33,10 @@
                 <img src="{{url_for('static', filename='img/account.png')}}" alt="account">
             </button>
             <ul id="js-toggleable-menu">
-                <li><a href="/account/{{user.name}}" data-i18n="menu.account">Account</a></li>
-                <li><a href="/main/{{user.name}}" data-i18n="menu.main">Main Page</a></li>
+                <li><a href="{{ url_for('account', user=user.name) }}" data-i18n="menu.account">Account</a></li>
+                <li><a href="{{ url_for('main', user=user.name) }}" data-i18n="menu.main">Main Page</a></li>
                 <li><a href="https://buycoffee.to/s3qu" data-i18n="menu.buycoffee">Buycoffee</a></li>
-                <li><a href="/" data-i18n="menu.out">Log out</a></li>
+                <li><a href="{{ url_for('index') }}" data-i18n="menu.out">Log out</a></li>
             </ul>
         </nav>
     </header>
@@ -45,7 +45,7 @@
             <section class="new">
                 <header>
                     <h1 data-i18n="tasks.new">NEW</h1>
-                    <a href="/task/{{user.name}}"><img src="{{url_for('static', filename='img/plus.png')}}" alt="plus"></a>
+                    <a href="{{ url_for('task', user=user.name) }}"><img src="{{url_for('static', filename='img/plus.png')}}" alt="plus"></a>
                 </header>
                 <section>
                     <table>
@@ -58,7 +58,7 @@
                                     <h2>{{ loop.index }}</h2>
                                     <h3>{{task.name}}</h3>
                                     <p>{{task.description}}</p>
-                                    <a href="/details/{{user.name}}/{{task.id}}" title="Show details">
+                                    <a href="{{ url_for('details', user=user.name, id=task.id) }}" title="Show details">
                                         <img src="{{url_for('static', filename='img/eye.png')}}" alt="eye" style="width: 32px; height: 32px;">
                                     </a>
                                     {% if task.category not in ["critical", "important"] and task.repeatability not in ["daily"] %}
@@ -87,7 +87,7 @@
                                     <h2>{{ loop.index }}</h2>
                                     <h3>{{task.name}}</h3>
                                     <p>{{task.description}}</p>
-                                    <a href="/details/{{user.name}}/{{task.id}}" title="Show details">
+                                    <a href="{{ url_for('details', user=user.name, id=task.id) }}" title="Show details">
                                         <img src="{{url_for('static', filename='img/eye.png')}}" alt="eye" style="width: 32px; height: 32px;">
                                     </a>
                                     {% if task.category not in ["critical", "important"] and task.repeatability not in ["daily"] %}
@@ -116,7 +116,7 @@
                                     <h2>{{ loop.index }}</h2>
                                     <h3>{{task.name}}</h3>
                                     <p>{{task.description}}</p>
-                                    <a href="/details/{{user.name}}/{{task.id}}" title="Show details">
+                                    <a href="{{ url_for('details', user=user.name, id=task.id) }}" title="Show details">
                                         <img src="{{url_for('static', filename='img/eye.png')}}" alt="eye" style="width: 32px; height: 32px;">
                                     </a>
                                     {% if task.status == "done" %}

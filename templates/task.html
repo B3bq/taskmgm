@@ -19,7 +19,7 @@
 <body>
     <header id="onTop">
         <div>
-            <a href="/tasks/{{user.name}}">
+            <a href="{{ url_for('tasks', user=user.name) }}">
                 <img src="{{url_for('static', filename='img/back.png')}}" alt="left-arrow">
             </a>
         </div>
@@ -36,10 +36,10 @@
                 <img src="{{url_for('static', filename='img/account.png')}}" alt="account">
             </button>
             <ul id="js-toggleable-menu">
-                <li><a href="/account/{{user.name}}" data-i18n="menu.account">Account</a></li>
-                <li><a href="/main/{{user.name}}" data-i18n="menu.main">Main Page</a></li>
+                <li><a href="{{ url_for('account', user=user.name) }}" data-i18n="menu.account">Account</a></li>
+                <li><a href="{{ url_for('main', user=user.name) }}" data-i18n="menu.main">Main Page</a></li>
                 <li><a href="https://buycoffee.to/s3qu" data-i18n="menu.buycoffee">Buycoffee</a></li>
-                <li><a href="/" data-i18n="menu.out">Log out</a></li>
+                <li><a href="{{ url_for('index') }}" data-i18n="menu.out">Log out</a></li>
             </ul>
         </nav>
     </header>
