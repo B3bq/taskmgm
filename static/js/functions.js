@@ -64,7 +64,7 @@ function takeCode(){
         userCode += e.value;
     });
 
-    fetch("verification", {
+    fetch("/verification", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",

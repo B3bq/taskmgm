@@ -86,12 +86,13 @@ def random_letter():
 # create table in base
 with app.app_context():
     db.create_all()
-
+    
 # simple updates in each app run
 with app.app_context():
     pets = Pet.query.all()
     tasks = Tasks.query.all()
     users = Users.query.all()
+    gifs = Gifs.query.all()
 
     today = datetime.today().date()
 
@@ -131,7 +132,12 @@ with app.app_context():
             if user.streak_record < user.streak_saved:
                 user.streak_record = user.streak_saved
 
-
+    if not gifs:
+        gif1 = Gifs(min=0, max=1, gif_url='gif/pet.png', pet='panda')
+        gif2 = Gifs(min=1, max=40, gif_url='gif/pet2.png', pet='panda')
+        gif3 = Gifs(min=40, max=80, gif_url='gif/pet3.png', pet='panda')
+        gif4 = Gifs(min=80, max=100, gif_url='gif/panda.png', pet='panda')
+        db.session.add_all([gif1, gif2, gif3, gif4])
 
     db.session.commit()
 
