@@ -434,7 +434,7 @@ def details(user, id):
     for t in tasks:
         task_group.setdefault(t.group, []).append(t)
 
-    back = session['back']
+    back = session.get('back', 'index')
 
     return render_template('details.html', back=back, user=user_data, task=task, task_groups=task_group)
 
@@ -727,7 +727,7 @@ def verification():
             return jsonify({"success": False, "error": "Incorrect code"})
     else:
         if int(user_code) == session['code']:
-            user_data = Users.query.filter(Users.name == session['userName']).first()
+            user_data = Users.query.filter(Users.name == session['username']).first()
             user_data.email = session['mail']
             db.session.commit()
             return jsonify({"success": True, "redirect": url_for("account", user=user)})
