@@ -80,7 +80,7 @@ function updateTaskStatus(list, forcedStatus = null) {
         if (section === "complete") status = "done";
     }
 
-    fetch("{{ url_for('update_status') }}", {
+    fetch("/update_status", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -101,7 +101,7 @@ bins.forEach(bin =>{
         const userName = selected.getAttribute("userName");
         const from = selected.getAttribute('from')
 
-        fetch("{{ url_for('delete_task') }}", {
+        fetch("/delete_task", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
