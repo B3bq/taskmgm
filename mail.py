@@ -1,22 +1,14 @@
-import smtplib, os
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
-from dotenv import load_dotenv
+import os
+from sendgrid import SendGridAPIClient
+from sendgrid.helpers.mail import Mail
 
 def mail_sent(mail, code):
-  
-    load_dotenv(dotenv_path="c:/Users/Sebastian/flaskapp/.env") # load variables from .env file   
-    # configuration settings
-    SMTP_SERVER = 'smtp.gmail.com'
-    SMTP_PORT = 587
-    sender = os.getenv("EMAIL_LOGIN")
-    sender_pass = os.getenv("EMAIL_PASSWORD")
-    receiver = mail 
-    
-    if not sender or not sender_pass:
-        raise ValueError("EMAIL_LOGIN or EMAIL_PASSWORD is empty in .env file")
+    api_key = os.getenv("SENDGRID_API_KEY")
+    sender = os.getenv("EMAIL_SENDER")
 
-    # html template
+    if not api_key:
+        raise ValueError("SENDGRID_API_KEY is missing in environment variables")
+
     html_template = f"""
     <html lang="en" style="font-size: 87.5%; box-sizing: border-box;">
     <body style="display: flex; flex-direction: column;">
@@ -37,18 +29,21 @@ def mail_sent(mail, code):
         </main>
     </body>
     </html>
-    """ 
-    # make a message
-    msg = MIMEMultipart('alternative')
-    msg['Subject'] = "Verification code"
-    msg['From'] = "TaskMgm"
-    msg['To'] = receiver    
-    # adding html
-    html_part = MIMEText(html_template, 'html')
-    msg.attach(html_part)   
-    # sending mail
-    with smtplib.SMTP(SMTP_SERVER, SMTP_PORT) as server:
-        server.starttls()
-        server.login(sender, sender_pass)
-        server.sendmail(sender, receiver, msg.as_string())  
-    return True
+    """
+
+    # making message
+    message = Mail(
+        from_email=sender,
+        to_emails=mail,
+        subject="Verification code",
+        html_content=html_template
+    )
+
+    try:
+        sg = SendGridAPIClient(api_key)
+        response = sg.send(message)
+        print("Email sent:", response.status_code)
+        return True
+    except Exception as e:
+        print("SendGrid error:", e)
+        return False

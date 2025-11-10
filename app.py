@@ -679,8 +679,7 @@ def insert():
                 hashed_str = hashed.decode('utf-8')
 
                 code = random.randrange(1000, 9999)
-                #sent = mail_sent(mail=mail, code=code)
-                sent = True
+                sent = mail_sent(mail=mail, code=code)
 
                 # seve in session            
                 session['username'] = user
@@ -690,8 +689,7 @@ def insert():
                 session['from'] = "sign"
 
                 if sent:
-                    #return render_template('code.html')
-                    return redirect(url_for('index'))
+                    return render_template('code.html')
                 else:
                     text = "Something wrong"
                     return render_template('sign.html', text=text)
