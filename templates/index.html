@@ -7,26 +7,46 @@
     <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
     <link rel="shortcut icon" href="{{ url_for('static', filename='img/taskly_logo.png') }}" type="image/x-icon">
 
+    <meta name="theme-color" content="#242424">
+    <meta name="theme-color" content="#242424">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#242424" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#242424" media="(prefers-color-scheme: dark)">
+
+    
     <script src="{{url_for('static', filename='js/functions.js')}}"></script>
 
     <script src="https://unpkg.com/i18next@23.4.6/dist/umd/i18next.min.js"></script>
     <script src="{{url_for('static', filename='js/i18n.js')}}"></script>
 </head>
-   <body>
-      <section class="userForm">
-         <section>
-            <form action = "{{ url_for('login') }}" method = "post">
-               <h1>Login</h1>
-               <input type = "text" name = "nm" placeholder="Login">
-               <input type="password" name="password" data-i18n-attr="placeholder:sign.pass" id="pass" where="index">
-               <div class="show">
-                  <input type="checkbox" name="show" id="show" onclick="showPass('pass')">
-                  <p data-i18n="index.show_pass">Show password</p>
-              </div>
-               <input type = "submit" data-i18n-attr="value:index.submit">
-            </form>
-            <a href="/form"><button data-i18n="index.sign">Sign up</button></a>
-         </section>
+   <body class="home">
+      <header>
+            <a href="/">
+                <img src="{{ url_for('static', filename='img/taskly_logo.png') }}" alt="logo">
+            </a>
+            <ul>
+                <li><a href="/">home</a></li>
+                <li><a href="#about">about</a></li>
+                <li><a href="/login_page">login</a></li>
+            </ul>
+      </header>
+      <section id="about">
+            <h1>About</h1>
+            <p>It is a normal task manager in first look, but this is different. How many times you wanted to make something new in your life regularly and you pass after few days. This taks manager will help you finish your tasks every day. Why? Because you need to care not only abuot you, in this task manager you need to care about your new friend. You have to earn coins to feed your friend.</p>
+            <div>
+                <!-- Add a gif/animation of pet here -->
+            </div>
       </section>
+      <footer>
+            <a href="http://github.com/B3bq" target="_blank" rel="noopener noreferrer">
+                <img src="" alt="github">
+            </a>
+            <div>
+                <a href="mailto:" title="E-mail">mail</a>
+                <a href="">Privacy policy</a>
+            </div>
+            
+            <p>© 2026 Task mgm. All rights reserved.</p>
+      </footer>
    </body>
 </html>

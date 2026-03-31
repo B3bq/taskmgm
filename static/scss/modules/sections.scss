@@ -88,6 +88,7 @@ section>.shop{
             margin: 4px 0px 4px 0px;
             text-align: center;
             cursor: grab;
+            touch-action: none;
 
             .hover-desc{
                 display: none;
@@ -125,6 +126,10 @@ section>.shop{
         }
     }
 }
+.dragging{
+    opacity: 0.8;
+}
+
 .height{
     height: 500px;
     @media (max-width: $mobileBreakPoint){

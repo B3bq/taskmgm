@@ -1,12 +1,15 @@
-import os
-from sendgrid import SendGridAPIClient
-from sendgrid.helpers.mail import Mail
+import os,smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 
 def mail_sent(mail, code):
-    api_key = os.getenv("SENDGRID_API_KEY")
+    sender_pass = os.getenv("SENDGRID_API_KEY")
     sender = os.getenv("EMAIL_SENDER")
+    receiver = mail 
+    SMTP_SERVER = 'smtp.gmail.com'
+    SMTP_PORT = 587
 
-    if not api_key:
+    if not sender_pass:
         raise ValueError("SENDGRID_API_KEY is missing in environment variables")
 
     html_template = f"""
@@ -31,19 +34,18 @@ def mail_sent(mail, code):
     </html>
     """
 
-    # making message
-    message = Mail(
-        from_email=sender,
-        to_emails=mail,
-        subject="Verification code",
-        html_content=html_template
-    )
-
-    try:
-        sg = SendGridAPIClient(api_key)
-        response = sg.send(message)
-        print("Email sent:", response.status_code)
-        return True
-    except Exception as e:
-        print("SendGrid error:", e)
-        return False
+    # make a message
+    msg = MIMEMultipart('alternative')
+    msg['Subject'] = "Verification code"
+    msg['From'] = "Statsview"
+    msg['To'] = receiver    
+    # adding html
+    html_part = MIMEText(html_template, 'html')
+    msg.attach(html_part)   
+    # sending mail
+    with smtplib.SMTP(SMTP_SERVER, SMTP_PORT) as server:
+        server.starttls()
+        server.login(sender, sender_pass)
+        server.sendmail(sender, receiver, msg.as_string())  
+    print("mail sent")
+    return True

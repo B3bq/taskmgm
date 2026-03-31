@@ -150,6 +150,11 @@ def locales(filename):
 def index():
     return render_template('index.html')
 
+@app.route('/login_page')
+def login_page():
+    return render_template('login.html')
+
+# account page
 @app.route('/account/<user>')
 def account(user):
     user_data = Users.query.filter(Users.name == user).first()
@@ -736,4 +741,4 @@ def verification():
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
-    app.run(host="0.0.0.0", port=port)
+    app.run(host="0.0.0.0", port=port, debug=True)
