@@ -6,16 +6,27 @@ from datetime import datetime, timedelta
 from dotenv import load_dotenv
 from mail import mail_sent
 
-load_dotenv()  # ładowanie zmiennych z pliku .env
+#load_dotenv()  # Load from .env file    
 
 app = Flask(__name__)
 app.secret_key = "1234"
 
 # database config
-app.config['SQLALCHEMY_DATABASE_URI'] = (
-    f"postgresql://{os.getenv('DB_USER')}:{os.getenv('DB_PASSWORD')}"
-    f"@{os.getenv('DB_HOST')}:{os.getenv('DB_PORT')}/{os.getenv('DB_NAME')}"
-)
+
+# local config code
+#app.config['SQLALCHEMY_DATABASE_URI'] = (
+#    f"postgresql://{os.getenv('DB_USER')}:{os.getenv('DB_PASSWORD')}"
+#    f"@{os.getenv('DB_HOST')}:{os.getenv('DB_PORT')}/{os.getenv('DB_NAME')}"
+#)
+
+# render config code
+DATABASE_URL = os.getenv('DATABASE_URL')
+app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URL
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {
+    "connect_args": { "sslmode": "require" }
+}
+
 db = SQLAlchemy(app)
 
 # models ORM
@@ -84,11 +95,12 @@ def random_letter():
     return random.choice(letters)
 
 # create table in base
-with app.app_context():
-    db.create_all()
+# only for local use, in render it is created by migration
+#with app.app_context():
+#    db.create_all()
     
 # simple updates in each app run
-with app.app_context():
+def run_daily_updates():
     pets = Pet.query.all()
     tasks = Tasks.query.all()
     users = Users.query.all()
@@ -172,6 +184,8 @@ def account(user):
 @app.route('/main/<user>')
 def main(user):
     with app.app_context():
+        run_daily_updates() # update data in base
+
         #take user data
         user_data = Users.query.filter(Users.name == user).first()
 
