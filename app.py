@@ -1,3 +1,5 @@
+import threading
+
 from flask import Flask, session, redirect, url_for, request, render_template, jsonify, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import and_, func
@@ -691,51 +693,39 @@ def login():
 def sign():
     return render_template('sign.html')
 
-@app.route('/sign', methods=['GET', 'POST'])
+@app.route('/sign', methods=['POST'])
 def insert():
-    if request.method == 'POST':
-        user = request.form['name']
-        mail = request.form['email']
-        password = request.form['password']
-        rpassword = request.form['re_password']
+    user = request.form['name']
+    mail = request.form['email']
+    password = request.form['password']
+    rpassword = request.form['re_password']
 
-        pattern = r"^[\w\.-]+@[\w\.-]+\.\w+$"
+    if password != rpassword:
+        return render_template('sign.html', text="Passwords not same")
 
-        if re.match(pattern, mail):
-            if password == rpassword:
-                hashed = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
-                hashed_str = hashed.decode('utf-8')
+    if not re.match(r"^[\w\.-]+@[\w\.-]+\.\w+$", mail):
+        return render_template('sign.html', text="Invalid email")
 
-                code = random.randrange(1000, 9999)
-                sent = mail_sent(mail=mail, code=code)
+    hashed = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
 
-                # seve in session            
-                session['username'] = user
-                session['mail'] = mail
-                session['pass'] = hashed_str
-                session['code'] = code
-                session['from'] = "sign"
+    code = random.randrange(1000, 9999)
 
-                if sent:
-                    return render_template('code.html')
-                else:
-                    text = "Something wrong"
-                    return render_template('sign.html', text=text)
-            else:
-                text = "Passwords are not the same"
-                return render_template('sign.html', text=text)
-        else:
-            text = "Mail is not correct"
-            return render_template('sign.html', text=text)
-    else:
-        return "nic"
+    # async EMAIL (KLUCZ FIX)
+    threading.Thread(target=mail_sent, args=(mail, code)).start()
+
+    session['username'] = user
+    session['mail'] = mail
+    session['pass'] = hashed
+    session['code'] = code
+    session['from'] = "sign"
+
+    return render_template('code.html')
     
 @app.route("/verification", methods=["POST"])
 def verification():
     data = request.get_json()
     user_code = data.get('userCode')
     user = session['username']
-    print(user)
 
     if session['from'] == "sign":
         if int(user_code) == session['code']:
