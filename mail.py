@@ -1,13 +1,11 @@
-import os,smtplib
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
+import os, sendgrid
+from sendgrid import SendGridAPIClient
+from sendgrid.helpers.mail import Mail
 
 def mail_sent(mail, code):
-    sender_pass = os.getenv("SENDGRID_API_KEY")
+    sender_pass = SendGridAPIClient(os.getenv("SENDGRID_API_KEY"))
     sender = os.getenv("EMAIL_SENDER")
     receiver = mail 
-    SMTP_SERVER = 'smtp.gmail.com'
-    SMTP_PORT = 587
 
     if not sender_pass:
         raise ValueError("SENDGRID_API_KEY is missing in environment variables")
@@ -35,17 +33,17 @@ def mail_sent(mail, code):
     """
 
     # make a message
-    msg = MIMEMultipart('alternative')
-    msg['Subject'] = "Verification code"
-    msg['From'] = "Statsview"
-    msg['To'] = receiver    
-    # adding html
-    html_part = MIMEText(html_template, 'html')
-    msg.attach(html_part)   
-    # sending mail
-    with smtplib.SMTP(SMTP_SERVER, SMTP_PORT) as server:
-        server.starttls()
-        server.login(sender, sender_pass)
-        server.sendmail(sender, receiver, msg.as_string())  
-    print("mail sent")
-    return True
+    message = Mail(
+        from_email=sender,
+        to_emails=receiver,
+        subject='Verify Your E-Mail Address',
+        html_content=html_template
+    )
+
+    try:
+        sender_pass.send(message)
+        print("mail sent successfully")
+        return True
+    except Exception as e:
+        print(f"Error sending mail: {e}")
+        return False
