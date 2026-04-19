@@ -98,11 +98,6 @@ def random_letter():
     letters = string.ascii_letters
     # 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
     return random.choice(letters)
-
-# create table in base
-# only for local use, in render it is created by migration
-#with app.app_context():
-#    db.create_all()
     
 # simple updates in each app run
 def run_daily_updates():
@@ -747,5 +742,8 @@ def verification():
             return jsonify({"success": False, "error": "Incorrect code"})
 
 if __name__ == "__main__":
+    with app.app_context():
+        db.create_all()
+
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=True)
