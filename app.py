@@ -93,6 +93,10 @@ class Pet(db.Model):
     feed = db.Column(db.Integer, nullable=False, server_default="100")
     feed_time = db.Column(db.DateTime, nullable=False, server_default=func.now())
 
+# creating tables
+with app.app_context():
+        db.create_all()
+
 # useful function
 def random_letter():
     letters = string.ascii_letters
@@ -742,8 +746,5 @@ def verification():
             return jsonify({"success": False, "error": "Incorrect code"})
 
 if __name__ == "__main__":
-    with app.app_context():
-        db.create_all()
-
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=True)
